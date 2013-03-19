@@ -13,28 +13,27 @@ O módulo de Segurança deverá conter os seguintes cadastros:
 
 No main haverá um menu que conterá as seguintes ações:
 ```
-***** Selecione a opção desejada: *****
-0. Encerrar
-1. Cadastrar Perfil
-2. Cadastrar Usuario
-3. Cadastrar Módulo
-4. Cadastrar Formulários
-5. Cadastrar Funções
-6. Editar Perfil
-7. Editar Usuario
-8. Editar Módulo
-9. Editar Formulários
-10. Editar Funções
-11. Excluir Perfil
-12. Excluir Usuario
-13. Excluir Módulo
-14. Excluir Formulários
-15. Excluir Funções
-16. Listar Perfis Cadastrados
-17. Listar Usuários Cadastrados
-18. Listar Módulos Cadastrados
-19. Listar Formulários Cadastradas
-20. Listar Funções Cadastradas
+Selecione uma das opções abaixo digitando o número correspondente:
+
+*************************************************************
+0. Encerrar Sistema                                         *  
+*************************************************************
+CADASTROS                                                   *
+1. Perfil        *	2. Usuário       *	3. Módulo            *	
+4. Formulário    *	5. Funções        *                      *
+*************************************************************
+EDIÇÃO:                                                     *
+6. Perfil        *	7. Usuário       *	8. Módulo            *	
+9. Formulários   *	10. Funções       *	                   *
+*************************************************************
+EXCLUSÃO:                                                   *
+11. Perfil       *	12. Usuario      *	13. Módulo          *	
+14. Formulários  *	15. Funções       *                      *
+*************************************************************
+RELATÓRIOS:                                                 *
+16. Perfis       *	17. Usuários     *	18. Módulos          *	
+19. Formulários  *	20. Funções       *	                   *
+*************************************************************
 ```
 
 Ao Selecionar alguma das opções que vão de 0 a 20, o usuário será direcionado para o seu respectivo formulário de cadastro ou relatório.
