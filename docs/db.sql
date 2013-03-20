@@ -24,6 +24,13 @@ create table perfil(
   , constraint perfil_codigo_perfil_pk primary key (codigo_perfil)
 );
 
+create sequence seq_perfil
+  start with 1
+  increment by 1
+  maxvalue 10000E+27 
+  minvalue 0
+  nocycle;
+
 create table usuario_perfil(
   codigo_pessoa varchar2(15)
   , codigo_perfil number(10,4)
@@ -42,6 +49,13 @@ create table modulo(
   , constraint modulo_pk primary key (codigo_modulo)
 );
 
+create sequence seq_modulo
+  start with 1
+  increment by 1
+  maxvalue 10000E+27 
+  minvalue 0
+  nocycle;
+
 create table formulario(
   codigo_formulario number(10,4)
   , codigo_modulo number(10,4) not null 
@@ -55,6 +69,13 @@ create table formulario(
         foreign key (codigo_modulo) references modulo (codigo_modulo)
 );
 
+create sequence seq_formulario
+  start with 1
+  increment by 1
+  maxvalue 10000E+27 
+  minvalue 0
+  nocycle;
+
 create table funcao(
   codigo_funcao number(10,4)
   , codigo_formulario number(10,4) not null
@@ -64,6 +85,13 @@ create table funcao(
   , constraint funcao_formulario_fk 
         foreign key (codigo_formulario) references formulario (codigo_formulario)
 );
+
+create sequence seq_funcao
+  start with 1
+  increment by 1
+  maxvalue 10000E+27 
+  minvalue 0
+  nocycle;
 
 create table perfil_mofofu(
   codigo_perfil number(10,4)
