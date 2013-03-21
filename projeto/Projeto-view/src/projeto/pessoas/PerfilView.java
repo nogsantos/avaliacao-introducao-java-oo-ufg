@@ -18,31 +18,35 @@ import java.util.Scanner;
 
 public class PerfilView {
 
-    public void leitorPerfil() throws Exception{
+    public void leitorPerfil(){
         /*
          * Instancia o menu do perfil
          */
         MenuPerfil menuPerfil = new MenuPerfil();
+        Scanner leitor = new Scanner(System.in);
+        System.out.println("***** FORMULÁRIO PERFIL "
+                + "*************************************");
         try {
-            System.out.println("FORMULÁRIO DE PERFIL *******************************");
-            Scanner leitor = new Scanner(System.in);
-            System.out.println("Codigo: ");
-            Integer codigoPerfil = leitor.nextInt();
+            PerfilImpl nextVal = new PerfilImpl();
+            
+            System.out.println("Codigo: " + nextVal.perfilNextVal());
+            Integer codigoPerfil = nextVal.perfilNextVal(); //leitor.nextInt();
             System.out.println("Nome: ");
-            String nome = leitor.next();
+            String nome = leitor.nextLine().toString();
             System.out.println("Descrição: ");
-            String descricao = leitor.next();
-
-            PerfilService perfil = new PerfilService();
-            try {
-                perfil.incluirPerfil(codigoPerfil, nome, descricao);
-                menuPerfil.showMenuPerfil();
-            } catch (Exception e) {
-                System.out.println("ERRO.PERFIL.VIEW ## Erro na inclusão dos dados. \t" + e.getMessage());
+            String descricao = leitor.nextLine().toString();
+            PerfilService perfil = new PerfilService();            
+            
+            if(perfil.incluirPerfil(codigoPerfil, nome, descricao)){
+            System.out.println("*********************** SUCESSO. "
+                    + "Dado Inserido com Sucesso! *");
+            menuPerfil.showMenuPerfil();
+            }else{
                 menuPerfil.showMenuPerfilError();
             }
         } catch (Exception e) {
-            System.out.println("ERRO.PERFIL.VIEW ## Erro na leitura dos dados \t" + e.getMessage());
+            System.out.println("##ERRO.PERFIL.VIEW.LEITORPERFIL ::"
+                    + " Erro na leitura dos dados.");
             menuPerfil.showMenuPerfilError();
         }
     }

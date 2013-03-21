@@ -13,35 +13,65 @@
 
 package projeto.pessoas;
 
+import java.util.List;
+import projeto.utils.ProjetoStringUtils;
 
 public class PerfilService {
 
     private PerfilDAO camadaDados;
+    private PerfilImpl dados = new PerfilImpl();
 
     public PerfilService() {
-        camadaDados = new PerfilImpl();
+        this.camadaDados = new PerfilImpl();
     }
-    
     /**
-     *
+     * Método para setar e cadastrar os dados.
+     * 
+     * @author Fabricio Nogueira
+     * @version 1.0.0
      *
      */
     public boolean incluirPerfil(Integer codigoPerfil, 
-            String nome, String descricao) throws Exception{
-
+            String nome, String descricao){
+        
         Perfil perfil = new Perfil();
         perfil.setCodigoPerfil(codigoPerfil);
         perfil.setNome(nome);
         perfil.setDescricao(descricao);
         
-        PerfilImpl perfilbd = new PerfilImpl();
-
-        try {
-            perfilbd.cadastrar(perfil);
-            System.out.println("Perfil inserido com sucesso!");
-            return true;
-        } catch (Exception e) {
-            throw new Exception("ERRO.PERFIL.SERVICE ## Falha na inserção. \t"+e.getMessage());
-        }
+        return this.dados.cadastrar(perfil);
     }
+    /**
+     * Listagem dos perfis
+     */
+    public void listarPerfis() {
+        List<Perfil> listaDePerfis = this.dados.listar();
+        StringBuilder listagemPerfil = new StringBuilder();
+        int count = 0;
+        if (!listaDePerfis.isEmpty()) {
+            listagemPerfil.append("***** LISTAGEM DE PERFIS ************************************");
+            listagemPerfil.append("\n");
+            listagemPerfil.append("----------------------------------------------------------------");
+            listagemPerfil.append("\n");
+            listagemPerfil.append("|Codigo | Nome                    | Descrição                  |");
+            listagemPerfil.append("\n");
+            listagemPerfil.append("----------------------------------------------------------------");
+            listagemPerfil.append("\n");
+            for (Perfil perfil : listaDePerfis){
+                listagemPerfil.append("| ").append(ProjetoStringUtils.rpad(Integer.toString(perfil.getCodigoPerfil()), " ", 6)).append("|");
+                listagemPerfil.append(ProjetoStringUtils.rpad(perfil.getNome(), " ", 25)).append("|");
+                listagemPerfil.append(ProjetoStringUtils.rpad(perfil.getDescricao(), " ", 28));
+                listagemPerfil.append("|");
+                listagemPerfil.append("\n");
+                count ++;
+            }
+            listagemPerfil.append("----------------------------------------------------------------");
+            listagemPerfil.append("\n");
+            listagemPerfil.append(ProjetoStringUtils.lpad("Total de "+count+" registros", " ", 63));
+            listagemPerfil.append("\n");
+            System.out.println(listagemPerfil);
+        } else {
+            System.out.println("*************** Tabela de Perfis está vazia ***************");
+        }
+    } 
 }

@@ -114,9 +114,3 @@ comment on column funcao.descricao is 'Descrição detalhada sobre a função';
 
 comment on table perfil_mofofu is 'Permite o cadastro de permissões no sistema por perfil, é importante ressaltar que é necessário seguir a hierarquia onde a função depende do formulario que consequentemente depende do módulo para existir.';
 
-insert into perfil values(0,'Nome modelo', 'descrição modelo');
-insert into modulo values(0,'Nome modelo', 'descrição modelo',0);
-insert into formulario values(0, 0, 'Nome modelo', 'Nome menu modelo' ,'descrição modelo',0, 'f');
-insert into funcao values(0, 0, 'Nome modelo', 'descrição modelo');
-commit;
-

@@ -27,7 +27,7 @@ public class Perfil {
     public void setCodigoPerfil(Integer codigoPerfil) {
         this.codigoPerfil = codigoPerfil;
     }
-
+    
     public String getNome() {
         return nome;
     }

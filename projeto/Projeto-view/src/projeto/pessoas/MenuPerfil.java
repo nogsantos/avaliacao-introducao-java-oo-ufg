@@ -1,6 +1,7 @@
 /**
  *
- * Descrição:Classe MenuPerfil
+ * Descrição:Classe MenuPerfil.
+ * Define o Menu para o cadastro de perfil.
  *
  *
  * @author Fabricio Nogueira
@@ -39,9 +40,11 @@ public class MenuPerfil {
         StringBuilder menu = new StringBuilder();
         Integer acao;
         
-        menu.append("*************************************************************");
+        menu.append("*******************************************************"
+                + "******");
         menu.append("\n");
-        menu.append("SELECIONE O QUE DESEJA FAZER                                *");
+        menu.append("SELECIONE ABAIXO A OPÇÃO DESEJADA                      "
+                + "     *");
         menu.append("\n");
         menu.append("0. Encerrar Sistema          *\t");
         menu.append("1. Retornar ao menu inicial *\t");
@@ -52,13 +55,14 @@ public class MenuPerfil {
         menu.append("4. Listar perfis             *\t");
         menu.append("5. Continuar cadastro       *\t");
         menu.append("\n");
-        menu.append("*************************************************************");
+        menu.append("*******************************************************"
+                + "******");
         System.out.println(menu);
         try {
             acao = leitor.nextInt();
             defineAcaoMenuPerfil(acao);
         } catch (Exception e) {
-            System.out.println("Termo inválido, tente novamente\n"+ e.getMessage() +"\nselecionando uma das opções abaixo:");
+            System.out.println("##ERRO:: Opção Inválida");
             showMenuPerfilError();
         }
     }
@@ -77,7 +81,7 @@ public class MenuPerfil {
                 try {
                     showMenu();
                 } catch (Exception e) {
-                    System.out.println("Termo inválido, tente novamente\n"+ e.getMessage() +"\nselecionando uma das opções abaixo:");
+                    System.out.println("##ERRO:: Opção Inválida");
                     showMenuPerfilError();
                 }
                 break;
@@ -88,14 +92,16 @@ public class MenuPerfil {
                 System.out.println("Excluir perfil");
                 break;
             case LISTAR:
-                System.out.println("Listar perfis");
+                PerfilService perfil = new PerfilService();
+                perfil.listarPerfis();
+                showMenuPerfil();
                 break;
             case CONTINUAR:
                 try {
                     PerfilView perfilView = new PerfilView();
                     perfilView.leitorPerfil();
                 } catch (Exception e) {
-                    System.out.println("Termo inválido, tente novamente\n"+ e.getMessage() +"\nselecionando uma das opções abaixo:");
+                    System.out.println("##ERRO:: Opção Inválida");
                     showMenuPerfilError();
                 }
                 break;
@@ -120,9 +126,11 @@ public class MenuPerfil {
         StringBuilder menu = new StringBuilder();
         Integer acao;
         
-        menu.append("*************************************************************");
+        menu.append("****************************************************"
+                + "*********");
         menu.append("\n");
-        menu.append("ERRO. ## SELECIONE O QUE DESEJA FAZER                       *");
+        menu.append("##ERRO::SELECIONE ABAIXO A OPÇÃO DESEJADA           "
+                + "        *");
         menu.append("\n");
         menu.append("0. Encerrar Sistema         *\t");
         menu.append("1. Retornar ao menu inicial *\t");
@@ -130,13 +138,14 @@ public class MenuPerfil {
         menu.append("5. Continuar o cadastro     *\t");
         menu.append("                            *");
         menu.append("\n");
-        menu.append("*************************************************************");
+        menu.append("****************************************************"
+                + "*********");
         System.out.println(menu);
         try {
             acao = leitor.nextInt();
             defineAcaoMenuPerfilError(acao);
         } catch (Exception e) {
-            System.out.println("Termo inválido, tente novamente\n"+ e.getMessage() +"\nselecionando uma das opções abaixo:");
+            System.out.println("##ERRO:: Opção Inválida");
             showMenuPerfilError();
         }
     }
@@ -155,7 +164,7 @@ public class MenuPerfil {
                 try {
                     showMenu();
                 } catch (Exception e) {
-                    System.out.println("Termo inválido, tente novamente\n"+ e.getMessage() +"\nselecionando uma das opções abaixo:");
+                    System.out.println("##ERRO:: Opção Inválida");
                     showMenuPerfilError();
                 }
                 break;
@@ -164,7 +173,7 @@ public class MenuPerfil {
                     PerfilView perfilView = new PerfilView();
                     perfilView.leitorPerfil();
                 } catch (Exception e) {
-                    System.out.println("Termo inválido, tente novamente\n"+ e.getMessage() +"\nselecionando uma das opções abaixo:");
+                    System.out.println("##ERRO:: Opção Inválida");
                     showMenuPerfilError();
                 }
                 break;

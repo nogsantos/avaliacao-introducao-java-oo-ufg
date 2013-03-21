@@ -12,15 +12,16 @@
 
 package projeto.pessoas;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
 public interface PerfilDAO {
 
-    public boolean cadastrar(Perfil perfil) throws Exception;
-    public boolean editar(Perfil perfil) throws Exception;
-    public boolean excluir(Perfil perfil) throws Exception;
-    public List<Perfil> listar();
-    public Perfil getByCodigo(int codigoPerfil) throws Exception;
+    public boolean cadastrar(Perfil perfil) throws SQLException;
+    public boolean editar(Perfil perfil) throws SQLException;
+    public boolean excluir(Perfil perfil) throws SQLException;
+    public List<Perfil> listar() throws SQLException;
+    public Perfil getByCodigo(int codigoPerfil) throws SQLException;
 
 }

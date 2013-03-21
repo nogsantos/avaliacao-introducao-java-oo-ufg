@@ -19,12 +19,12 @@ import java.util.Properties;
 public class Conexao {
 
     final String url = "jdbc:oracle:thin:@localhost:1521:xe";
-    Connection conn = null;
+    private Connection conn = null;
     private static Conexao instance = null;
     /**
      * Construtor da classe Inicializa a conexao
      */
-    public void Conexao() {
+    public Conexao() {
         inicializar();
     }
     /**
