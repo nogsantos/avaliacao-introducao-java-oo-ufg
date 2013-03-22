@@ -18,7 +18,8 @@ import java.util.Properties;
 
 public class Conexao {
 
-    final String url = "jdbc:oracle:thin:@localhost:1521:xe";
+    final String url = "jdbc:postgresql://localhost:5432/java_oo";
+//    final String url = "jdbc:oracle:thin:@localhost:1521:xe";
     private Connection conn = null;
     private static Conexao instance = null;
     /**
@@ -33,8 +34,10 @@ public class Conexao {
     private void inicializar() {
         try {
             Properties connectProperties = new Properties();
-            connectProperties.put("user", "cobranca");
-            connectProperties.put("password", "cobranca");
+            connectProperties.put("user", "postgres");
+            connectProperties.put("password", "123456");
+//            connectProperties.put("user", "aluno");
+//            connectProperties.put("password", "aluno");
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
             conn = DriverManager.getConnection(url, connectProperties);
         } catch (SQLException sqle) {

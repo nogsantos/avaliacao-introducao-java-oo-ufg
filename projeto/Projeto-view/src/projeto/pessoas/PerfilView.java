@@ -14,6 +14,7 @@
 package projeto.pessoas;
 
 import java.util.Scanner;
+import projeto.utils.ProjetoStringUtils;
 
 
 public class PerfilView {
@@ -24,8 +25,8 @@ public class PerfilView {
          */
         MenuPerfil menuPerfil = new MenuPerfil();
         Scanner leitor = new Scanner(System.in);
-        System.out.println("***** FORMULÁRIO PERFIL "
-                + "*************************************");
+        System.out.println(ProjetoStringUtils.rpad("FORMULÁRIO PERFIL "
+                + "", "*",66));
         try {
             PerfilImpl nextVal = new PerfilImpl();
             
@@ -38,15 +39,15 @@ public class PerfilView {
             PerfilService perfil = new PerfilService();            
             
             if(perfil.incluirPerfil(codigoPerfil, nome, descricao)){
-            System.out.println("*********************** SUCESSO. "
-                    + "Dado Inserido com Sucesso! *");
+            System.out.println(ProjetoStringUtils.rpad("SUCESSO:: Dado "
+                    + "inserido com sucesso.", "*",66));
             menuPerfil.showMenuPerfil();
             }else{
                 menuPerfil.showMenuPerfilError();
             }
         } catch (Exception e) {
-            System.out.println("##ERRO.PERFIL.VIEW.LEITORPERFIL ::"
-                    + " Erro na leitura dos dados.");
+            System.out.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
+                    + "VIEW.LEITORPERFIL ::Erro na leitura dos dados.", "*",66));
             menuPerfil.showMenuPerfilError();
         }
     }

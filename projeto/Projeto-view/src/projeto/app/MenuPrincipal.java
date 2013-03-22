@@ -55,66 +55,79 @@ public class MenuPrincipal {
         StringBuilder menu = new StringBuilder();
         Integer acao;
 
-        menu.append(ProjetoStringUtils.rpad("MENU PRINCIPAL ", "*",66));
-        menu.append("\n");
-        menu.append("Selecione uma das opções abaixo\ndigitando o número "
-                + "correspondente:");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
-        menu.append("\n");
+        menu.append(ProjetoStringUtils.rpad("MENU PRINCIPAL ",
+                "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("Digite o número da opção desejada:"
+                + " ", " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", 
+                "*",66)).append("\n");
         menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema ", 
-                " ",65)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("CADASTROS", " ",65)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("1. Perfil", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 2. Usuário", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 3. Módulo", " ",21)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("4. Formulário", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 5. Funções", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", " ",21)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("EDIÇÃO", " ",65)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("6. Perfil", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 7. Usuário", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 8. Módulo", " ",21)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("9. Formulário", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 10. Funções", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", " ",21)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("EXCLUSÃO", " ",65)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("11. Perfil", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 12. Usuário", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 13. Módulo", " ",21)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("14. Formulário", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 15. Funções", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", " ",21)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("RELATÓRIOS", " ",65)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("16. Perfil", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 17. Usuário", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 18. Módulo", " ",21)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("19. Formulário", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 20. Funções", " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", " ",21)).append("*");
-        menu.append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
-        menu.append("\n");
+                " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("CADASTROS", 
+                " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("1. Perfil", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 2. Usuário", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 3. Módulo",
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("4. Formulário", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 5. Funções", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" ", 
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", 
+                "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("EDIÇÃO", 
+                " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("6. Perfil", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 7. Usuário", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 8. Módulo", 
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("9. Formulário", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 10. Funções", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" ", 
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*",
+                "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("EXCLUSÃO", 
+                " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("11. Perfil", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 12. Usuário", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 13. Módulo", 
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("14. Formulário", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 15. Funções", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" ", 
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*",
+                "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("RELATÓRIOS", 
+                " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("16. Perfil", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 17. Usuário", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 18. Módulo", 
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("19. Formulário",
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 20. Funções", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" ", 
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", 
+                "*",66)).append("\n");
         System.out.println(menu);
         try {
             acao = leitor.nextInt();

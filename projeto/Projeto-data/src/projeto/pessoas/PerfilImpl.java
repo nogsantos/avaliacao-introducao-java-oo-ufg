@@ -74,7 +74,7 @@ public class PerfilImpl implements PerfilDAO{
         try {
             this.statement = this.connection.createStatement();
             this.resultSet = this.statement.executeQuery("SELECT "
-                    + "MAX(nvl(codigo_perfil,0))+1 as max FROM perfil");
+                    + "MAX(codigo_perfil)+1 as max FROM perfil");
             while (this.resultSet.next()) {
                 valor = this.resultSet.getString("MAX");
             }

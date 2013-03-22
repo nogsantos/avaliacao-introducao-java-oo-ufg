@@ -16,6 +16,7 @@ package projeto.pessoas;
 
 import java.util.Scanner;
 import static projeto.app.MenuPrincipal.showMenu;
+import projeto.utils.ProjetoStringUtils;
 
 
 public class MenuPerfil {
@@ -40,23 +41,23 @@ public class MenuPerfil {
         StringBuilder menu = new StringBuilder();
         Integer acao;
         
-        menu.append("*******************************************************"
-                + "******");
-        menu.append("\n");
-        menu.append("SELECIONE ABAIXO A OPÇÃO DESEJADA                      "
-                + "     *");
-        menu.append("\n");
-        menu.append("0. Encerrar Sistema          *\t");
-        menu.append("1. Retornar ao menu inicial *\t");
-        menu.append("\n");
-        menu.append("2. Editar um perfil          *\t");
-        menu.append("3. Excluir um perfil        *\t");
-        menu.append("\n");
-        menu.append("4. Listar perfis             *\t");
-        menu.append("5. Continuar cadastro       *\t");
-        menu.append("\n");
-        menu.append("*******************************************************"
-                + "******");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("SELECIONE ABAIXO A "
+                + "OPÇÃO DESEJADA ", " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema",
+                " ",32)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 1. Retornar ao menu inicial",
+                " ",32)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("2. Editar um perfil",
+                " ",32)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 3. Excluir um perfil", 
+                " ",32)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("4. Listar perfis", 
+                " ",32)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 5. Continuar cadastro", 
+                " ",32)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66));
         System.out.println(menu);
         try {
             acao = leitor.nextInt();
@@ -126,20 +127,19 @@ public class MenuPerfil {
         StringBuilder menu = new StringBuilder();
         Integer acao;
         
-        menu.append("****************************************************"
-                + "*********");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("##ERRO::SELECIONE "
+                + "ABAIXO A OPÇÃO DESEJADA ", "*",66));
         menu.append("\n");
-        menu.append("##ERRO::SELECIONE ABAIXO A OPÇÃO DESEJADA           "
-                + "        *");
-        menu.append("\n");
-        menu.append("0. Encerrar Sistema         *\t");
-        menu.append("1. Retornar ao menu inicial *\t");
-        menu.append("\n");
-        menu.append("5. Continuar o cadastro     *\t");
-        menu.append("                            *");
-        menu.append("\n");
-        menu.append("****************************************************"
-                + "*********");
+        menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema",
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad("1. Retornar ao menu inicial",
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("5. Continuar o cadastro", 
+                " ",21)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" ", 
+                " ",21)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66));
         System.out.println(menu);
         try {
             acao = leitor.nextInt();

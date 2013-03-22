@@ -1,7 +1,6 @@
 /**
  *
- * Descrição:Classe PerfilService
- *
+ * Descrição:Classe PerfilService.
  *
  * @author Fabricio Nogueira
  *
@@ -42,36 +41,59 @@ public class PerfilService {
         return this.dados.cadastrar(perfil);
     }
     /**
-     * Listagem dos perfis
+     * Implementação da listagem dos perfis.
+     * @author Fabricio Nogueira
+     * @version 1.0.0
      */
     public void listarPerfis() {
         List<Perfil> listaDePerfis = this.dados.listar();
         StringBuilder listagemPerfil = new StringBuilder();
         int count = 0;
         if (!listaDePerfis.isEmpty()) {
-            listagemPerfil.append("***** LISTAGEM DE PERFIS ************************************");
-            listagemPerfil.append("\n");
-            listagemPerfil.append("----------------------------------------------------------------");
-            listagemPerfil.append("\n");
-            listagemPerfil.append("|Codigo | Nome                    | Descrição                  |");
-            listagemPerfil.append("\n");
-            listagemPerfil.append("----------------------------------------------------------------");
-            listagemPerfil.append("\n");
+            /*
+             * Cabeçalho
+             */
+            listagemPerfil.append(ProjetoStringUtils.rpad("***** "
+                    + "LISTAGEM DE PERFIS ", "*",66)).append("\n");
+            listagemPerfil.append(ProjetoStringUtils.rpad("-", 
+                    "-",66)).append("\n");
+            /*
+             * Titulos da tabela
+             */
+            listagemPerfil.append(ProjetoStringUtils.rpad("| Codigo ", " ",8));
+            listagemPerfil.append(ProjetoStringUtils.rpad("| Nome ", " ",25));
+            listagemPerfil.append(ProjetoStringUtils.rpad("| Descrição ", 
+                    " ",31)).append("|").append("\n");
+            listagemPerfil.append(ProjetoStringUtils.rpad("-", 
+                    "-",66)).append("\n");
+            /*
+             * Dados da tabela
+             */
             for (Perfil perfil : listaDePerfis){
-                listagemPerfil.append("| ").append(ProjetoStringUtils.rpad(Integer.toString(perfil.getCodigoPerfil()), " ", 6)).append("|");
-                listagemPerfil.append(ProjetoStringUtils.rpad(perfil.getNome(), " ", 25)).append("|");
-                listagemPerfil.append(ProjetoStringUtils.rpad(perfil.getDescricao(), " ", 28));
+                listagemPerfil.append("| "
+                        + "").append(ProjetoStringUtils.rpad(Integer.toString(
+                        perfil.getCodigoPerfil()), " ", 7)).append("|");
+                listagemPerfil.append(
+                        ProjetoStringUtils.rpad(perfil.getNome(), 
+                        " ", 24)).append("|");
+                listagemPerfil.append(
+                        ProjetoStringUtils.rpad(perfil.getDescricao(),
+                        " ", 30));
                 listagemPerfil.append("|");
                 listagemPerfil.append("\n");
                 count ++;
             }
-            listagemPerfil.append("----------------------------------------------------------------");
-            listagemPerfil.append("\n");
-            listagemPerfil.append(ProjetoStringUtils.lpad("Total de "+count+" registros", " ", 63));
-            listagemPerfil.append("\n");
+            /*
+             * Rodapé 
+             */
+            listagemPerfil.append(ProjetoStringUtils.rpad("-", 
+                    "-",66)).append("\n");
+            listagemPerfil.append(ProjetoStringUtils.lpad("Total de "+count+""
+                    + " registros", " ", 66)).append("\n");
             System.out.println(listagemPerfil);
         } else {
-            System.out.println("*************** Tabela de Perfis está vazia ***************");
+            System.out.println("*************** "
+                    + "Tabela de Perfis está vazia ***************");
         }
     } 
 }
