@@ -42,7 +42,7 @@ public class MenuPerfil {
         Integer acao;
         
         menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("SELECIONE ABAIXO A "
+        menu.append(ProjetoStringUtils.rpad("PERFIL::SELECIONE ABAIXO A "
                 + "OPÇÃO DESEJADA ", " ",65)).append("*").append("\n");
         menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
         menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema",
@@ -87,20 +87,26 @@ public class MenuPerfil {
                 }
                 break;
             case EDITAR:
-                System.out.println("Editar Perfil");
+                PerfilService editarPerfil = new PerfilService();
+                editarPerfil.listarPerfis();
+                MenuPerfil editarMenuPerfil = new MenuPerfil();
+                editarMenuPerfil.edicaoMenuPerfil();
                 break;
             case EXCLUIR:
-                System.out.println("Excluir perfil");
+                PerfilService excluirPerfil = new PerfilService();
+                excluirPerfil.listarPerfis();
+                MenuPerfil excluirMenuPerfil = new MenuPerfil();
+                excluirMenuPerfil.exclusaoMenuPerfil();
                 break;
             case LISTAR:
                 PerfilService perfil = new PerfilService();
                 perfil.listarPerfis();
-                showMenuPerfil();
+                listagemMenuPerfil();
                 break;
             case CONTINUAR:
                 try {
                     PerfilView perfilView = new PerfilView();
-                    perfilView.leitorPerfil();
+                    perfilView.leitorCadastroPerfil();
                 } catch (Exception e) {
                     System.out.println("##ERRO:: Opção Inválida");
                     showMenuPerfilError();
@@ -111,6 +117,7 @@ public class MenuPerfil {
                 break;
             default:
                 showMenuPerfil();
+                break;
         }
     }
     /**
@@ -126,19 +133,18 @@ public class MenuPerfil {
         Scanner leitor = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
         Integer acao;
-        
         menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
         menu.append(ProjetoStringUtils.rpad("##ERRO::SELECIONE "
-                + "ABAIXO A OPÇÃO DESEJADA ", "*",66));
-        menu.append("\n");
+                + "ABAIXO A OPÇÃO DESEJADA ", " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
         menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema",
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad("1. Retornar ao menu inicial",
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("5. Continuar o cadastro", 
-                " ",21)).append("*");
+                " ",32)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 1. Retornar ao menu inicial",
+                " ",32)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("5. Continuar cadastro", 
+                " ",32)).append("*");
         menu.append(ProjetoStringUtils.rpad(" ", 
-                " ",21)).append("*").append("\n");
+                " ",32)).append("*").append("\n");
         menu.append(ProjetoStringUtils.rpad("*", "*",66));
         System.out.println(menu);
         try {
@@ -171,7 +177,7 @@ public class MenuPerfil {
             case CONTINUAR:
                 try {
                     PerfilView perfilView = new PerfilView();
-                    perfilView.leitorPerfil();
+                    perfilView.leitorCadastroPerfil();
                 } catch (Exception e) {
                     System.out.println("##ERRO:: Opção Inválida");
                     showMenuPerfilError();
@@ -182,6 +188,167 @@ public class MenuPerfil {
                     break;
             default:
                 showMenuPerfilError();
+        }
+    }
+    /**
+     *
+     * Menu principal perfil para listagem.
+     * 
+     * @author Fabricio Nogueira
+     * @since 20 MAR 2013
+     * 
+     */
+    public void listagemMenuPerfil(){
+        Scanner leitor = new Scanner(System.in);
+        StringBuilder menu = new StringBuilder();
+        Integer acao;
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("LISTAGEM::SELECIONE ABAIXO A "
+                + "OPÇÃO DESEJADA ", " ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema",
+                " ",32)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" 1. Retornar ao menu inicial",
+                " ",32)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("5. Continuar cadastro", 
+                " ",32)).append("*");
+        menu.append(ProjetoStringUtils.rpad(" ", 
+                " ",32)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66));
+        System.out.println(menu);
+        try {
+            acao = leitor.nextInt();
+            defineAcaoListagemMenuPerfil(acao);
+        } catch (Exception e) {
+            System.out.println("##ERRO:: Opção Inválida");
+            showMenuPerfilError();
+        }
+    }
+   /**
+    * Define a ação.
+    * Com base na escolha realizada pelo menu.
+    * 
+    * @author Fabricio Nogueira
+    * @since 19-Mar-2013    
+    * @version 1.0.0
+    * @return void
+    */
+    private void defineAcaoListagemMenuPerfil(int acao) {
+        switch (acao) {
+            case MENU_INICIAL:
+                try {
+                    showMenu();
+                } catch (Exception e) {
+                    System.out.println("##ERRO:: Opção Inválida");
+                    showMenuPerfilError();
+                }
+                break;
+            case CONTINUAR:
+                try {
+                    PerfilView perfilView = new PerfilView();
+                    perfilView.leitorCadastroPerfil();
+                } catch (Exception e) {
+                    System.out.println("##ERRO:: Opção Inválida");
+                    showMenuPerfilError();
+                }
+                break;
+            case SAIR:
+                System.exit(0);
+                break;
+            default:
+                showMenuPerfil();
+        }
+    }
+    /**
+     *
+     * Menu principal perfil para listagem.
+     * 
+     * @author Fabricio Nogueira
+     * @since 20 MAR 2013
+     * 
+     */
+    public void edicaoMenuPerfil(){
+        Scanner leitor = new Scanner(System.in);
+        StringBuilder menu = new StringBuilder();
+        String acao;
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("EDIÇÃO::Informe Código dor "
+                + "perfil desejado"," ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("ou a letra 'C' para "
+                + "Cancelar"," ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66));
+        System.out.println(menu);
+        try {
+            acao = leitor.nextLine().toString().toLowerCase();
+            defineAcaoEdicaoMenuPerfil(acao);
+        } catch (Exception e) {
+            System.out.println("##ERRO:: Opção Inválida");
+            showMenuPerfilError();
+        }
+    }
+   /**
+    * Define a ação.
+    * Com base na escolha realizada pelo menu.
+    * 
+    * @author Fabricio Nogueira
+    * @since 19-Mar-2013    
+    * @version 1.0.0
+    * @return void
+    */
+    private void defineAcaoEdicaoMenuPerfil(String acao) {
+        Integer codigoPerfil;
+        if(acao.equals("c")) {
+            showMenuPerfil();
+        }else{
+            codigoPerfil = Integer.parseInt(acao);
+            PerfilView leitorPerfil = new PerfilView();
+            leitorPerfil.leitorEdicaoPerfil(codigoPerfil);
+        }
+    }
+    /**
+     *
+     * Menu principal perfil para listagem.
+     * 
+     * @author Fabricio Nogueira
+     * @since 20 MAR 2013
+     * 
+     */
+    public void exclusaoMenuPerfil(){
+        Scanner leitor = new Scanner(System.in);
+        StringBuilder menu = new StringBuilder();
+        String acao;
+        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
+        menu.append(ProjetoStringUtils.rpad("EXCLUSÃO::Informe Código dor "
+                + "perfil desejado"," ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("ou a letra 'C' para "
+                + "Cancelar"," ",65)).append("*").append("\n");
+        menu.append(ProjetoStringUtils.rpad("*", "*",66));
+        System.out.println(menu);
+        try {
+            acao = leitor.nextLine().toString().toLowerCase();
+            defineAcaoExclusaoMenuPerfil(acao);
+        } catch (Exception e) {
+            System.out.println("##ERRO:: Opção Inválida");
+            showMenuPerfilError();
+        }
+    }
+   /**
+    * Define a ação.
+    * Com base na escolha realizada pelo menu.
+    * 
+    * @author Fabricio Nogueira
+    * @since 19-Mar-2013    
+    * @version 1.0.0
+    * @return void
+    */
+    private void defineAcaoExclusaoMenuPerfil(String acao) {
+        Integer codigoPerfil;
+        if(acao.equals("c")) {
+            showMenuPerfil();
+        }else{
+            codigoPerfil = Integer.parseInt(acao);
+            PerfilView leitorPerfil = new PerfilView();
+            leitorPerfil.leitorExclusaoPerfil(codigoPerfil);
         }
     }
 }

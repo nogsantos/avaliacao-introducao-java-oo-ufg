@@ -1,7 +1,7 @@
 /**
  *
- * Descrição:Classe PerfilImpl
- *
+ * Descrição:Classe PerfilImpl.
+ * Implementação das funcionalidades Perfil
  *
  * @author Fabricio Nogueira
  *
@@ -25,27 +25,25 @@ import projeto.conexao.Conexao;
 
 public class PerfilImpl implements PerfilDAO{
     private Connection connection = new Conexao().getConnection();
-    private PreparedStatement preStatement = null;
-    private Statement statement;
-    private ResultSet resultSet;    
     /**
      * Método cadastrar
      *
      * @author Fabricio Nogueira
      * @version 1.0.0
-     *
+     * @return boolean
      */
     @Override
     public boolean cadastrar(Perfil perfil){
+        PreparedStatement preStatement = null;
         try {
-            this.preStatement = this.connection.prepareStatement(""
+            preStatement = this.connection.prepareStatement(""
                     + " INSERT INTO perfil ("
                     + " codigo_perfil, nome, descricao"
                     + ") values (?,?,?)");
-            this.preStatement.setInt(1, perfil.getCodigoPerfil());
-            this.preStatement.setString(2, perfil.getNome());
-            this.preStatement.setString(3, perfil.getDescricao());
-            this.preStatement.executeUpdate();
+            preStatement.setInt(1, perfil.getCodigoPerfil());
+            preStatement.setString(2, perfil.getNome());
+            preStatement.setString(3, perfil.getDescricao());
+            preStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
             System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.CADASTRAR::"
@@ -54,7 +52,7 @@ public class PerfilImpl implements PerfilDAO{
             return false;
         } finally {
             try {
-                this.preStatement.close();
+                preStatement.close();
                 this.connection.close();
             } catch (SQLException e) {
                 System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.CADASTRAR::"
@@ -68,15 +66,18 @@ public class PerfilImpl implements PerfilDAO{
      * 
      * @author Fabricio Nogueira
      * @version 1.0.0 
+     * @return Integer Próximo codigo na sequencia regitrado na tabela
      */
     public  Integer perfilNextVal(){
+        Statement statement = null;
+        ResultSet resultSet;   
         String valor = "";
         try {
-            this.statement = this.connection.createStatement();
-            this.resultSet = this.statement.executeQuery("SELECT "
+            statement = this.connection.createStatement();
+            resultSet = statement.executeQuery("SELECT "
                     + "MAX(codigo_perfil)+1 as max FROM perfil");
-            while (this.resultSet.next()) {
-                valor = this.resultSet.getString("MAX");
+            while (resultSet.next()) {
+                valor = resultSet.getString("MAX");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -89,11 +90,37 @@ public class PerfilImpl implements PerfilDAO{
      *
      * @author Fabricio Nogueira
      * @version 1.0.0
-     *
+     * @return boolean
      */
     @Override
     public boolean editar(Perfil perfil){
-        throw new UnsupportedOperationException("Not supported yet.");
+        PreparedStatement preStatement = null;
+        try {
+            preStatement = this.connection.prepareStatement(""
+                    + " UPDATE perfil SET"
+                    + " nome = ?, "
+                    + " descricao = ? "
+                    + " where codigo_perfil = ? ");
+            preStatement.setString(1, perfil.getNome());
+            preStatement.setString(2, perfil.getDescricao());
+            preStatement.setInt(3, perfil.getCodigoPerfil());
+            preStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.EDIÇÃO::"
+                    + " Erro na tentativa de edição dos dados.: \n"
+                    + ""+e.getMessage().toString());
+            return false;
+        } finally {
+            try {
+                preStatement.close();
+                this.connection.close();
+            } catch (SQLException e) {
+                System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.EDIÇÃO::"
+                        + " Erro ao desconectar do banco de dados.: \n"
+                        + ""+e.getSQLState());
+            }
+        }
     }
     /**
      * Método excluir
@@ -104,22 +131,47 @@ public class PerfilImpl implements PerfilDAO{
      */
     @Override
     public boolean excluir(Perfil perfil){
-        throw new UnsupportedOperationException("Not supported yet.");
+        PreparedStatement preStatement = null;
+        try {
+            preStatement = this.connection.prepareStatement(""
+                    + " DELETE perfil "
+                    + " where codigo_perfil = ? ");
+            preStatement.setInt(1, perfil.getCodigoPerfil());
+            preStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.DELEÇÃO::"
+                    + " Erro na tentativa de edição dos dados.: \n"
+                    + ""+e.getMessage().toString());
+            return false;
+        } finally {
+            try {
+                preStatement.close();
+                this.connection.close();
+            } catch (SQLException e) {
+                System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.DELEÇÃO::"
+                        + " Erro ao desconectar do banco de dados.: \n"
+                        + ""+e.getSQLState());
+            }
+        }
     }
     /**
-     * Método listar
-     *
+     * Método listar.
+     * Lista todos os registros cadastrados 
+     * 
      * @author Fabricio Nogueira
      * @version 1.0.0
-     *
+     * @return Mixed 
      */
     @Override
     public List<Perfil> listar(){
+        Statement statement = null;
+        ResultSet resultSet;   
         List<Perfil> listaDePerfis = new ArrayList<Perfil>();
         try {
-            this.statement = this.connection.createStatement();
-            this.resultSet = this.statement.executeQuery("SELECT "
-                    + "codigo_perfil, nome, descricao FROM perfil");
+            statement = this.connection.createStatement();
+            resultSet = statement.executeQuery("SELECT "
+                    + "codigo_perfil, nome, descricao FROM perfil order by codigo_perfil desc");
             while (resultSet.next()) {
                 Perfil perfilList = new Perfil();
                 perfilList.setCodigoPerfil(resultSet.getInt("codigo_perfil"));
@@ -135,7 +187,7 @@ public class PerfilImpl implements PerfilDAO{
             return null;
         } finally {
             try {
-                this.statement.close();
+                statement.close();
                 this.connection.close();
             } catch (SQLException e) {
                 System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.LISTAR::"
@@ -146,14 +198,79 @@ public class PerfilImpl implements PerfilDAO{
         return listaDePerfis;
     }
     /**
-     * Método getByCodigo
-     *
+     * Método getByCodigo.
+     * Recupera um perfil por código.
+     * 
      * @author Fabricio Nogueira
      * @version 1.0.0
-     *
+     * @return Mixed
      */
     @Override
     public Perfil getByCodigo(int codigoPerfil){
-        throw new UnsupportedOperationException("Not supported yet.");
+        Statement statement = null;
+        ResultSet resultSet;   
+        if(codigoPerfil >= 0){
+            try {
+                statement = this.connection.createStatement();
+                resultSet = statement.executeQuery("SELECT "
+                        + "codigo_perfil, nome, descricao FROM perfil where codigo_perfil = "+codigoPerfil+"");
+                Perfil perfil = new Perfil();
+                while (resultSet.next()) {
+                    perfil.setCodigoPerfil(resultSet.getInt("CODIGO_PERFIL"));
+                    perfil.setNome(resultSet.getString("NOME"));
+                    perfil.setDescricao(resultSet.getString("DESCRICAO"));
+                }
+                return perfil;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return null;
+            }
+        }else{
+            System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.GETBYCODIGO::"
+                        + " Código Inválido");
+            return null;
+        }
+    }
+    /**
+     * Método confirmaPerfil.
+     * Confirma a existencia de um perfil por código.
+     * 
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     *
+     * @return boolean
+     */
+    public boolean confirmaPerfil(int codigoPerfil){
+        Statement statement = null;
+        ResultSet resultSet;   
+        if(codigoPerfil >= 0){
+            try {
+                statement = this.connection.createStatement();
+                resultSet = statement.executeQuery(""
+                        + " SELECT codigo_perfil, nome, descricao FROM perfil "
+                        + " WHERE codigo_perfil = "+codigoPerfil+"");
+                if(resultSet.wasNull()){
+                    return false;
+                }else{
+                    return true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return false;
+            } finally {
+            try {
+                statement.close();
+                this.connection.close();
+            } catch (SQLException e) {
+                System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.CONFIRMAR::"
+                        + " Erro ao desconectar do banco de dados.: \n"
+                        + ""+e.getSQLState());
+            }
+        }
+        }else{
+            System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.GETBYCODIGO::"
+                        + " Código Inválido");
+            return false;
+        }
     }
 }

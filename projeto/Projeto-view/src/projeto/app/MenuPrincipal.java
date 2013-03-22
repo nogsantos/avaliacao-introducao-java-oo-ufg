@@ -14,6 +14,7 @@
 package projeto.app;
 
 import java.util.Scanner;
+import projeto.pessoas.MenuPerfil;
 import projeto.pessoas.PerfilService;
 import projeto.pessoas.PerfilView;
 import projeto.utils.ProjetoStringUtils;
@@ -151,7 +152,7 @@ public class MenuPrincipal {
             case CADASTRA_PERFIL:
                 try {
                     PerfilView perfilView = new PerfilView();
-                    perfilView.leitorPerfil();
+                    perfilView.leitorCadastroPerfil();
                 } catch (Exception e) {
                     System.out.println("##ERRO:: Opção Inválida");
                     showMenu();
@@ -170,7 +171,10 @@ public class MenuPrincipal {
                 System.out.println("Cadastro de funções");
                 break;
             case EDITAR_PERFIL:
-                System.out.println("Edição de perfil");
+                PerfilService editarPerfil = new PerfilService();
+                editarPerfil.listarPerfis();
+                MenuPerfil editarMenuPerfil = new MenuPerfil();
+                editarMenuPerfil.edicaoMenuPerfil();
                 break;
             case EDITAR_USUARIO:
                 System.out.println("Edição de usuário");
@@ -185,7 +189,10 @@ public class MenuPrincipal {
                 System.out.println("Edição de funções");
                 break;
             case EXCLUIR_PERFIL:
-                System.out.println("Exclusão de perfil");
+                PerfilService excluirPerfil = new PerfilService();
+                excluirPerfil.listarPerfis();
+                MenuPerfil excluirMenuPerfil = new MenuPerfil();
+                excluirMenuPerfil.exclusaoMenuPerfil();
                 break;
             case EXCLUIR_USUARIO:
                 System.out.println("Exclusão de usuário");
@@ -200,9 +207,10 @@ public class MenuPrincipal {
                 System.out.println("Exclusão de funções");
                 break;
             case LISTAR_PERFIL:
-                PerfilService perfil = new PerfilService();
-                perfil.listarPerfis();
-                showMenu();
+                PerfilService listarPerfil = new PerfilService();
+                listarPerfil.listarPerfis();
+                MenuPerfil listarMenuPerfil = new MenuPerfil();
+                listarMenuPerfil.listagemMenuPerfil();
                 break;
             case LISTAR_USUARIO:
                 System.out.println("Relatório de usuários");

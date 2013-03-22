@@ -24,7 +24,7 @@ public class PerfilService {
         this.camadaDados = new PerfilImpl();
     }
     /**
-     * Método para setar e cadastrar os dados.
+     * cadastro dos dados.
      * 
      * @author Fabricio Nogueira
      * @version 1.0.0
@@ -39,6 +39,51 @@ public class PerfilService {
         perfil.setDescricao(descricao);
         
         return this.dados.cadastrar(perfil);
+    }
+    /**
+     * Editação dos dados.
+     * 
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     * 
+     * @todo Verificar se o codigo do perfil informado já existe na base
+     * de dados, o método implementado para isso foi confirmaPerfil();
+     *
+     */
+    public boolean editarPerfil(Integer codigoPerfil, 
+            String nome, String descricao){
+        
+//        PerfilImpl perfilimp = new PerfilImpl();
+//        if(perfilimp.confirmaPerfil(codigoPerfil)){
+            Perfil perfil = new Perfil();
+            perfil.setCodigoPerfil(codigoPerfil);
+            perfil.setNome(nome);
+            perfil.setDescricao(descricao);
+            return this.dados.editar(perfil);
+//        }else{
+//            return false;
+//        }
+    }
+    /**
+     * Exclusão dos dados.
+     * 
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     * 
+     * @todo Verificar se o codigo do perfil informado já existe na base
+     * de dados, o método implementado para isso foi confirmaPerfil();
+     *
+     */
+    public boolean excluirPerfil(Integer codigoPerfil){
+        
+//        PerfilImpl perfilimp = new PerfilImpl();
+//        if(perfilimp.confirmaPerfil(codigoPerfil)){
+            Perfil perfil = new Perfil();
+            perfil.setCodigoPerfil(codigoPerfil);
+            return this.dados.excluir(perfil);
+//        }else{
+//            return false;
+//        }
     }
     /**
      * Implementação da listagem dos perfis.
@@ -92,8 +137,8 @@ public class PerfilService {
                     + " registros", " ", 66)).append("\n");
             System.out.println(listagemPerfil);
         } else {
-            System.out.println("*************** "
-                    + "Tabela de Perfis está vazia ***************");
+            System.out.println(ProjetoStringUtils.rpad("***** O pefil "
+                    + "Tabela de Perfis está vazia "," * ",66));
         }
     } 
 }

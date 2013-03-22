@@ -1,6 +1,6 @@
 /**
  *
- * Descrição: Interface ModuloDAO
+ * Descrição: Interface ModuloDAO.
  *
  * @author Fabricio Nogueira
  *

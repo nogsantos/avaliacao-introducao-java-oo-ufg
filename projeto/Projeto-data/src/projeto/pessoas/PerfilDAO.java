@@ -1,6 +1,6 @@
 /**
  *
- * Descrição: Interface Perfil
+ * Descrição: Interface Perfil.
  *
  * @author Fabricio Nogueira
  *
