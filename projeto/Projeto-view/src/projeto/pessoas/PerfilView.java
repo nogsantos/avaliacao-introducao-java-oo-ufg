@@ -34,27 +34,21 @@ public class PerfilView {
         Scanner leitor = new Scanner(System.in);
         System.out.println(ProjetoStringUtils.rpad("FORMULÁRIO::CADASTRO DE PERFIL "
                 + "", "*",66));
-        try {
-            PerfilImpl nextVal = new PerfilImpl();
-            
-            System.out.println("Codigo: " + nextVal.perfilNextVal());
-            Integer codigoPerfil = nextVal.perfilNextVal(); //leitor.nextInt();
-            System.out.println("Nome: ");
-            String nome = leitor.nextLine().toString();
-            System.out.println("Descrição: ");
-            String descricao = leitor.nextLine().toString();
-            PerfilService perfil = new PerfilService();            
-            
-            if(perfil.incluirPerfil(codigoPerfil, nome, descricao)){
+        PerfilImpl nextVal = new PerfilImpl();
+        Integer codigo = nextVal.perfilNextVal();
+        System.out.println("Codigo: " + codigo);
+        Integer codigoPerfil = codigo;
+        System.out.println("Nome: ");
+        String nome = leitor.nextLine();
+        System.out.println("Descrição: ");
+        String descricao = leitor.nextLine();
+        PerfilService perfil = new PerfilService();            
+
+        if(perfil.incluirPerfil(codigoPerfil, nome, descricao)){
             System.out.println(ProjetoStringUtils.rpad("SUCESSO:: Dado "
                     + "inserido com sucesso.", "*",66));
             menuPerfil.showMenuPerfil();
-            }else{
-                menuPerfil.showMenuPerfilError();
-            }
-        } catch (Exception e) {
-            System.out.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
-                    + "VIEW.LEITORPERFIL ::Erro na leitura dos dados.", "*",66));
+        }else{
             menuPerfil.showMenuPerfilError();
         }
     }
@@ -94,11 +88,11 @@ public class PerfilView {
                     menuPerfil.showMenuPerfilError();
                 }
             }else{
-                System.out.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
+                System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
                         + "VIEW.LEITORPERFIL::CÓDIGO PERFIL INVÁLIDO", "*",66));
             }
         } catch (Exception e) {
-            System.out.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
+            System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
                     + "VIEW.LEITORPERFIL ::Erro na leitura dos dados.", "*",66));
             menuPerfil.showMenuPerfilError();
         }
@@ -143,19 +137,19 @@ public class PerfilView {
                         menuPerfil.showMenuPerfil();
                         break;
                     default:
-                        System.out.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
+                        System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
                         + "VIEW.LEITORPERFILEXCLUSÃO::"
                                 + "Opção Inválida.", "*",66));
                         menuPerfil.showMenuPerfilError();
                         break;
                 }
             }else{
-                System.out.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
+                System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
                         + "VIEW.LEITORPERFILEXCLUSÃO::"
                         + "CÓDIGO PERFIL INVÁLIDO", "*",66));
             }
         } catch (Exception e) {
-            System.out.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
+            System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
                     + "VIEW.LEITORPERFILEXCLUSÃO::"
                     + "Erro na leitura dos dados.", "*",66));
             menuPerfil.showMenuPerfilError();

@@ -12,10 +12,11 @@
 
 package projeto.pessoas;
 
+import java.sql.SQLException;
 import java.util.List;
 import projeto.utils.ProjetoStringUtils;
 
-public class PerfilService {
+public class PerfilService implements PerfilInterface {
 
     private PerfilDAO camadaDados;
     private PerfilImpl dados = new PerfilImpl();
@@ -30,6 +31,7 @@ public class PerfilService {
      * @version 1.0.0
      *
      */
+    @Override
     public boolean incluirPerfil(Integer codigoPerfil, 
             String nome, String descricao){
         
@@ -37,8 +39,12 @@ public class PerfilService {
         perfil.setCodigoPerfil(codigoPerfil);
         perfil.setNome(nome);
         perfil.setDescricao(descricao);
-        
-        return this.dados.cadastrar(perfil);
+        try {
+            this.dados.cadastrar(perfil);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
     /**
      * Editação dos dados.
@@ -50,6 +56,7 @@ public class PerfilService {
      * de dados, o método implementado para isso foi confirmaPerfil();
      *
      */
+    @Override
     public boolean editarPerfil(Integer codigoPerfil, 
             String nome, String descricao){
         
@@ -74,6 +81,7 @@ public class PerfilService {
      * de dados, o método implementado para isso foi confirmaPerfil();
      *
      */
+    @Override
     public boolean excluirPerfil(Integer codigoPerfil){
         
 //        PerfilImpl perfilimp = new PerfilImpl();
@@ -90,6 +98,7 @@ public class PerfilService {
      * @author Fabricio Nogueira
      * @version 1.0.0
      */
+    @Override
     public void listarPerfis() {
         List<Perfil> listaDePerfis = this.dados.listar();
         StringBuilder listagemPerfil = new StringBuilder();
