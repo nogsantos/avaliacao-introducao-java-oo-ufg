@@ -13,12 +13,7 @@ package projeto.conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
 public class Conexao {
@@ -32,12 +27,6 @@ public class Conexao {
     
     private Connection conn = null;
     private static Conexao instance = null;
-    
-//    private Connection connection = new Conexao().getConnection();
-//    private PreparedStatement preStatement;
-//    private Statement statement;
-//    private ResultSet resultSet;  
-    
     /**
      * Construtor da classe Inicializa a conexao
      */
@@ -57,7 +46,7 @@ public class Conexao {
         try {
             inicializar();
         } catch (ClassNotFoundException | SQLException ex) {
-            System.out.println("##ERRO::SQL.INICIALIZAÇÃO.CONEXÃO: "
+            System.err.println("##ERRO::SQL.INICIALIZAÇÃO.CONEXÃO: "
                     + ex.getMessage());
         }
     }
@@ -72,7 +61,7 @@ public class Conexao {
             DriverManager.registerDriver(new oracle.jdbc.driver.OracleDriver());
             conn = DriverManager.getConnection(this.url, connectProperties);
         } catch (SQLException sqle) {
-            System.out.println("##ERRO::SQLException em Conecta.java "
+            System.err.println("##ERRO::SQLException em Conecta.java "
                     + sqle.getMessage());
         }
     }
@@ -107,53 +96,7 @@ public class Conexao {
                 conn.close();
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao fechar a conexao [" + e.getMessage()
-                    + "]");
+            System.err.println("Erro ao fechar a conexao [" +e.getMessage()+"]");
         }
     }
-    /**
-     * Preparação para uma ação que será realizada no banco de dados
-     */
-//    public void beginAction(){
-//        try {
-//            this.connection.setAutoCommit(true);
-//            this.preStatement = null;
-//            this.statement = null;
-//            this.resultSet = null;
-//        } catch (SQLException ex) {
-//            System.out.println("##ERRO.CONEXÃO::"
-//                    + " Erro BeginAction.: \n"
-//                    + ""+ex.getMessage().toString());
-//        }
-//    }
-//    
-//    public boolean cadastrar(String sql, Object classe, HashMap<String, String> parametros) throws SQLException{
-//        try {
-//            this.preStatement = this.connection.prepareStatement(sql);
-////            for (int i = 0 ; i< parametros.le  ) {
-////                Object object = .getKey();
-////                Object object1 = .getValue();
-////                
-////            }
-//            
-////            this.preStatement.setInt(1, perfil.getCodigoPerfil());
-////            this.preStatement.setString(2, perfil.getNome());
-////            this.preStatement.setString(3, perfil.getDescricao());
-////            this.preStatement.executeUpdate();
-//            return true;
-//        } catch (SQLException e) {
-//            System.out.println("##ERRO.PERFIL.IMPLEMENTACAO.CADASTRAR::"
-//                    + " Erro na tentativa de inserção dos dados.: \n"
-//                    + ""+e.getMessage().toString());
-//            return false;
-//        } finally {
-//            closeConnection();
-//        }
-//    }
-//    public boolean editar(){
-//        return true;
-//    }
-//    public boolean excluir(){
-//        return true;
-//    }
 }

@@ -27,6 +27,12 @@ public class MenuPerfil {
     private static final int EXCLUIR      = 3;
     private static final int LISTAR       = 4;
     private static final int CONTINUAR    = 5;
+    /*
+     * Definindo a quantidade de colunas
+     */
+    private static final int QTD_COL_EXTERIOR     = 66;
+    private static final int QTD_COL_INTERIOR     = 65;
+    private static final int QTD_COL_OPCOES       = 32;
     /**
      *
      * Menu principal perfil.
@@ -37,35 +43,88 @@ public class MenuPerfil {
      * 
      */
     public void showMenuPerfil(){
-        Scanner leitor = new Scanner(System.in);
+        Scanner leitor     = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
-        Integer acao;
-        
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("PERFIL::SELECIONE ABAIXO A "
-                + "OPÇÃO DESEJADA ", " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema",
-                " ",32)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 1. Retornar ao menu inicial",
-                " ",32)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("2. Editar um perfil",
-                " ",32)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 3. Excluir um perfil", 
-                " ",32)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("4. Listar perfis", 
-                " ",32)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 5. Continuar cadastro", 
-                " ",32)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
+        Integer intAcao;
+        /*
+         * Linha superior titulo
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Titulo
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "PERFIL::SELECIONE ABAIXO A OPÇÃO DESEJADA ", 
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha inferiro titulo
+         */
+        menu.append(ProjetoStringUtils.rpad("*", "*",QTD_COL_EXTERIOR)).append("\n");
+        /*
+         * Opções o menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "0. Encerrar Sistema",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 1. Retornar ao menu inicial",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "2. Editar um perfil",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 3. Excluir um perfil", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "4. Listar perfis", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 5. Continuar cadastro", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha final menu
+         */
+        menu.append(ProjetoStringUtils.rpad("*", "*",QTD_COL_EXTERIOR));
+        /*
+         * Impressão do menu
+         */
         System.out.println(menu);
-        try {
-            acao = leitor.nextInt();
-            defineAcaoMenuPerfil(acao);
-        } catch (Exception e) {
-            System.out.println("##ERRO:: Opção Inválida");
-            showMenuPerfilError();
-        }
+        intAcao = leitor.nextInt();
+        defineAcaoMenuPerfil(intAcao);
     }
    /**
     * Define a ação.
@@ -76,41 +135,49 @@ public class MenuPerfil {
     * @version 1.0.0
     * @return void
     */
-    private void defineAcaoMenuPerfil(int acao) {
-        switch (acao) {
+    private void defineAcaoMenuPerfil(int intAcao) {
+        switch (intAcao) {
             case MENU_INICIAL:
-                try {
-                    showMenu();
-                } catch (Exception e) {
-                    System.out.println("##ERRO:: Opção Inválida");
-                    showMenuPerfilError();
-                }
+                showMenu();
                 break;
             case EDITAR:
+                /*
+                 * Listando perfis cadastrados
+                 */
                 PerfilService editarPerfil = new PerfilService();
                 editarPerfil.listarPerfis();
+                /*
+                 * Menu com as opções de edição
+                 */
                 MenuPerfil editarMenuPerfil = new MenuPerfil();
                 editarMenuPerfil.edicaoMenuPerfil();
                 break;
             case EXCLUIR:
+                /*
+                 * Listando perfis cadastrados
+                 */
                 PerfilService excluirPerfil = new PerfilService();
                 excluirPerfil.listarPerfis();
+                /*
+                 * Menu com as opções de exclusão
+                 */
                 MenuPerfil excluirMenuPerfil = new MenuPerfil();
                 excluirMenuPerfil.exclusaoMenuPerfil();
                 break;
             case LISTAR:
+                /*
+                 * Listagem dos perfis
+                 */
                 PerfilService perfil = new PerfilService();
                 perfil.listarPerfis();
+                /*
+                 * Menu listagem
+                 */
                 listagemMenuPerfil();
                 break;
             case CONTINUAR:
-                try {
-                    PerfilView perfilView = new PerfilView();
-                    perfilView.leitorCadastroPerfil();
-                } catch (Exception e) {
-                    System.out.println("##ERRO:: Opção Inválida");
-                    showMenuPerfilError();
-                }
+                PerfilView perfilView = new PerfilView();
+                perfilView.leitorCadastroPerfil();
                 break;
             case SAIR:
                 System.exit(0);
@@ -130,30 +197,80 @@ public class MenuPerfil {
      * 
      */
     public void showMenuPerfilError(){
-        Scanner leitor = new Scanner(System.in);
+        Scanner leitor     = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
-        Integer acao;
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("##ERRO::SELECIONE "
-                + "ABAIXO A OPÇÃO DESEJADA ", " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema",
-                " ",32)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 1. Retornar ao menu inicial",
-                " ",32)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("5. Continuar cadastro", 
-                " ",32)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", 
-                " ",32)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
+        Integer intAcao;
+        /*
+         * Linha superiro titulo menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Titulo Menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "##ERRO::SELECIONE ABAIXO A OPÇÃO DESEJADA ", 
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha inferior titulo menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Opções do menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "0. Encerrar Sistema",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 1. Retornar ao menu inicial",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "5. Continuar cadastro", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " ", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha final menu
+         */
+        menu.append(ProjetoStringUtils.rpad("*", "*",QTD_COL_EXTERIOR));
+        /*
+         * Impressão do menu
+         */
         System.out.println(menu);
-        try {
-            acao = leitor.nextInt();
-            defineAcaoMenuPerfilError(acao);
-        } catch (Exception e) {
-            System.out.println("##ERRO:: Opção Inválida");
-            showMenuPerfilError();
-        }
+        intAcao = leitor.nextInt();
+        defineAcaoMenuPerfilError(intAcao);
     }
    /**
     * Define a ação.
@@ -164,24 +281,14 @@ public class MenuPerfil {
     * @version 1.0.0
     * @return void
     */
-    private void defineAcaoMenuPerfilError(int acao) {
-        switch (acao) {
+    private void defineAcaoMenuPerfilError(int intAcao) {
+        switch (intAcao) {
             case MENU_INICIAL:
-                try {
-                    showMenu();
-                } catch (Exception e) {
-                    System.out.println("##ERRO:: Opção Inválida");
-                    showMenuPerfilError();
-                }
+                showMenu();
                 break;
             case CONTINUAR:
-                try {
-                    PerfilView perfilView = new PerfilView();
-                    perfilView.leitorCadastroPerfil();
-                } catch (Exception e) {
-                    System.out.println("##ERRO:: Opção Inválida");
-                    showMenuPerfilError();
-                }
+                PerfilView perfilView = new PerfilView();
+                perfilView.leitorCadastroPerfil();
                 break;
                 case SAIR:
                     System.exit(0);
@@ -199,30 +306,74 @@ public class MenuPerfil {
      * 
      */
     public void listagemMenuPerfil(){
-        Scanner leitor = new Scanner(System.in);
+        Scanner leitor     = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
-        Integer acao;
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("LISTAGEM::SELECIONE ABAIXO A "
-                + "OPÇÃO DESEJADA ", " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema",
-                " ",32)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 1. Retornar ao menu inicial",
-                " ",32)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("5. Continuar cadastro", 
-                " ",32)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", 
-                " ",32)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
+        Integer intAcao;
+        /*
+         * Linha superior titulo menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Titulo do menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "LISTAGEM::SELECIONE ABAIXO A OPÇÃO DESEJADA ", 
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha inferior titulo menu
+         */
+        menu.append(ProjetoStringUtils.rpad("*", "*",QTD_COL_EXTERIOR)).append("\n");
+        /*
+         * Opções do menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "0. Encerrar Sistema",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 1. Retornar ao menu inicial",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "5. Continuar cadastro", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " ", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha final do menu
+         */
+        menu.append(ProjetoStringUtils.rpad("*", "*",QTD_COL_EXTERIOR));
+        /*
+         * Impressão do menu
+         */
         System.out.println(menu);
-        try {
-            acao = leitor.nextInt();
-            defineAcaoListagemMenuPerfil(acao);
-        } catch (Exception e) {
-            System.out.println("##ERRO:: Opção Inválida");
-            showMenuPerfilError();
-        }
+        intAcao = leitor.nextInt();
+        defineAcaoListagemMenuPerfil(intAcao);
     }
    /**
     * Define a ação.
@@ -233,24 +384,14 @@ public class MenuPerfil {
     * @version 1.0.0
     * @return void
     */
-    private void defineAcaoListagemMenuPerfil(int acao) {
-        switch (acao) {
+    private void defineAcaoListagemMenuPerfil(int intAcao) {
+        switch (intAcao) {
             case MENU_INICIAL:
-                try {
-                    showMenu();
-                } catch (Exception e) {
-                    System.out.println("##ERRO:: Opção Inválida");
-                    showMenuPerfilError();
-                }
+                showMenu();
                 break;
             case CONTINUAR:
-                try {
-                    PerfilView perfilView = new PerfilView();
-                    perfilView.leitorCadastroPerfil();
-                } catch (Exception e) {
-                    System.out.println("##ERRO:: Opção Inválida");
-                    showMenuPerfilError();
-                }
+                PerfilView perfilView = new PerfilView();
+                perfilView.leitorCadastroPerfil();
                 break;
             case SAIR:
                 System.exit(0);
@@ -268,23 +409,49 @@ public class MenuPerfil {
      * 
      */
     public void edicaoMenuPerfil(){
-        Scanner leitor = new Scanner(System.in);
+        Scanner leitor     = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
-        String acao;
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("EDIÇÃO::Informe Código dor "
-                + "perfil desejado"," ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("ou a letra 'C' para "
-                + "Cancelar"," ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
+        String strAcao;
+        /*
+         * Linha superior titulo menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Titulo Menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "EDIÇÃO::Informe Código dor perfil desejado",
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        /*
+         * Opções Menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "ou a letra 'C' para Cancelar",
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha Final menu
+         */
+        menu.append(ProjetoStringUtils.rpad("*", "*",QTD_COL_EXTERIOR));
+        /*
+         * Impressão do menu
+         */
         System.out.println(menu);
-        try {
-            acao = leitor.nextLine().toString().toLowerCase();
-            defineAcaoEdicaoMenuPerfil(acao);
-        } catch (Exception e) {
-            System.out.println("##ERRO:: Opção Inválida");
-            showMenuPerfilError();
-        }
+        strAcao = leitor.nextLine().toString().toLowerCase();
+        defineAcaoEdicaoMenuPerfil(strAcao);
     }
    /**
     * Define a ação.
@@ -295,12 +462,12 @@ public class MenuPerfil {
     * @version 1.0.0
     * @return void
     */
-    private void defineAcaoEdicaoMenuPerfil(String acao) {
+    private void defineAcaoEdicaoMenuPerfil(String strAcao) {
         Integer codigoPerfil;
-        if(acao.equals("c")) {
+        if(strAcao.equals("c")) {
             showMenuPerfil();
         }else{
-            codigoPerfil = Integer.parseInt(acao);
+            codigoPerfil = Integer.parseInt(strAcao);
             PerfilView leitorPerfil = new PerfilView();
             leitorPerfil.leitorEdicaoPerfil(codigoPerfil);
         }
@@ -314,23 +481,46 @@ public class MenuPerfil {
      * 
      */
     public void exclusaoMenuPerfil(){
-        Scanner leitor = new Scanner(System.in);
+        Scanner leitor     = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
-        String acao;
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("EXCLUSÃO::Informe Código dor "
-                + "perfil desejado"," ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("ou a letra 'C' para "
-                + "Cancelar"," ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66));
+        String strAcao;
+        /*
+         * Linha superior titulo menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Opções do menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "EXCLUSÃO::Informe Código dor perfil desejado",
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "ou a letra 'C' para Cancelar",
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha final do menu
+         */
+        menu.append(ProjetoStringUtils.rpad("*", "*",QTD_COL_EXTERIOR));
+        /*
+         * Impressão do menu
+         */
         System.out.println(menu);
-        try {
-            acao = leitor.nextLine().toString().toLowerCase();
-            defineAcaoExclusaoMenuPerfil(acao);
-        } catch (Exception e) {
-            System.out.println("##ERRO:: Opção Inválida");
-            showMenuPerfilError();
-        }
+        strAcao = leitor.nextLine().toString().toLowerCase();
+        defineAcaoExclusaoMenuPerfil(strAcao);
     }
    /**
     * Define a ação.
@@ -341,12 +531,12 @@ public class MenuPerfil {
     * @version 1.0.0
     * @return void
     */
-    private void defineAcaoExclusaoMenuPerfil(String acao) {
+    private void defineAcaoExclusaoMenuPerfil(String strAcao) {
         Integer codigoPerfil;
-        if(acao.equals("c")) {
+        if(strAcao.equals("c")) {
             showMenuPerfil();
         }else{
-            codigoPerfil = Integer.parseInt(acao);
+            codigoPerfil = Integer.parseInt(strAcao);
             PerfilView leitorPerfil = new PerfilView();
             leitorPerfil.leitorExclusaoPerfil(codigoPerfil);
         }

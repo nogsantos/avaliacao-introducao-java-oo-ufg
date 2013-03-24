@@ -18,6 +18,12 @@ import projeto.utils.ProjetoStringUtils;
 
 
 public class PerfilView {
+    /*
+     * Instâncias
+     */
+    private MenuPerfil menuPerfil = new MenuPerfil();
+    private Scanner leitor        = new Scanner(System.in);
+    private PerfilService perfil  = new PerfilService();
    /**
     * Formulário de cadastro de perfil.
     * 
@@ -27,29 +33,52 @@ public class PerfilView {
     * @return void
     */
     public void leitorCadastroPerfil(){
+        Integer codigo = 0;
+        /*
+         * Recupera o próximo codigo que será inserido no banco.
+         */
+        try {
+            PerfilImpl nextVal = new PerfilImpl();
+            codigo = nextVal.perfilNextVal();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
         /*
          * Instancia do menu no perfil
          */
-        MenuPerfil menuPerfil = new MenuPerfil();
-        Scanner leitor = new Scanner(System.in);
-        System.out.println(ProjetoStringUtils.rpad("FORMULÁRIO::CADASTRO DE PERFIL "
-                + "", "*",66));
-        PerfilImpl nextVal = new PerfilImpl();
-        Integer codigo = nextVal.perfilNextVal();
+        
+        System.out.println(
+            ProjetoStringUtils.rpad(
+                "FORMULÁRIO::CADASTRO DE PERFIL",
+                "*",
+                66
+            )
+        );
         System.out.println("Codigo: " + codigo);
         Integer codigoPerfil = codigo;
         System.out.println("Nome: ");
-        String nome = leitor.nextLine();
+        String nome = this.leitor.nextLine();
         System.out.println("Descrição: ");
-        String descricao = leitor.nextLine();
-        PerfilService perfil = new PerfilService();            
-
-        if(perfil.incluirPerfil(codigoPerfil, nome, descricao)){
-            System.out.println(ProjetoStringUtils.rpad("SUCESSO:: Dado "
-                    + "inserido com sucesso.", "*",66));
-            menuPerfil.showMenuPerfil();
+        String descricao = this.leitor.nextLine();
+        /*
+         * Inclusão do dado
+         */
+        if(this.perfil.incluirPerfil(
+                codigoPerfil, 
+                nome, 
+                descricao
+            )
+        ){
+            System.out.println(
+                ProjetoStringUtils.rpad(
+                    "SUCESSO:: Dado inserido com sucesso.", 
+                    "*",
+                    66
+                )
+            );
+            this.menuPerfil.showMenuPerfil();
         }else{
-            menuPerfil.showMenuPerfilError();
+            this.menuPerfil.showMenuPerfilError();
         }
     }
    /**
@@ -62,39 +91,74 @@ public class PerfilView {
     */
     public void leitorEdicaoPerfil(Integer codigoPerfilLeitor){
         /*
-         * Instancia do menu no perfil
+         * Titulo do formulário.
          */
-        MenuPerfil menuPerfil = new MenuPerfil();
-        Scanner leitor = new Scanner(System.in);
-        System.out.println(ProjetoStringUtils.rpad("FORMULÁRIO::"
-                + "EDIÇÃO DE PERFIL ", "*",66));
-        try {
-            if(codigoPerfilLeitor >=0 ){
+        System.out.println(
+            ProjetoStringUtils.rpad(
+                "FORMULÁRIO::EDIÇÃO DE PERFIL ",
+                "*",
+                66
+            )
+        );
+        if(codigoPerfilLeitor >=0 ){
+            /*
+             * Leitura dos campos
+             */
+            Integer codigoPerfil = 0;
+            String nome = null;
+            String descricao = null;
+            try {
                 System.out.println("Codigo: " + codigoPerfilLeitor);
-                Integer codigoPerfil = codigoPerfilLeitor;
+                codigoPerfil = codigoPerfilLeitor;
                 System.out.println("Nome: ");
-                String nome = leitor.nextLine().toString();
+                nome = this.leitor.nextLine().toString();
                 System.out.println("Descrição: ");
-                String descricao = leitor.nextLine().toString();
-                PerfilService perfil = new PerfilService();            
-
-                if(perfil.editarPerfil(codigoPerfil, nome, descricao)){
-                    System.out.println(ProjetoStringUtils.rpad("SUCESSO:: "
-                            + "Dado editado com sucesso.", "*",66));
-                    menuPerfil.showMenuPerfil();
-                }else{
-                    System.out.println(ProjetoStringUtils.rpad("***** O pefil "
-                        + "informado não existe! ","*",66));
-                    menuPerfil.showMenuPerfilError();
-                }
-            }else{
-                System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
-                        + "VIEW.LEITORPERFIL::CÓDIGO PERFIL INVÁLIDO", "*",66));
+                descricao = this.leitor.nextLine().toString();
+            } catch (Exception e) {
+                System.err.println(
+                    ProjetoStringUtils.rpad(
+                        "##ERRO.PERFIL.VIEW.LEITORPERFIL ::Erro na leitura dos dados.", 
+                        "*",
+                        66
+                    )
+                );
+                this.menuPerfil.showMenuPerfilError();
             }
-        } catch (Exception e) {
-            System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
-                    + "VIEW.LEITORPERFIL ::Erro na leitura dos dados.", "*",66));
-            menuPerfil.showMenuPerfilError();
+            /*
+             * Edição
+             */
+            if(this.perfil.editarPerfil(
+                    codigoPerfil, 
+                    nome, 
+                    descricao
+                )
+            ){
+                System.out.println(
+                    ProjetoStringUtils.rpad(
+                        "SUCESSO::Dado editado com sucesso.",
+                        "*",
+                        66
+                    )
+                );
+                this.menuPerfil.showMenuPerfil();
+            }else{
+                System.err.println(
+                    ProjetoStringUtils.rpad(
+                        "***** O pefil informado não existe! ",
+                        "*",
+                        66
+                    )
+                );
+                this.menuPerfil.showMenuPerfilError();
+            }
+        }else{
+            System.err.println(
+                ProjetoStringUtils.rpad(
+                    "##ERRO.PERFIL.VIEW.LEITORPERFIL::CÓDIGO PERFIL INVÁLIDO", 
+                    "*",
+                    66
+                )
+            );
         }
     }
    /**
@@ -108,51 +172,71 @@ public class PerfilView {
     public void leitorExclusaoPerfil(Integer codigoPerfilLeitor){
         String confirmacao;
         /*
-         * Instancia do menu no perfil
+         * Titulo do formulário
          */
-        MenuPerfil menuPerfil = new MenuPerfil();
-        Scanner leitor = new Scanner(System.in);
-        System.out.println(ProjetoStringUtils.rpad("FORMULÁRIO::"
-                + "EXCLUSÃO DE PERFIL ", "*",66));
-        try {
-            if(codigoPerfilLeitor >=0 ){
-                System.out.println("Confirma a exclusão do perfil de "
-                        + "Codigo = " + codigoPerfilLeitor +" (S/N)?");
-                confirmacao = leitor.nextLine().toString().toLowerCase();
-                switch (confirmacao) {
-                    case "s":
-                        Integer codigoPerfil = codigoPerfilLeitor;
-                        PerfilService perfil = new PerfilService();
-                        if(perfil.excluirPerfil(codigoPerfil)){
-                            System.out.println(ProjetoStringUtils.rpad("SUCESSO:: "
-                                    + "Dado excluído com sucesso.", "*",66));
-                            menuPerfil.showMenuPerfil();
-                        }else{
-                            System.out.println(ProjetoStringUtils.rpad("***** "
-                                    + "O pefil informado não existe! ","*",66));
-                            menuPerfil.showMenuPerfilError();
-                        }
-                        break;
-                    case "n":
-                        menuPerfil.showMenuPerfil();
-                        break;
-                    default:
-                        System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
-                        + "VIEW.LEITORPERFILEXCLUSÃO::"
-                                + "Opção Inválida.", "*",66));
-                        menuPerfil.showMenuPerfilError();
-                        break;
-                }
-            }else{
-                System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
-                        + "VIEW.LEITORPERFILEXCLUSÃO::"
-                        + "CÓDIGO PERFIL INVÁLIDO", "*",66));
+        System.out.println(
+            ProjetoStringUtils.rpad(
+                "FORMULÁRIO::EXCLUSÃO DE PERFIL ", 
+                "*",
+                66
+            )
+        );
+        if(codigoPerfilLeitor >=0 ){
+            /*
+             * Confirmação da exclusão
+             */
+            System.out.println(
+                "Confirma a exclusão do perfil de Codigo = " 
+                + codigoPerfilLeitor +" (S/N)?");
+            confirmacao = this.leitor.nextLine().toString();
+            switch (confirmacao) {
+                case "s":
+                case "S":
+                    Integer codigoPerfil = codigoPerfilLeitor;
+                    if(this.perfil.excluirPerfil(codigoPerfil)){
+                        System.out.println(
+                            ProjetoStringUtils.rpad(
+                                "SUCESSO::Dado excluído com sucesso.",
+                                "*",
+                                66
+                            )
+                        );
+                        this.menuPerfil.showMenuPerfil();
+                    }else{
+                        System.err.println(
+                            ProjetoStringUtils.rpad(
+                                "***** O pefil informado não existe! ",
+                                "*",
+                                66
+                            )
+                        );
+                        this.menuPerfil.showMenuPerfilError();
+                    }
+                    break;
+                case "n":
+                case "N":
+                    this.menuPerfil.showMenuPerfil();
+                    break;
+                default:
+                    System.err.println(
+                        ProjetoStringUtils.rpad(
+                            "##ERRO.PERFIL.VIEW.LEITORPERFILEXCLUSÃO::Opção Inválida.",
+                            "*",
+                            66
+                        )
+                    );
+                    this.menuPerfil.showMenuPerfilError();
+                    break;
             }
-        } catch (Exception e) {
-            System.err.println(ProjetoStringUtils.rpad("##ERRO.PERFIL."
-                    + "VIEW.LEITORPERFILEXCLUSÃO::"
-                    + "Erro na leitura dos dados.", "*",66));
-            menuPerfil.showMenuPerfilError();
+        }else{
+            System.err.println(
+                ProjetoStringUtils.rpad(
+                    "##ERRO.PERFIL.VIEW.LEITORPERFILEXCLUSÃO::CÓDIGO PERFIL INVÁLIDO", 
+                    "*",
+                    66
+                )
+            );
+            this.menuPerfil.showMenuPerfilError();
         }
     }
 }

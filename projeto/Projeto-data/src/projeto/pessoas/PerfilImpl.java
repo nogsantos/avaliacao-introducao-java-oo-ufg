@@ -73,9 +73,7 @@ public class PerfilImpl implements PerfilDAO{
             this.mensagem.append("Erro na inserção dos dados.: \n");
             this.mensagem.append(e.getMessage());
             throw new SQLException(this.mensagem.toString());
-        } finally {
-            fecharConexao();
-        }
+        } 
     }
     /**
      * Retorna o próximo número da sequência na listagem dos perfis.
@@ -126,9 +124,7 @@ public class PerfilImpl implements PerfilDAO{
             this.mensagem.append("Erro na edição do dado.: \n");
             this.mensagem.append(e.getMessage());
             throw new SQLException(this.mensagem.toString());
-        } finally {
-            fecharConexao();
-        }
+        } 
     }
     /**
      * Método excluir
@@ -155,9 +151,7 @@ public class PerfilImpl implements PerfilDAO{
             this.mensagem.append("Erro na exclusão do dado.:\n");
             this.mensagem.append(e.getMessage());
             throw new SQLException(this.mensagem.toString());
-        } finally {
-            fecharConexao();
-        }
+        } 
     }
     /**
      * Método listar.
@@ -195,9 +189,7 @@ public class PerfilImpl implements PerfilDAO{
             this.mensagem.append("Erro na listagem dos dados.:\n");
             this.mensagem.append(e.getSQLState());
             throw new SQLException(this.mensagem.toString());
-        } finally {
-            fecharConexao();
-        }
+        } 
     }
     /**
      * Método getByCodigo.
@@ -274,9 +266,7 @@ public class PerfilImpl implements PerfilDAO{
                 this.mensagem.append("Código Inválido");
                 this.mensagem.append(e.getMessage());
                 throw new SQLException(this.mensagem.toString());
-            } finally {
-                fecharConexao();
-            }
+            } 
         }else{
             this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.CONFIRMAPERFIL::");
             this.mensagem.append("Código Inválido");
@@ -284,18 +274,11 @@ public class PerfilImpl implements PerfilDAO{
             return false;
         }
     }
-    /**
-     * Fecha conexão 
-     */
-    private void fecharConexao() {
-        try {
-            this.statement.close();
-            this.connection.close();
-        } catch (SQLException ex) {
-            this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.CONFIRMAR::");
-            this.mensagem.append("Erro ao desconectar do banco de dados.: \n");
-            this.mensagem.append(ex.getMessage());
-            System.err.println(this.mensagem.toString());
-        }
-    }
+//    /**
+//     * Fecha conexão 
+//     */
+//    private void fecharConexao() throws SQLException{
+//        this.statement.close();
+//        this.connection.close();
+//    }
 }

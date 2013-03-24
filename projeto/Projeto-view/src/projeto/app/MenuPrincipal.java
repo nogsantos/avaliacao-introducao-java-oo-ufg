@@ -43,6 +43,12 @@ public class MenuPrincipal {
     private static final int LISTAR_MODULO        = 18;
     private static final int LISTAR_FORMULARIO    = 19;
     private static final int LISTAR_FUNCAO        = 20;
+    /*
+     * Definindo a quantidade de colunas
+     */
+    private static final int QTD_COL_EXTERIOR     = 66;
+    private static final int QTD_COL_INTERIOR     = 65;
+    private static final int QTD_COL_OPCOES       = 21;
    /**
     * Implementação do menu.
     * 
@@ -55,88 +61,297 @@ public class MenuPrincipal {
         Scanner leitor = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
         Integer acao;
-
-        menu.append(ProjetoStringUtils.rpad("MENU PRINCIPAL ",
-                "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("Digite o número da opção desejada:"
-                + " ", " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", 
-                "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("0. Encerrar Sistema ", 
-                " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("CADASTROS", 
-                " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("1. Perfil", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 2. Usuário", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 3. Módulo",
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("4. Formulário", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 5. Funções", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", 
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", 
-                "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("EDIÇÃO", 
-                " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("6. Perfil", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 7. Usuário", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 8. Módulo", 
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("9. Formulário", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 10. Funções", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", 
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*",
-                "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("EXCLUSÃO", 
-                " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("11. Perfil", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 12. Usuário", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 13. Módulo", 
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("14. Formulário", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 15. Funções", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", 
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*",
-                "*",66)).append("\n");
-        menu.append(ProjetoStringUtils.rpad("RELATÓRIOS", 
-                " ",65)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("16. Perfil", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 17. Usuário", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 18. Módulo", 
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("19. Formulário",
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" 20. Funções", 
-                " ",21)).append("*");
-        menu.append(ProjetoStringUtils.rpad(" ", 
-                " ",21)).append("*").append("\n");
-        menu.append(ProjetoStringUtils.rpad("*", 
-                "*",66)).append("\n");
+        /*
+         * Titulo
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "MENU PRINCIPAL ",
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Sub-titulo
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "Digite o número da opção desejada:",
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha inferior titulo
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Opções do menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "0. Encerrar Sistema ", 
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Grupo Cadastros
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "CADASTROS", 
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "1. Perfil", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 2. Usuário", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 3. Módulo",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "4. Formulário", 
+                " ",
+                QTD_COL_OPCOES
+                )
+            ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 5. Funções", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(" ", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR 
+            )
+        ).append("\n");
+        /*
+         * Edição
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "EDIÇÃO", 
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "6. Perfil", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 7. Usuário", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 8. Módulo", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "9. Formulário", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 10. Funções", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " ", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*",
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Exclusão
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "EXCLUSÃO", 
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "11. Perfil", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 12. Usuário", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 13. Módulo", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "14. Formulário", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 15. Funções", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " ", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*",
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Listagens
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "LISTAGENS", 
+                " ",
+                QTD_COL_INTERIOR
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "16. Perfil", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 17. Usuário", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 18. Módulo", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "19. Formulário",
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " 20. Funções", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*");
+        menu.append(
+            ProjetoStringUtils.rpad(
+                " ", 
+                " ",
+                QTD_COL_OPCOES
+            )
+        ).append("*").append("\n");
+        /*
+         * Linha final menu
+         */
+        menu.append(
+            ProjetoStringUtils.rpad(
+                "*", 
+                "*",
+                QTD_COL_EXTERIOR
+            )
+        ).append("\n");
+        /*
+         * Impressão do menu
+         */
         System.out.println(menu);
-        try {
-            acao = leitor.nextInt();
-            defineAcaoMenu(acao);
-        } catch (Exception e) {
-            System.out.println("##ERRO:: Opção Inválida");
-            showMenu();
-        }
+        acao = leitor.nextInt();
+        defineAcaoMenu(acao);
     }
    /**
     * Define a ação que será tomada com base na escolha realizada pelo 
@@ -150,25 +365,20 @@ public class MenuPrincipal {
     private static void defineAcaoMenu(int acao) {
         switch (acao) {
             case CADASTRA_PERFIL:
-                try {
-                    PerfilView perfilView = new PerfilView();
-                    perfilView.leitorCadastroPerfil();
-                } catch (Exception e) {
-                    System.out.println("##ERRO:: Opção Inválida");
-                    showMenu();
-                }
+                PerfilView perfilView = new PerfilView();
+                perfilView.leitorCadastroPerfil();
                 break;
             case CADASTRAR_USUARIO:
-                System.out.println("Cadastro de usuário");
+                System.err.println("Cadastro de usuário - Não Implementado");
                 break;
             case CADASTRAR_MODULO:
-                System.out.println("Cadastro de modulos");
+                System.err.println("Cadastro de modulos  - Não Implementado");
                 break;
             case CADASTRAR_FORMULARIO:
-                System.out.println("Cadastro de formulários");
+                System.err.println("Cadastro de formulários - Não Implementado");
                 break;
             case CADASTRAR_FUNCAO:
-                System.out.println("Cadastro de funções");
+                System.err.println("Cadastro de funções - Não Implementado");
                 break;
             case EDITAR_PERFIL:
                 PerfilService editarPerfil = new PerfilService();
@@ -177,16 +387,16 @@ public class MenuPrincipal {
                 editarMenuPerfil.edicaoMenuPerfil();
                 break;
             case EDITAR_USUARIO:
-                System.out.println("Edição de usuário");
+                System.err.println("Edição de usuário - Não Implementado");
                 break;
             case EDITAR_MODULO:
-                System.out.println("Edição de módulos");
+                System.err.println("Edição de módulos - Não Implementado");
                 break;
             case EDITAR_FORMULARIO:
-                System.out.println("Edição de Formulários");
+                System.err.println("Edição de Formulários - Não Implementado");
                 break;
             case EDITAR_FUNCAO:
-                System.out.println("Edição de funções");
+                System.err.println("Edição de funções - Não Implementado");
                 break;
             case EXCLUIR_PERFIL:
                 PerfilService excluirPerfil = new PerfilService();
@@ -195,16 +405,16 @@ public class MenuPrincipal {
                 excluirMenuPerfil.exclusaoMenuPerfil();
                 break;
             case EXCLUIR_USUARIO:
-                System.out.println("Exclusão de usuário");
+                System.err.println("Exclusão de usuário - Não Implementado");
                 break;
             case EXCLUIR_MODULO:
-                System.out.println("Exclusão de módulos");
+                System.err.println("Exclusão de módulos - Não Implementado");
                 break;
             case EXCLUIR_FORMULARIO:
-                System.out.println("Exclusão de formulários");
+                System.err.println("Exclusão de formulários - Não Implementado");
                 break;
             case EXCLUIR_FUNCAO:
-                System.out.println("Exclusão de funções");
+                System.err.println("Exclusão de funções - Não Implementado");
                 break;
             case LISTAR_PERFIL:
                 PerfilService listarPerfil = new PerfilService();
@@ -213,16 +423,16 @@ public class MenuPrincipal {
                 listarMenuPerfil.listagemMenuPerfil();
                 break;
             case LISTAR_USUARIO:
-                System.out.println("Relatório de usuários");
+                System.err.println("Relatório de usuários - Não Implementado");
                 break;
             case LISTAR_MODULO:
-                System.out.println("Relatório de módulos");
+                System.err.println("Relatório de módulos - Não Implementado");
                 break;
             case LISTAR_FORMULARIO:
-                System.out.println("Relatório de formulários");
+                System.err.println("Relatório de formulários - Não Implementado");
                 break;
             case LISTAR_FUNCAO:
-                System.out.println("Relatório de funções");
+                System.err.println("Relatório de funções - Não Implementado");
                 break;
             case SAIR:
                 System.exit(0);

@@ -60,16 +60,15 @@ public class PerfilService implements PerfilInterface {
     public boolean editarPerfil(Integer codigoPerfil, 
             String nome, String descricao){
         
-//        PerfilImpl perfilimp = new PerfilImpl();
-//        if(perfilimp.confirmaPerfil(codigoPerfil)){
-            Perfil perfil = new Perfil();
-            perfil.setCodigoPerfil(codigoPerfil);
-            perfil.setNome(nome);
-            perfil.setDescricao(descricao);
+        Perfil perfil = new Perfil();
+        perfil.setCodigoPerfil(codigoPerfil);
+        perfil.setNome(nome);
+        perfil.setDescricao(descricao);
+        try {           
             return this.dados.editar(perfil);
-//        }else{
-//            return false;
-//        }
+        } catch (SQLException ex) {
+            return  false;
+        }
     }
     /**
      * Exclusão dos dados.
@@ -84,14 +83,13 @@ public class PerfilService implements PerfilInterface {
     @Override
     public boolean excluirPerfil(Integer codigoPerfil){
         
-//        PerfilImpl perfilimp = new PerfilImpl();
-//        if(perfilimp.confirmaPerfil(codigoPerfil)){
-            Perfil perfil = new Perfil();
-            perfil.setCodigoPerfil(codigoPerfil);
+        Perfil perfil = new Perfil();
+        perfil.setCodigoPerfil(codigoPerfil);
+        try {
             return this.dados.excluir(perfil);
-//        }else{
-//            return false;
-//        }
+        } catch (SQLException ex) {
+            return false;
+        }
     }
     /**
      * Implementação da listagem dos perfis.
@@ -100,26 +98,63 @@ public class PerfilService implements PerfilInterface {
      */
     @Override
     public void listarPerfis() {
-        List<Perfil> listaDePerfis = this.dados.listar();
+        List<Perfil> listaDePerfis = null;
+        try {
+            listaDePerfis = this.dados.listar();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState());
+        }
         StringBuilder listagemPerfil = new StringBuilder();
         int count = 0;
         if (!listaDePerfis.isEmpty()) {
             /*
              * Cabeçalho
              */
-            listagemPerfil.append(ProjetoStringUtils.rpad("***** "
-                    + "LISTAGEM DE PERFIS ", "*",66)).append("\n");
-            listagemPerfil.append(ProjetoStringUtils.rpad("-", 
-                    "-",66)).append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "***** LISTAGEM DE PERFIS ", 
+                    "*",
+                    66
+                )
+            ).append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    66
+                )
+            ).append("\n");
             /*
              * Titulos da tabela
              */
-            listagemPerfil.append(ProjetoStringUtils.rpad("| Codigo ", " ",8));
-            listagemPerfil.append(ProjetoStringUtils.rpad("| Nome ", " ",25));
-            listagemPerfil.append(ProjetoStringUtils.rpad("| Descrição ", 
-                    " ",31)).append("|").append("\n");
-            listagemPerfil.append(ProjetoStringUtils.rpad("-", 
-                    "-",66)).append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "| Codigo ",
+                    " ",
+                    8
+                )
+            );
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "| Nome ", 
+                    " ",
+                    25
+                )
+            );
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "| Descrição ", 
+                    " ",
+                    31
+                )
+            ).append("|").append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    66
+                )
+            ).append("\n");
             /*
              * Dados da tabela
              */
@@ -146,8 +181,13 @@ public class PerfilService implements PerfilInterface {
                     + " registros", " ", 66)).append("\n");
             System.out.println(listagemPerfil);
         } else {
-            System.out.println(ProjetoStringUtils.rpad("***** O pefil "
-                    + "Tabela de Perfis está vazia "," * ",66));
+            System.out.println(
+                ProjetoStringUtils.rpad(
+                    "***** O pefil Tabela de Perfis está vazia ",
+                    " * ",
+                    66
+                )
+            );
         }
     } 
 }
