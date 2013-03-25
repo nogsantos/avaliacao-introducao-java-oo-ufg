@@ -23,8 +23,11 @@ import java.util.List;
 import projeto.conexao.Conexao;
 
 public class PerfilImpl implements PerfilDAO{
-    private Connection connection = new Conexao().getConnection();
-    private StringBuilder sSql = new StringBuilder();
+    /*
+     * Instancição dos atributos da classe
+     */
+    private Connection connection  = new Conexao().getConnection();
+    private StringBuilder sSql     = new StringBuilder();
     private StringBuilder mensagem = new StringBuilder();
     private PreparedStatement preStatement;
     private Statement statement;
@@ -33,17 +36,9 @@ public class PerfilImpl implements PerfilDAO{
      * Contrutor
      */
     public PerfilImpl() {
-        try {
-            this.connection.setAutoCommit(true);
-            this.preStatement = null;
-            this.statement = null;
-            this.resultSet = null;
-        } catch (Exception ex) {
-            this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.CONSTRUTOR::");
-            this.mensagem.append("Problemas na construção.: \n");
-            this.mensagem.append(ex.getMessage());
-            System.err.println(this.mensagem);
-        }
+        this.preStatement = null;
+        this.statement    = null;
+        this.resultSet    = null;
     }
     /**
      * Método cadastrar
@@ -66,6 +61,7 @@ public class PerfilImpl implements PerfilDAO{
             this.preStatement.setInt(1, perfil.getCodigoPerfil());
             this.preStatement.setString(2, perfil.getNome());
             this.preStatement.setString(3, perfil.getDescricao());
+            this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -87,6 +83,7 @@ public class PerfilImpl implements PerfilDAO{
         this.sSql.append("SELECT MAX(codigo_perfil) + 1 as max FROM perfil");
         try {
             this.statement = this.connection.createStatement();
+            this.connection.setAutoCommit(true);
             this.resultSet = this.statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
                 valor = this.resultSet.getString("MAX");
@@ -117,6 +114,7 @@ public class PerfilImpl implements PerfilDAO{
             this.preStatement.setString(1, perfil.getNome());
             this.preStatement.setString(2, perfil.getDescricao());
             this.preStatement.setInt(3, perfil.getCodigoPerfil());
+            this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -144,6 +142,7 @@ public class PerfilImpl implements PerfilDAO{
                     this.sSql.toString()
             );
             this.preStatement.setInt(1, perfil.getCodigoPerfil());
+            this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -174,6 +173,7 @@ public class PerfilImpl implements PerfilDAO{
         this.sSql.append("  codigo_perfil DESC                               ");
         try {
             this.statement = this.connection.createStatement();
+            this.connection.setAutoCommit(true);
             this.resultSet = statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
                 Perfil perfilList = new Perfil();
@@ -212,6 +212,7 @@ public class PerfilImpl implements PerfilDAO{
             this.sSql.append(codigoPerfil);
             try {
                 this.statement = this.connection.createStatement();
+                this.connection.setAutoCommit(true);
                 this.resultSet = statement.executeQuery(this.sSql.toString());
                 Perfil perfil = new Perfil();
                 while (this.resultSet.next()) {
@@ -254,6 +255,7 @@ public class PerfilImpl implements PerfilDAO{
             this.sSql.append(codigoPerfil);
             try {
                 this.statement = this.connection.createStatement();
+                this.connection.setAutoCommit(true);
                 this.resultSet = this.statement.executeQuery(this.sSql.toString());
                 if(this.resultSet.wasNull()){
                     return false;
@@ -274,11 +276,4 @@ public class PerfilImpl implements PerfilDAO{
             return false;
         }
     }
-//    /**
-//     * Fecha conexão 
-//     */
-//    private void fecharConexao() throws SQLException{
-//        this.statement.close();
-//        this.connection.close();
-//    }
 }

@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Conexao {
-    private static final int BANCO = 1;
+    private static final int BANCO = 0;
     private static final int DB_ORACLE = 0;
     private static final int DB_POSTGRESQL = 1;
     

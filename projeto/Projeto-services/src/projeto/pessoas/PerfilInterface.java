@@ -13,11 +13,8 @@ public interface PerfilInterface {
      * @author Fabricio Nogueira
      * @version 1.0.0
      *
-     * @todo Verificar se o codigo do perfil informado já existe na base
-     * de dados, o método implementado para isso foi confirmaPerfil();
-     *
      */
-    boolean editarPerfil(Integer codigoPerfil, String nome, String descricao);
+    boolean editar();
 
     /**
      * Exclusão dos dados.
@@ -25,11 +22,8 @@ public interface PerfilInterface {
      * @author Fabricio Nogueira
      * @version 1.0.0
      *
-     * @todo Verificar se o codigo do perfil informado já existe na base
-     * de dados, o método implementado para isso foi confirmaPerfil();
-     *
      */
-    boolean excluirPerfil(Integer codigoPerfil);
+    boolean excluir();
 
     /**
      * cadastro dos dados.
@@ -38,13 +32,13 @@ public interface PerfilInterface {
      * @version 1.0.0
      *
      */
-    boolean incluirPerfil(Integer codigoPerfil, String nome, String descricao);
+    boolean cadastrar();
 
     /**
      * Implementação da listagem dos perfis.
      * @author Fabricio Nogueira
      * @version 1.0.0
      */
-    void listarPerfis();
+    void listar();
     
 }

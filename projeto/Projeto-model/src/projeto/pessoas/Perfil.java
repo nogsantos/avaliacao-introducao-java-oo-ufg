@@ -24,7 +24,7 @@ public class Perfil {
         return codigoPerfil;
     }
 
-    public void setCodigoPerfil(Integer codigoPerfil) {
+    public void setCodigoPerfil(Integer codigoPerfil){
         this.codigoPerfil = codigoPerfil;
     }
     
@@ -32,16 +32,23 @@ public class Perfil {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws NullPointerException{
+        if(!nome.isEmpty()){
+            this.nome = nome;
+        }else{
+            throw new NullPointerException("Nome Inválido.");
+        }
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao(String descricao) throws NullPointerException {
+        if(!descricao.isEmpty()){
+            this.descricao = descricao;
+        }else{
+            throw new NullPointerException("Descrição Inválida.");
+        }
     }
-    
 }

@@ -14,6 +14,9 @@
 package projeto.app;
 
 import java.util.Scanner;
+import projeto.modulos.MenuModulo;
+import projeto.modulos.ModuloService;
+import projeto.modulos.ModuloView;
 import projeto.pessoas.MenuPerfil;
 import projeto.pessoas.PerfilService;
 import projeto.pessoas.PerfilView;
@@ -58,7 +61,7 @@ public class MenuPrincipal {
     * @return void
     */
     public static void showMenu() {
-        Scanner leitor = new Scanner(System.in);
+        Scanner leitor     = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
         Integer acao;
         /*
@@ -349,9 +352,17 @@ public class MenuPrincipal {
         /*
          * Impressão do menu
          */
-        System.out.println(menu);
-        acao = leitor.nextInt();
-        defineAcaoMenu(acao);
+        try {
+            System.out.println(menu);
+            acao = leitor.nextInt();
+            defineAcaoMenu(acao);
+        } catch (NullPointerException e) {
+            System.err.println("##ERRO:: " + e.getMessage());
+        } catch (Exception ex) {
+            System.err.println("##ERRO:: Opção Inválida. ");
+        } finally{
+            showMenu();
+        }
     }
    /**
     * Define a ação que será tomada com base na escolha realizada pelo 
@@ -372,7 +383,8 @@ public class MenuPrincipal {
                 System.err.println("Cadastro de usuário - Não Implementado");
                 break;
             case CADASTRAR_MODULO:
-                System.err.println("Cadastro de modulos  - Não Implementado");
+                ModuloView moduloView = new ModuloView();
+                moduloView.leitorCadastroModulo();
                 break;
             case CADASTRAR_FORMULARIO:
                 System.err.println("Cadastro de formulários - Não Implementado");
@@ -382,7 +394,7 @@ public class MenuPrincipal {
                 break;
             case EDITAR_PERFIL:
                 PerfilService editarPerfil = new PerfilService();
-                editarPerfil.listarPerfis();
+                editarPerfil.listar();
                 MenuPerfil editarMenuPerfil = new MenuPerfil();
                 editarMenuPerfil.edicaoMenuPerfil();
                 break;
@@ -390,7 +402,10 @@ public class MenuPrincipal {
                 System.err.println("Edição de usuário - Não Implementado");
                 break;
             case EDITAR_MODULO:
-                System.err.println("Edição de módulos - Não Implementado");
+                ModuloService editarModulo = new ModuloService();
+                editarModulo.listar();
+                MenuModulo editarMenuModulo = new MenuModulo();
+                editarMenuModulo.edicaoMenuModulo();
                 break;
             case EDITAR_FORMULARIO:
                 System.err.println("Edição de Formulários - Não Implementado");
@@ -400,7 +415,7 @@ public class MenuPrincipal {
                 break;
             case EXCLUIR_PERFIL:
                 PerfilService excluirPerfil = new PerfilService();
-                excluirPerfil.listarPerfis();
+                excluirPerfil.listar();
                 MenuPerfil excluirMenuPerfil = new MenuPerfil();
                 excluirMenuPerfil.exclusaoMenuPerfil();
                 break;
@@ -418,7 +433,7 @@ public class MenuPrincipal {
                 break;
             case LISTAR_PERFIL:
                 PerfilService listarPerfil = new PerfilService();
-                listarPerfil.listarPerfis();
+                listarPerfil.listar();
                 MenuPerfil listarMenuPerfil = new MenuPerfil();
                 listarMenuPerfil.listagemMenuPerfil();
                 break;
@@ -426,7 +441,10 @@ public class MenuPrincipal {
                 System.err.println("Relatório de usuários - Não Implementado");
                 break;
             case LISTAR_MODULO:
-                System.err.println("Relatório de módulos - Não Implementado");
+                ModuloService listarModulo = new ModuloService();
+                listarModulo.listar();
+                MenuModulo listarMenuModulo = new MenuModulo();
+                listarMenuModulo.listagemMenuModulo();
                 break;
             case LISTAR_FORMULARIO:
                 System.err.println("Relatório de formulários - Não Implementado");

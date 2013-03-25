@@ -23,7 +23,6 @@ public class PerfilView {
      */
     private MenuPerfil menuPerfil = new MenuPerfil();
     private Scanner leitor        = new Scanner(System.in);
-    private PerfilService perfil  = new PerfilService();
    /**
     * Formulário de cadastro de perfil.
     * 
@@ -61,14 +60,14 @@ public class PerfilView {
         System.out.println("Descrição: ");
         String descricao = this.leitor.nextLine();
         /*
-         * Inclusão do dado
+         * Cadastrar
          */
-        if(this.perfil.incluirPerfil(
+        PerfilService perfilCadastrar = new PerfilService(
                 codigoPerfil, 
                 nome, 
                 descricao
-            )
-        ){
+        );
+        if(perfilCadastrar.cadastrar()){
             System.out.println(
                 ProjetoStringUtils.rpad(
                     "SUCESSO:: Dado inserido com sucesso.", 
@@ -127,12 +126,12 @@ public class PerfilView {
             /*
              * Edição
              */
-            if(this.perfil.editarPerfil(
-                    codigoPerfil, 
-                    nome, 
-                    descricao
-                )
-            ){
+            PerfilService perfilEditar = new PerfilService(
+                codigoPerfil, 
+                nome, 
+                descricao
+            );
+            if(perfilEditar.editar()){
                 System.out.println(
                     ProjetoStringUtils.rpad(
                         "SUCESSO::Dado editado com sucesso.",
@@ -193,7 +192,10 @@ public class PerfilView {
                 case "s":
                 case "S":
                     Integer codigoPerfil = codigoPerfilLeitor;
-                    if(this.perfil.excluirPerfil(codigoPerfil)){
+                    PerfilService perfilExcluir = new PerfilService(
+                        codigoPerfil
+                    );
+                    if(perfilExcluir.excluir()){
                         System.out.println(
                             ProjetoStringUtils.rpad(
                                 "SUCESSO::Dado excluído com sucesso.",

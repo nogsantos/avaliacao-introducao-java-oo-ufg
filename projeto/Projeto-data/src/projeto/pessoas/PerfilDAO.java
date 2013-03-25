@@ -19,44 +19,60 @@ import java.util.List;
 public interface PerfilDAO {
     /**
      * Cadastro dos dados.
-     *
+     * Implementação do cadastro de dados.
+     * 
      * @author Fabricio Nogueira
      * @version 1.0.0
+     * @since 25-Mar-2013
+     * @return Boolean, sucesso ou fracasso ao cadastrar.
+     * @exception Gera uma exceção de sql (SqlException).
      *
      */
     public boolean cadastrar(Perfil perfil) throws SQLException;
     /**
      * Editação dos dados.
-     *
+     * Implementa a edição dos dados
+     * 
      * @author Fabricio Nogueira
      * @version 1.0.0
-     *
-     * @todo Verificar se o codigo do perfil informado já existe na base
-     * de dados, o método implementado para isso foi confirmaPerfil();
+     * @since 25-Mar-2013
+     * @return Boolean, sucesso ou fracasso ao cadastrar.
+     * @exception Gera uma exceção de sql (SqlException).
      *
      */
     public boolean editar(Perfil perfil) throws SQLException;
     /**
      * Exclusão dos dados.
-     *
+     * Implementa a edição dos dados.
+     * 
      * @author Fabricio Nogueira
      * @version 1.0.0
+     * @since 25-Mar-2013
+     * @return Boolean, sucesso ou fracasso ao cadastrar.
+     * @exception Gera uma exceção de sql (SqlException).
      *
      */
     public boolean excluir(Perfil perfil) throws SQLException;
     /**
      * Listagem dos dados.
-     *
+     * Listagem dos dados cadastrados.
+     * 
      * @author Fabricio Nogueira
      * @version 1.0.0
+     * @since 25-Mar-2013
+     * @return Boolean, sucesso ou fracasso ao cadastrar.
+     * @exception Gera uma exceção de sql (SqlException).
      *
      */
     public List<Perfil> listar() throws SQLException;
     /**
-     * Recuperação de um dado pelo identificado.
-     *
+     * Recuperação de um dado pelo seu identificador.
+     * 
      * @author Fabricio Nogueira
      * @version 1.0.0
+     * @since 25-Mar-2013
+     * @return Boolean, sucesso ou fracasso ao cadastrar.
+     * @exception Gera uma exceção de sql (SqlException).
      *
      */
     public Perfil getByCodigo(int codigoPerfil) throws SQLException;

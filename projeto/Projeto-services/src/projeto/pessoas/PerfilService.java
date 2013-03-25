@@ -118,9 +118,9 @@ public class PerfilService implements PerfilInterface {
         StringBuilder listagemPerfil = new StringBuilder();
         int count = 0;
         if (listaDePerfis.isEmpty()) {
-            System.out.println(
+            System.err.println(
                 ProjetoStringUtils.rpad(
-                    "***** O pefil Tabela de Perfis está vazia ",
+                    "***** A Tabela de Perfis está vazia ",
                     " * ",
                     66
                 )
@@ -162,7 +162,7 @@ public class PerfilService implements PerfilInterface {
             );
             listagemPerfil.append(
                 ProjetoStringUtils.rpad(
-                    "| Descrição ", 
+                    "| Descrição ",     
                     " ",
                     31
                 )
@@ -178,15 +178,27 @@ public class PerfilService implements PerfilInterface {
              * Dados da tabela
              */
             for (Perfil perfilList : listaDePerfis){
-                listagemPerfil.append("| "
-                        + "").append(ProjetoStringUtils.rpad(Integer.toString(
-                        perfilList.getCodigoPerfil()), " ", 7)).append("|");
+                listagemPerfil.append("| ").append(
+                    ProjetoStringUtils.rpad(
+                        perfilList.getCodigoPerfil().toString(), 
+                        " ", 
+                        7
+                    )
+                ).append("|");
                 listagemPerfil.append(
-                        ProjetoStringUtils.rpad(perfilList.getNome(), 
-                        " ", 24)).append("|");
+                    ProjetoStringUtils.rpad(
+                        perfilList.getNome(), 
+                        " ",
+                        24
+                    )
+                ).append("|");
                 listagemPerfil.append(
-                        ProjetoStringUtils.rpad(perfilList.getDescricao(),
-                        " ", 30));
+                    ProjetoStringUtils.rpad(
+                        perfilList.getDescricao(),
+                        " ", 
+                        30
+                    )
+                );
                 listagemPerfil.append("|");
                 listagemPerfil.append("\n");
                 count ++;
@@ -194,10 +206,19 @@ public class PerfilService implements PerfilInterface {
             /*
              * Rodapé 
              */
-            listagemPerfil.append(ProjetoStringUtils.rpad("-", 
-                    "-",66)).append("\n");
-            listagemPerfil.append(ProjetoStringUtils.lpad("Total de "+count+""
-                    + " registros", " ", 66)).append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    66
+                )
+            ).append("\n");
+            listagemPerfil.append(ProjetoStringUtils.lpad(
+                    "Total de "+count+" registros", 
+                    " ", 
+                    66
+                )
+            ).append("\n");
             System.out.println(listagemPerfil);
         }
     } 

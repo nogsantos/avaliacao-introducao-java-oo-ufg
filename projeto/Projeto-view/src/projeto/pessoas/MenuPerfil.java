@@ -122,9 +122,14 @@ public class MenuPerfil {
         /*
          * Impressão do menu
          */
-        System.out.println(menu);
-        intAcao = leitor.nextInt();
-        defineAcaoMenuPerfil(intAcao);
+        try {
+            System.out.println(menu);
+            intAcao = leitor.nextInt();
+            defineAcaoMenuPerfil(intAcao);
+        } catch (Exception e) {
+            System.err.println("##ERRO:: " + e.getMessage());
+            showMenuPerfil();
+        }
     }
    /**
     * Define a ação.
@@ -145,7 +150,7 @@ public class MenuPerfil {
                  * Listando perfis cadastrados
                  */
                 PerfilService editarPerfil = new PerfilService();
-                editarPerfil.listarPerfis();
+                editarPerfil.listar();
                 /*
                  * Menu com as opções de edição
                  */
@@ -157,7 +162,7 @@ public class MenuPerfil {
                  * Listando perfis cadastrados
                  */
                 PerfilService excluirPerfil = new PerfilService();
-                excluirPerfil.listarPerfis();
+                excluirPerfil.listar();
                 /*
                  * Menu com as opções de exclusão
                  */
@@ -169,7 +174,7 @@ public class MenuPerfil {
                  * Listagem dos perfis
                  */
                 PerfilService perfil = new PerfilService();
-                perfil.listarPerfis();
+                perfil.listar();
                 /*
                  * Menu listagem
                  */
@@ -268,9 +273,14 @@ public class MenuPerfil {
         /*
          * Impressão do menu
          */
-        System.out.println(menu);
-        intAcao = leitor.nextInt();
-        defineAcaoMenuPerfilError(intAcao);
+        try {
+            System.out.println(menu);
+            intAcao = leitor.nextInt();
+            defineAcaoMenuPerfilError(intAcao);
+        } catch (Exception e) {
+            System.err.println("##ERRO:: " + e.getMessage());
+            showMenuPerfilError();
+        }
     }
    /**
     * Define a ação.
@@ -371,9 +381,14 @@ public class MenuPerfil {
         /*
          * Impressão do menu
          */
-        System.out.println(menu);
-        intAcao = leitor.nextInt();
-        defineAcaoListagemMenuPerfil(intAcao);
+        try {
+            System.out.println(menu);
+            intAcao = leitor.nextInt();
+            defineAcaoListagemMenuPerfil(intAcao);
+        } catch (Exception e) {
+            System.err.println("##ERRO:: " + e.getMessage());
+            listagemMenuPerfil();
+        }
     }
    /**
     * Define a ação.
@@ -449,9 +464,14 @@ public class MenuPerfil {
         /*
          * Impressão do menu
          */
-        System.out.println(menu);
-        strAcao = leitor.nextLine().toString().toLowerCase();
-        defineAcaoEdicaoMenuPerfil(strAcao);
+        try {
+            System.out.println(menu);
+            strAcao = leitor.nextLine().toString().toLowerCase();
+            defineAcaoEdicaoMenuPerfil(strAcao);
+        } catch (Exception e) {
+            System.err.println("##ERRO:: " + e.getMessage());
+            edicaoMenuPerfil();
+        }
     }
    /**
     * Define a ação.
@@ -518,9 +538,14 @@ public class MenuPerfil {
         /*
          * Impressão do menu
          */
-        System.out.println(menu);
-        strAcao = leitor.nextLine().toString().toLowerCase();
-        defineAcaoExclusaoMenuPerfil(strAcao);
+        try {
+            System.out.println(menu);
+            strAcao = leitor.nextLine().toString().toLowerCase();
+            defineAcaoExclusaoMenuPerfil(strAcao);
+        } catch (Exception e) {
+            System.err.println("##ERRO:: " + e.getMessage());
+            exclusaoMenuPerfil();
+        }
     }
    /**
     * Define a ação.

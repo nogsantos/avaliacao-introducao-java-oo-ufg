@@ -33,16 +33,24 @@ public class Modulo {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws NullPointerException{
+        if(!nome.isEmpty()){
+            this.nome = nome;
+        }else{
+            throw new NullPointerException("Nome Inválido.");
+        }
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao(String descricao) throws NullPointerException{
+        if(!descricao.isEmpty()){
+            this.descricao = descricao;
+        }else{
+            throw new NullPointerException("Descrição Inválida.");
+        }
     }
 
     public Integer getOrdem() {
@@ -50,6 +58,6 @@ public class Modulo {
     }
 
     public void setOrdem(Integer ordem) {
-        this.ordem = ordem;
+        this.ordem = ordem >= 0 ? ordem : 0;
     }
 }
