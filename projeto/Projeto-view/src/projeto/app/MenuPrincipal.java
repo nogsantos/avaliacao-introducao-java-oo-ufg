@@ -14,6 +14,9 @@
 package projeto.app;
 
 import java.util.Scanner;
+import projeto.modulos.FormularioService;
+import projeto.modulos.FormularioView;
+import projeto.modulos.MenuFormulario;
 import projeto.modulos.MenuModulo;
 import projeto.modulos.ModuloService;
 import projeto.modulos.ModuloView;
@@ -387,7 +390,8 @@ public class MenuPrincipal {
                 moduloView.leitorCadastroModulo();
                 break;
             case CADASTRAR_FORMULARIO:
-                System.err.println("Cadastro de formulários - Não Implementado");
+                FormularioView formularioView = new FormularioView();
+                formularioView.leitorCadastroFormulario();
                 break;
             case CADASTRAR_FUNCAO:
                 System.err.println("Cadastro de funções - Não Implementado");
@@ -408,7 +412,10 @@ public class MenuPrincipal {
                 editarMenuModulo.edicaoMenuModulo();
                 break;
             case EDITAR_FORMULARIO:
-                System.err.println("Edição de Formulários - Não Implementado");
+                FormularioService editarFormulario = new FormularioService();
+                editarFormulario.listar();
+                MenuFormulario editarMenuFormulario = new MenuFormulario();
+                editarMenuFormulario.edicaoMenuFormulario();
                 break;
             case EDITAR_FUNCAO:
                 System.err.println("Edição de funções - Não Implementado");
@@ -423,10 +430,16 @@ public class MenuPrincipal {
                 System.err.println("Exclusão de usuário - Não Implementado");
                 break;
             case EXCLUIR_MODULO:
-                System.err.println("Exclusão de módulos - Não Implementado");
+                ModuloService excluirModulo = new ModuloService();
+                excluirModulo.listar();
+                MenuModulo excluirMenuModulo = new MenuModulo();
+                excluirMenuModulo.exclusaoMenuModulo();
                 break;
             case EXCLUIR_FORMULARIO:
-                System.err.println("Exclusão de formulários - Não Implementado");
+                FormularioService excluirFormulario = new FormularioService();
+                excluirFormulario.listar();
+                MenuFormulario excluirMenuFormulario = new MenuFormulario();
+                excluirMenuFormulario.exclusaoMenuFormulario();
                 break;
             case EXCLUIR_FUNCAO:
                 System.err.println("Exclusão de funções - Não Implementado");
@@ -447,7 +460,10 @@ public class MenuPrincipal {
                 listarMenuModulo.listagemMenuModulo();
                 break;
             case LISTAR_FORMULARIO:
-                System.err.println("Relatório de formulários - Não Implementado");
+                FormularioService listarFormulario = new FormularioService();
+                listarFormulario.listar();
+                MenuFormulario listarMenuFormulario = new MenuFormulario();
+                listarMenuFormulario.listagemMenuFormulario();
                 break;
             case LISTAR_FUNCAO:
                 System.err.println("Relatório de funções - Não Implementado");

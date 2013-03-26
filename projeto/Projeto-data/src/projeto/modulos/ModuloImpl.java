@@ -179,7 +179,6 @@ public class ModuloImpl implements ModuloDAO{
         this.sSql.append("  codigo_modulo DESC                               ");
         try {
             this.statement = this.connection.createStatement();
-            this.connection.setAutoCommit(true);
             this.resultSet = statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
                 Modulo moduloList = new Modulo();

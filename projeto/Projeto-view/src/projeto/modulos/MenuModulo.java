@@ -19,7 +19,7 @@ import projeto.utils.ProjetoStringUtils;
 
 
 public class MenuModulo {
-
+    
     private static final int SAIR = 0;
     private static final int MENU_INICIAL = 1;
     private static final int EDITAR = 2;

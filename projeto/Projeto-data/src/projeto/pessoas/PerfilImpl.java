@@ -164,16 +164,15 @@ public class PerfilImpl implements PerfilDAO{
     public List<Perfil> listar() throws SQLException{
         List<Perfil> listaDePerfis = new ArrayList();
         this.sSql.append("SELECT");
-        this.sSql.append("  codigo_perfil,                                   ");
-        this.sSql.append("  nome,                                            ");
-        this.sSql.append("  descricao                                        ");
-        this.sSql.append("FROM                                               ");
-        this.sSql.append("  perfil                                           ");
-        this.sSql.append("ORDER BY                                           ");
-        this.sSql.append("  codigo_perfil DESC                               ");
+        this.sSql.append("  codigo_perfil,");
+        this.sSql.append("  nome,");
+        this.sSql.append("  descricao");
+        this.sSql.append("FROM");
+        this.sSql.append("  perfil");
+        this.sSql.append("ORDER BY");
+        this.sSql.append("  codigo_perfil DESC");
         try {
             this.statement = this.connection.createStatement();
-            this.connection.setAutoCommit(true);
             this.resultSet = statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
                 Perfil perfilList = new Perfil();
