@@ -29,7 +29,7 @@ public class FormularioService implements FormularioInterface {
     /*
      * Definindo a quantidade de colunas
      */
-    private static final int QTD_COL_EXTERIOR = 66;
+    private static final int QTD_COL_EXTERIOR = 117;
 
     /**
      * Sobrecarga no Construtor
@@ -178,7 +178,7 @@ public class FormularioService implements FormularioInterface {
                     ProjetoStringUtils.rpad(
                     "|Módulo ",
                     " ",
-                    22));
+                    18));
             listagemFormularios.append(
                     ProjetoStringUtils.rpad(
                     "|Nome ",
@@ -198,12 +198,12 @@ public class FormularioService implements FormularioInterface {
                     ProjetoStringUtils.rpad(
                     "|Ordem ",
                     " ",
-                    28));
+                    6));
             listagemFormularios.append(
                     ProjetoStringUtils.rpad(
-                    "|Oculto ",
+                    "|Visuali. ",
                     " ",
-                    6)).append("|").append("\n");
+                    11)).append("|").append("\n");
             listagemFormularios.append(
                     ProjetoStringUtils.rpad(
                     "-",
@@ -223,7 +223,7 @@ public class FormularioService implements FormularioInterface {
                         ProjetoStringUtils.rpad(
                         formularioList.getNomeModulo(),
                         " ",
-                        21)).append("|");
+                        17)).append("|");
                 listagemFormularios.append(
                         ProjetoStringUtils.rpad(
                         formularioList.getNome(),
@@ -243,12 +243,12 @@ public class FormularioService implements FormularioInterface {
                         ProjetoStringUtils.rpad(
                         formularioList.getOrdem().toString(),
                         " ",
-                        27)).append("|");
+                        6)).append("|");
                 listagemFormularios.append(
                         ProjetoStringUtils.rpad(
                         formularioList.getFlagOculto(),
                         " ",
-                        6));
+                        10  ));
                 listagemFormularios.append("|");
                 listagemFormularios.append("\n");
                 count++;

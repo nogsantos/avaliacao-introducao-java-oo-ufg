@@ -49,14 +49,14 @@ public class FuncaoImpl implements FuncaoDAO{
      */
     @Override
     public boolean cadastrar(Funcao funcao, Formulario formulario) throws SQLException {
-        this.sSql.append("INSERT INTO funcao (                              ");
-        this.sSql.append("      codigo_funcao,                              ");
-        this.sSql.append("      codigo_formulario,                          ");
-        this.sSql.append("      nome,                                       ");
-        this.sSql.append("      descricao                                   ");
-        this.sSql.append(") values (                                        ");
-        this.sSql.append("      ?,?,?,?,?,?                                 ");
-        this.sSql.append(")                                                 ");
+        this.sSql.append(" INSERT INTO funcao ( ");
+        this.sSql.append(" codigo_funcao, ");
+        this.sSql.append(" codigo_formulario, ");
+        this.sSql.append(" nome, ");
+        this.sSql.append(" descricao ");
+        this.sSql.append(") values ( ");
+        this.sSql.append(" ?,?,?,?,?,? ");
+        this.sSql.append(") ");
         try {
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setInt(1, funcao.getCodigoFuncao());

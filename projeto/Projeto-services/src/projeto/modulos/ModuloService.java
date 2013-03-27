@@ -248,4 +248,106 @@ public class ModuloService implements ModuloInterface {
             System.out.println(listagemModulos);
         }
     }
+    /**
+     * Listagem simples dos módulos.
+     * 
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     * @since 27-Mar-2013
+     * @return void
+     *
+     */
+    public String listagemSimples(){
+        List<Modulo> listaDeModulosSimples = null;
+        try {
+            listaDeModulosSimples = this.moduloData.listagemSimples();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState());
+        }
+        StringBuilder listagemModulosSimples = new StringBuilder();
+        if (listaDeModulosSimples.isEmpty()) {
+            return ProjetoStringUtils.rpad(
+                    "***** A Tabela de módulos está vazia ",
+                    " * ",
+                    QTD_COL_EXTERIOR
+            );
+        } else {
+            /*
+             * Cabeçalho
+             */
+            listagemModulosSimples.append(
+                ProjetoStringUtils.rpad(
+                    "***** MÓDULOS CADASTRO DE FORMULÁRIO  ",
+                    "*",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            listagemModulosSimples.append(
+                ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            /*
+             * Titulos da tabela
+             */
+            listagemModulosSimples.append(
+                ProjetoStringUtils.rpad(
+                    "|Codigo ",
+                    " ",
+                    6
+                )
+            );
+            listagemModulosSimples.append(
+                ProjetoStringUtils.rpad(
+                    "|Nome ",
+                    " ",
+                    57
+                )
+            ).append("|").append("\n");
+            listagemModulosSimples.append(
+                ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            /*
+             * Dados da tabela
+             */
+            for (Modulo moduloList : listaDeModulosSimples) {
+                listagemModulosSimples.append("| ").
+                    append(
+                        ProjetoStringUtils.rpad(
+                            Integer.toString(
+                                moduloList.getCodigoModulo()
+                            ), 
+                            " ", 
+                            6
+                        )
+                    ).append("|");
+                listagemModulosSimples.append(
+                    ProjetoStringUtils.rpad(
+                        moduloList.getNome(),
+                        " ", 
+                        56
+                    )
+                );
+                listagemModulosSimples.append("|");
+                listagemModulosSimples.append("\n");
+            }
+            /*
+             * Rodapé
+             */
+            listagemModulosSimples.append(
+                ProjetoStringUtils.rpad(
+                    "-",
+                    "-", 
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            return listagemModulosSimples.toString();
+        }
+    }
 }

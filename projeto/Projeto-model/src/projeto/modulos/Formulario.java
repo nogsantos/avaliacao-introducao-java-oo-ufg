@@ -37,7 +37,7 @@ public class Formulario {
         return nomeModulo;
     }
 
-    public void setNomeModulo(String nomeModulo) {
+    public void setNomeModulo(String nomeModulo){
         this.nomeModulo = nomeModulo;
     }
     
@@ -53,15 +53,19 @@ public class Formulario {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws NullPointerException{
+        if (!nome.isEmpty()) {
+            this.nome = nome;
+        }else{
+            throw new NullPointerException("##ERRO::Nome inválido");
+        }
     }
 
     public String getNomeMenu() {
         return nomeMenu;
     }
 
-    public void setNomeMenu(String nomeMenu) {
+    public void setNomeMenu(String nomeMenu) throws NullPointerException {
         this.nomeMenu = nomeMenu;
     }
 
@@ -85,8 +89,15 @@ public class Formulario {
         return flagOculto;
     }
 
-    public void setFlagOculto(String flagOculto) {
-        this.flagOculto = flagOculto;
+    public void setFlagOculto(String flagOculto) throws Error{
+        if( flagOculto.toLowerCase().equals("visivel")       | 
+            flagOculto.toLowerCase().equals("oculto")        | 
+            flagOculto.toLowerCase().equals("não Definido")  | 
+            flagOculto.toLowerCase().equals("t")             |
+            flagOculto.toLowerCase().equals("f") ){
+            this.flagOculto = flagOculto;
+        }else{
+            throw new Error("##ERRO::Flag oculto. Informe t para verdadeiro ou f para falso.");
+        }
     }
-    
 }

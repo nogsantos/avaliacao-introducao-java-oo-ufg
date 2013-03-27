@@ -56,6 +56,11 @@ public class FormularioView {
             
             System.out.println("Codigo: " + codigo);
             Integer codigoFormulario = codigo;
+            /*
+             * Listando os módulos para auxilio no cadastro de formulários
+             */
+            ModuloService moduloService = new ModuloService();
+            System.out.println(moduloService.listagemSimples());
             
             System.out.println("Modulo: ");
             Integer codigoModulo  = this.leitor.nextInt();
@@ -72,7 +77,7 @@ public class FormularioView {
             System.out.println("Ordem: ");
             Integer ordem = this.leitor.nextInt();
             
-            System.out.println("Formulário oculto? (t / f): ");
+            System.out.println("Formulário oculto? informe: t para Sim ou f para Não. ");
             String flagOculto = this.leitor.next().toString();
             /*
              * Cadastrar
@@ -137,7 +142,12 @@ public class FormularioView {
             try {
                 System.out.println("Codigo: " + codigoFormularioLeitor);
                 Integer codigoFormulario = codigoFormularioLeitor;
-
+               /*
+                * Listando os módulos para auxilio no cadastro de formulários
+                */
+               ModuloService moduloService = new ModuloService();
+               System.out.println(moduloService.listagemSimples());
+                
                 System.out.println("Modulo: ");
                 Integer codigoModulo  = this.leitor.nextInt();
 
@@ -153,7 +163,7 @@ public class FormularioView {
                 System.out.println("Ordem: ");
                 Integer ordem = this.leitor.nextInt();
 
-                System.out.println("Formulário oculto? (t / f): ");
+                System.out.println("Formulário oculto? informe: t para Sim ou f para Não. ");
                 String flagOculto = this.leitor.next().toString();
                 /*
                  * Edição
@@ -181,7 +191,9 @@ public class FormularioView {
                     System.err.println(edicao);
                     this.menuFormulario.showMenuFormularioError();
                 }
-            } catch (Exception e) {
+            } catch (Error | NullPointerException er){
+                System.err.println(er.getMessage());
+            }catch (Exception e) {
                 System.err.println(
                     ProjetoStringUtils.rpad(
                         "##ERRO.FORMULÁRIO.VIEW.LEITORFORMULÁRIO::Erro na leitura dos dados.",

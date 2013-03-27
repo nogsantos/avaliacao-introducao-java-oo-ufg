@@ -19,7 +19,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import projeto.conexao.Conexao;
 
@@ -52,17 +51,16 @@ public class FormularioImpl implements FormularioDAO{
     @Override
     public void cadastrar(Formulario formulario, 
                                     Modulo modulo) throws SQLException {
-        this.sSql.append("INSERT INTO formulario (                          ");
-        this.sSql.append("  codigo_formulario,                              ");
-        this.sSql.append("  codigo_modulo,                                  ");
-        this.sSql.append("  nome,                                           ");
-        this.sSql.append("  nome_menu,                                      ");
-        this.sSql.append("  descricao,                                      ");
-        this.sSql.append("  ordem,                                          ");
-        this.sSql.append("  flag_oculto                                     ");
-        this.sSql.append(") values (                                        ");
-        this.sSql.append("      ?,?,?,?,?,?,?                               ");
-        this.sSql.append(")                                                 ");
+        this.sSql.append(" INSERT INTO formulario ( ");
+        this.sSql.append(" codigo_formulario, ");
+        this.sSql.append(" codigo_modulo, ");
+        this.sSql.append(" nome, ");
+        this.sSql.append(" nome_menu, ");
+        this.sSql.append(" descricao, ");
+        this.sSql.append(" ordem, ");
+        this.sSql.append(" flag_oculto )");
+        this.sSql.append(" values ");
+        this.sSql.append(" (?,?,?,?,?,?,? )");
         try {
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setInt    (1, formulario.getCodigoFormulario());
@@ -90,7 +88,7 @@ public class FormularioImpl implements FormularioDAO{
      */
     public Integer formularioNextVal() throws SQLException {
         String valor = "";
-        this.sSql.append("SELECT MAX(codigo_formulario) + 1 as max FROM formulario");
+        this.sSql.append(" SELECT MAX(codigo_formulario) + 1 as max FROM formulario ");
         try {
             this.statement = this.connection.createStatement();
             this.connection.setAutoCommit(true);
@@ -151,10 +149,10 @@ public class FormularioImpl implements FormularioDAO{
      */
     @Override
     public void excluir(Formulario formulario) throws SQLException {
-        this.sSql.append(" DELETE                                            ");
-        this.sSql.append(" FROM formulario                                   ");
-        this.sSql.append(" WHERE                                             ");
-        this.sSql.append("      codigo_formulario = ?                        ");
+        this.sSql.append(" DELETE ");
+        this.sSql.append(" FROM formulario ");
+        this.sSql.append(" WHERE ");
+        this.sSql.append(" codigo_formulario = ? ");
         try {
             this.preStatement = this.connection.prepareStatement(
                     this.sSql.toString()
@@ -180,14 +178,15 @@ public class FormularioImpl implements FormularioDAO{
     @Override
     public List<Formulario> listar() throws SQLException {
         List<Formulario> listaDeFormularios = new ArrayList();
-        this.sSql.append("SELECT ");
+        this.sSql.append(" SELECT ");
         this.sSql.append(" f.codigo_formulario, ");
         this.sSql.append(" m.codigo_modulo||'-'||m.nome modulo, ");
         this.sSql.append(" f.nome, ");
         this.sSql.append(" f.nome_menu, ");
         this.sSql.append(" f.descricao, ");
         this.sSql.append(" f.ordem, ");
-        this.sSql.append(" decode(f.flag_oculto,'t', 'Oculto','f', 'Visivel') flag_oculto ");
+        this.sSql.append(" case f.flag_oculto when 't' then 'Oculto' when 'f' ");
+        this.sSql.append(" then 'Visivel' else 'Não Definido' end flag_oculto ");
         this.sSql.append(" FROM ");
         this.sSql.append(" formulario f, modulo m ");
         this.sSql.append(" WHERE ");

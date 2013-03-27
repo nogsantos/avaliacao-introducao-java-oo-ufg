@@ -51,14 +51,14 @@ public class ModuloImpl implements ModuloDAO{
      */
     @Override
     public boolean cadastrar(Modulo modulo) throws SQLException {
-        this.sSql.append("INSERT INTO modulo (                              ");
-        this.sSql.append("      codigo_modulo,                              ");
-        this.sSql.append("      nome,                                       ");
-        this.sSql.append("      descricao,                                  ");
-        this.sSql.append("      ordem                                       ");
-        this.sSql.append(") values (                                        ");
-        this.sSql.append("      ?,?,?,?                                     ");
-        this.sSql.append(")                                                 ");
+        this.sSql.append("INSERT INTO modulo ( ");
+        this.sSql.append(" codigo_modulo, ");
+        this.sSql.append(" nome, ");
+        this.sSql.append(" descricao, ");
+        this.sSql.append(" ordem ");
+        this.sSql.append(") values ( ");
+        this.sSql.append(" ?,?,?,? ");
+        this.sSql.append(") ");
         try {
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setInt(1, modulo.getCodigoModulo());
@@ -106,12 +106,12 @@ public class ModuloImpl implements ModuloDAO{
      */
     @Override
     public boolean editar(Modulo modulo) throws SQLException {
-        this.sSql.append(" UPDATE modulo SET                                ");
-        this.sSql.append("      nome = ?,                                   ");
-        this.sSql.append("      descricao = ?,                              ");
-        this.sSql.append("      ordem = ?                                   ");
-        this.sSql.append(" WHERE                                            ");
-        this.sSql.append("      codigo_modulo = ?                           ");
+        this.sSql.append(" UPDATE modulo SET ");
+        this.sSql.append(" nome = ?, ");
+        this.sSql.append(" descricao = ?, ");
+        this.sSql.append(" ordem = ? ");
+        this.sSql.append(" WHERE ");
+        this.sSql.append(" codigo_modulo = ? ");
         try {
             this.preStatement = this.connection.prepareStatement(
                 this.sSql.toString()
@@ -139,10 +139,10 @@ public class ModuloImpl implements ModuloDAO{
      */
     @Override
     public boolean excluir(Modulo modulo) throws SQLException {
-        this.sSql.append(" DELETE                                            ");
-        this.sSql.append(" FROM modulo                                       ");
-        this.sSql.append(" WHERE                                             ");
-        this.sSql.append("      codigo_modulo = ?                            ");
+        this.sSql.append(" DELETE ");
+        this.sSql.append(" FROM modulo ");
+        this.sSql.append(" WHERE ");
+        this.sSql.append(" codigo_modulo = ? ");
         try {
             this.preStatement = this.connection.prepareStatement(
                     this.sSql.toString()
@@ -168,15 +168,15 @@ public class ModuloImpl implements ModuloDAO{
     @Override
     public List<Modulo> listar() throws SQLException {
         List<Modulo> listaDeModulos = new ArrayList();
-        this.sSql.append("SELECT");
-        this.sSql.append("  codigo_modulo,                                   ");
-        this.sSql.append("  nome,                                            ");
-        this.sSql.append("  descricao,                                       ");
-        this.sSql.append("  ordem                                            ");
-        this.sSql.append("FROM                                               ");
-        this.sSql.append("  modulo                                           ");
-        this.sSql.append("ORDER BY                                           ");
-        this.sSql.append("  codigo_modulo DESC                               ");
+        this.sSql.append(" SELECT ");
+        this.sSql.append(" codigo_modulo, ");
+        this.sSql.append(" nome, ");
+        this.sSql.append(" descricao, ");
+        this.sSql.append(" ordem ");
+        this.sSql.append(" FROM ");
+        this.sSql.append(" modulo ");
+        this.sSql.append(" ORDER BY ");
+        this.sSql.append(" codigo_modulo DESC ");
         try {
             this.statement = this.connection.createStatement();
             this.resultSet = statement.executeQuery(this.sSql.toString());
@@ -192,6 +192,39 @@ public class ModuloImpl implements ModuloDAO{
             return listaDeModulos;
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.MODULO.IMPLEMENTACAO.LISTAGEM::");
+            this.mensagem.append("Erro na listagem dos dados.:\n");
+            this.mensagem.append(e.getSQLState());
+            throw new SQLException(this.mensagem.toString());
+        }
+    }
+    /**
+     * Listagem simples
+     *
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     *
+     */
+    public List<Modulo> listagemSimples() throws SQLException {
+        List<Modulo> listaDeModulos = new ArrayList();
+        this.sSql.append(" SELECT ");
+        this.sSql.append(" codigo_modulo, ");
+        this.sSql.append(" nome ");
+        this.sSql.append(" FROM ");
+        this.sSql.append(" modulo ");
+        this.sSql.append(" ORDER BY ");
+        this.sSql.append(" codigo_modulo DESC ");
+        try {
+            this.statement = this.connection.createStatement();
+            this.resultSet = statement.executeQuery(this.sSql.toString());
+            while (this.resultSet.next()) {
+                Modulo moduloList = new Modulo();
+                moduloList.setCodigoModulo(this.resultSet.getInt("codigo_modulo"));
+                moduloList.setNome(this.resultSet.getString("nome"));
+                listaDeModulos.add(moduloList);
+            }
+            return listaDeModulos;
+        } catch (SQLException e) {
+            this.mensagem.append("##ERRO.MODULO.IMPLEMENTACAO.LISTAGEMSIMPLES::");
             this.mensagem.append("Erro na listagem dos dados.:\n");
             this.mensagem.append(e.getSQLState());
             throw new SQLException(this.mensagem.toString());
