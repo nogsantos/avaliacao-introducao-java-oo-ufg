@@ -16,7 +16,10 @@ package projeto.app;
 import java.util.Scanner;
 import projeto.modulos.FormularioService;
 import projeto.modulos.FormularioView;
+import projeto.modulos.FuncaoService;
+import projeto.modulos.FuncaoView;
 import projeto.modulos.MenuFormulario;
+import projeto.modulos.MenuFuncao;
 import projeto.modulos.MenuModulo;
 import projeto.modulos.ModuloService;
 import projeto.modulos.ModuloView;
@@ -394,7 +397,8 @@ public class MenuPrincipal {
                 formularioView.leitorCadastroFormulario();
                 break;
             case CADASTRAR_FUNCAO:
-                System.err.println("Cadastro de funções - Não Implementado");
+                FuncaoView funcaoView = new FuncaoView();
+                funcaoView.leitorCadastroFuncao();
                 break;
             case EDITAR_PERFIL:
                 PerfilService editarPerfil = new PerfilService();
@@ -418,7 +422,10 @@ public class MenuPrincipal {
                 editarMenuFormulario.edicaoMenuFormulario();
                 break;
             case EDITAR_FUNCAO:
-                System.err.println("Edição de funções - Não Implementado");
+                FuncaoService editarFuncao = new FuncaoService();
+                editarFuncao.listar();
+                MenuFuncao editarMenuFuncao = new MenuFuncao();
+                editarMenuFuncao.edicaoMenuFuncao();
                 break;
             case EXCLUIR_PERFIL:
                 PerfilService excluirPerfil = new PerfilService();
@@ -442,7 +449,10 @@ public class MenuPrincipal {
                 excluirMenuFormulario.exclusaoMenuFormulario();
                 break;
             case EXCLUIR_FUNCAO:
-                System.err.println("Exclusão de funções - Não Implementado");
+                FuncaoService excluirFuncao = new FuncaoService();
+                excluirFuncao.listar();
+                MenuFuncao excluirMenuFuncao = new MenuFuncao();
+                excluirMenuFuncao.exclusaoMenuFuncao();
                 break;
             case LISTAR_PERFIL:
                 PerfilService listarPerfil = new PerfilService();
@@ -466,7 +476,10 @@ public class MenuPrincipal {
                 listarMenuFormulario.listagemMenuFormulario();
                 break;
             case LISTAR_FUNCAO:
-                System.err.println("Relatório de funções - Não Implementado");
+                FuncaoService listarFuncao = new FuncaoService();
+                listarFuncao.listar();
+                MenuFuncao listarMenuFuncao = new MenuFuncao();
+                listarMenuFuncao.listagemMenuFuncao();
                 break;
             case SAIR:
                 System.exit(0);

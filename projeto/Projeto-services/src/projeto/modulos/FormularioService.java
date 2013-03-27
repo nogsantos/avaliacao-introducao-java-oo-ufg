@@ -269,5 +269,89 @@ public class FormularioService implements FormularioInterface {
             System.out.println(listagemFormularios);
         }
     }
-
+    /**
+     * Serviço para listagem dos dados.
+     *
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     * @since 25-Mar-2013
+     * @return void
+     *
+     */
+    public String listagemSimples() {
+        List<Formulario> listaDeFormularios = null;
+        try {
+            listaDeFormularios = this.formularioData.listar();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState());
+        }
+        StringBuilder listagemFormularios = new StringBuilder();
+        if (listaDeFormularios.isEmpty()) {
+            return ProjetoStringUtils.rpad(
+                    "***** A Tabela de formulários está vazia ",
+                    " * ",
+                    66
+            );
+        } else {
+            /*
+             * Cabeçalho
+             */
+            listagemFormularios.append(
+                    ProjetoStringUtils.rpad(
+                    "***** FORMULÁRIOS ",
+                    "*",
+                    66)).append("\n");
+            listagemFormularios.append(
+                    ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    66)).append("\n");
+            /*
+             * Titulos da tabela
+             */
+            listagemFormularios.append(
+                    ProjetoStringUtils.rpad(
+                    "|Codigo ",
+                    " ",
+                    6));
+            listagemFormularios.append(
+                    ProjetoStringUtils.rpad(
+                    "|Nome ",
+                    " ",
+                    57)).append("|").append("\n");
+            listagemFormularios.append(
+                    ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    66)).append("\n");
+            /*
+             * Dados da tabela
+             */
+            for (Formulario formularioList : listaDeFormularios) {
+                listagemFormularios.append("| ").
+                        append(
+                        ProjetoStringUtils.rpad(
+                        formularioList.getCodigoFormulario().toString(),
+                        " ",
+                        6)).append("|");
+                listagemFormularios.append(
+                        ProjetoStringUtils.rpad(
+                        formularioList.getNome(),
+                        " ",
+                        56));
+                listagemFormularios.append("|");
+                listagemFormularios.append("\n");
+            }
+            /*
+             * Rodapé
+             */
+            listagemFormularios.append(
+                    ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    66)).append("\n");
+            
+            return listagemFormularios.toString();
+        }
+    }
 }

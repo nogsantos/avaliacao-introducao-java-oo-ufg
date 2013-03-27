@@ -18,6 +18,7 @@ public class Funcao {
 
     private Integer codigoFuncao;
     private Formulario formulario;
+    private String nomeFormulario;
     private String nome;
     private String descricao;
 
@@ -33,6 +34,14 @@ public class Funcao {
         return formulario;
     }
 
+    public String getNomeFormulario() {
+        return nomeFormulario;
+    }
+
+    public void setNomeFormulario(String nomeFormulario) {
+        this.nomeFormulario = nomeFormulario;
+    }
+    
     public void setFormulario(Formulario formulario) {
         this.formulario = formulario;
     }
@@ -41,8 +50,12 @@ public class Funcao {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws NullPointerException{
+        if(!nome.toLowerCase().isEmpty()){
+            this.nome = nome;
+        }else{
+            throw new NullPointerException("Nome Inválido.");
+        }
     }
 
     public String getDescricao() {

@@ -162,8 +162,8 @@ public class FormularioImpl implements FormularioDAO{
             this.preStatement.executeUpdate();
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.FORMULARIO.IMPLEMENTACAO.EXCLUSÃO::");
-            this.mensagem.append("Erro na exclusão do dado.:\n");
-            this.mensagem.append("Pode estar sendo referênciado.\n");
+            this.mensagem.append("Erro na exclusão do dado.:");
+            this.mensagem.append("Pode estar sendo referênciado.");
             this.mensagem.append(e.getMessage());
             throw new SQLException(this.mensagem.toString());
         }

@@ -1,11 +1,11 @@
 /**
  *
- * Descrição:Classe MenuFormulario
+ * Descrição:Classe MenuFuncao
  *
  *
  * @author Fabricio Nogueira
  *
- * @since 26-Mar-2013
+ * @since 27-Mar-2013
  *
  * @version 1.0.0
  *
@@ -17,8 +17,10 @@ import java.util.Scanner;
 import static projeto.app.MenuPrincipal.showMenu;
 import projeto.utils.ProjetoStringUtils;
 
-public class MenuFormulario {
 
+public class MenuFuncao {
+
+    
     private static final int SAIR = 0;
     private static final int MENU_INICIAL = 1;
     private static final int EDITAR = 2;
@@ -31,7 +33,6 @@ public class MenuFormulario {
     private static final int QTD_COL_EXTERIOR = 66;
     private static final int QTD_COL_INTERIOR = 65;
     private static final int QTD_COL_OPCOES = 32;
-
     /**
      *
      * Menu principal módulo.
@@ -41,7 +42,7 @@ public class MenuFormulario {
      * @since 20 MAR 2013
      *
      */
-    public void showMenuFormulario() {
+    public void showMenuFuncao() {
         Scanner leitor = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
         Integer intAcao;
@@ -60,7 +61,7 @@ public class MenuFormulario {
          */
         menu.append(
             ProjetoStringUtils.rpad(
-                "FORMULÁRIO::SELECIONE ABAIXO A OPÇÃO DESEJADA ",
+                "FUNÇÃO::SELECIONE ABAIXO A OPÇÃO DESEJADA ",
                 " ",
                 QTD_COL_INTERIOR
             )
@@ -88,21 +89,21 @@ public class MenuFormulario {
         ).append("*").append("\n");
         menu.append(
             ProjetoStringUtils.rpad(
-                "2. Editar um formulário",
+                "2. Editar uma função",
                 " ",
                 QTD_COL_OPCOES
             )
         ).append("*");
         menu.append(
             ProjetoStringUtils.rpad(
-                " 3. Excluir um formulário",
+                " 3. Excluir uma função",
                 " ",
                 QTD_COL_OPCOES
             )
         ).append("*").append("\n");
         menu.append(
             ProjetoStringUtils.rpad(
-                "4. Listar formulários",
+                "4. Listar funções",
                 " ",
                 QTD_COL_OPCOES
             )
@@ -124,10 +125,10 @@ public class MenuFormulario {
         try {
             System.out.println(menu);
             intAcao = leitor.nextInt();
-            defineAcaoMenuFormulario(intAcao);
+            defineAcaoMenuFuncao(intAcao);
         } catch (Exception e) {
             System.err.println("##ERRO:: " + e.getMessage());
-            showMenuFormulario();
+            showMenuFuncao();
         }
     }
     /**
@@ -139,68 +140,68 @@ public class MenuFormulario {
      * @version 1.0.0
      * @return void
      */
-    private void defineAcaoMenuFormulario(int intAcao) {
+    private void defineAcaoMenuFuncao(int intAcao) {
         switch (intAcao) {
             case MENU_INICIAL:
                 showMenu();
                 break;
             case EDITAR:
                 /*
-                 * Listando perfis cadastrados
+                 * Listando funções cadastrados
                  */
-                FormularioService editarFormulario = new FormularioService();
-                editarFormulario.listar();
+                FuncaoService editarFuncao = new FuncaoService();
+                editarFuncao.listar();
                 /*
                  * Menu com as opções de edição
                  */
-                MenuFormulario editarMenuFormulario = new MenuFormulario();
-                editarMenuFormulario.edicaoMenuFormulario();
+                MenuFuncao editarMenuFuncao = new MenuFuncao();
+                editarMenuFuncao.edicaoMenuFuncao();
                 break;
             case EXCLUIR:
                 /*
-                 * Listando perfis cadastrados
+                 * Listando as funçoes cadastrados
                  */
-                FormularioService excluirFormulario = new FormularioService();
-                excluirFormulario.listar();
+                FuncaoService excluirFuncao = new FuncaoService();
+                excluirFuncao.listar();
                 /*
                  * Menu com as opções de exclusão
                  */
-                MenuFormulario excluirMenuFormulario = new MenuFormulario();
-                excluirMenuFormulario.exclusaoMenuFormulario();
+                MenuFuncao excluirMenuFuncao = new MenuFuncao();
+                excluirMenuFuncao.exclusaoMenuFuncao();
                 break;
             case LISTAR:
                 /*
-                 * Listagem dos perfis
+                 * Listagem das funções
                  */
-                FormularioService formulario = new FormularioService();
-                formulario.listar();
+                FuncaoService funcao = new FuncaoService();
+                funcao.listar();
                 /*
                  * Menu listagem
                  */
-                listagemMenuFormulario();
+                listagemMenuFuncao();
                 break;
             case CONTINUAR:
-                FormularioView formularioView = new FormularioView();
-                formularioView.leitorCadastroFormulario();
+                FuncaoView funcaoView = new FuncaoView();
+                funcaoView.leitorCadastroFuncao();
                 break;
             case SAIR:
                 System.exit(0);
                 break;
             default:
-                showMenuFormulario();
+                showMenuFuncao();
                 break;
         }
     }
     /**
      *
-     * Menu principal formulario error.
+     * Menu principal funcao error.
      * Gera opções quando um erro no cadastro foi gerado.
      *
      * @author Fabricio Nogueira
      * @since 20 MAR 2013
      *
      */
-    public void showMenuFormularioError() {
+    public void showMenuFuncaoError() {
         Scanner leitor = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
         Integer intAcao;
@@ -275,10 +276,10 @@ public class MenuFormulario {
         try {
             System.out.println(menu);
             intAcao = leitor.nextInt();
-            defineAcaoMenuFormularioError(intAcao);
+            defineAcaoMenuFuncaoError(intAcao);
         } catch (Exception e) {
             System.err.println("##ERRO:: " + e.getMessage());
-            showMenuFormularioError();
+            showMenuFuncaoError();
         }
     }
     /**
@@ -290,31 +291,31 @@ public class MenuFormulario {
      * @version 1.0.0
      * @return void
      */
-    private void defineAcaoMenuFormularioError(int intAcao) {
+    private void defineAcaoMenuFuncaoError(int intAcao) {
         switch (intAcao) {
             case MENU_INICIAL:
                 showMenu();
                 break;
             case CONTINUAR:
-                FormularioView formularioView = new FormularioView();
-                formularioView.leitorCadastroFormulario();
+                FuncaoView funcaoView = new FuncaoView();
+                funcaoView.leitorCadastroFuncao();
                 break;
             case SAIR:
                 System.exit(0);
                 break;
             default:
-                showMenuFormularioError();
+                showMenuFuncaoError();
         }
     }
     /**
      *
-     * Menu principal formulario para listagem.
+     * Menu principal funcao para listagem.
      *
      * @author Fabricio Nogueira
      * @since 20 MAR 2013
      *
      */
-    public void listagemMenuFormulario() {
+    public void listagemMenuFuncao() {
         Scanner leitor = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
         Integer intAcao;
@@ -389,10 +390,10 @@ public class MenuFormulario {
         try {
             System.out.println(menu);
             intAcao = leitor.nextInt();
-            defineAcaoListagemMenuFormulario(intAcao);
+            defineAcaoListagemMenuFuncao(intAcao);
         } catch (Exception e) {
             System.err.println("##ERRO:: " + e.getMessage());
-            listagemMenuFormulario();
+            listagemMenuFuncao();
         }
     }
     /**
@@ -404,31 +405,31 @@ public class MenuFormulario {
      * @version 1.0.0
      * @return void
      */
-    private void defineAcaoListagemMenuFormulario(int intAcao) {
+    private void defineAcaoListagemMenuFuncao(int intAcao) {
         switch (intAcao) {
             case MENU_INICIAL:
                 showMenu();
                 break;
             case CONTINUAR:
-                FormularioView formularioView = new FormularioView();
-                formularioView.leitorCadastroFormulario();
+                FuncaoView funcaoView = new FuncaoView();
+                funcaoView.leitorCadastroFuncao();
                 break;
             case SAIR:
                 System.exit(0);
                 break;
             default:
-                showMenuFormulario();
+                showMenuFuncao();
         }
     }
     /**
      *
-     * Menu principal formulario para listagem.
+     * Menu principal funcao para listagem.
      *
      * @author Fabricio Nogueira
      * @since 20 MAR 2013
      *
      */
-    public void edicaoMenuFormulario() {
+    public void edicaoMenuFuncao() {
         Scanner leitor = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
         String strAcao;
@@ -447,7 +448,7 @@ public class MenuFormulario {
          */
         menu.append(
             ProjetoStringUtils.rpad(
-                "EDIÇÃO::Informe Código dor formulario desejado",
+                "EDIÇÃO::Informe Código da funcao desejado",
                 " ",
                 QTD_COL_INTERIOR
             )
@@ -472,10 +473,10 @@ public class MenuFormulario {
         try {
             System.out.println(menu);
             strAcao = leitor.nextLine().toString().toLowerCase();
-            defineAcaoEdicaoMenuFormulario(strAcao);
+            defineAcaoEdicaoMenuFuncao(strAcao);
         } catch (Exception e) {
             System.err.println("##ERRO:: " + e.getMessage());
-            edicaoMenuFormulario();
+            edicaoMenuFuncao();
         }
     }
     /**
@@ -487,25 +488,25 @@ public class MenuFormulario {
      * @version 1.0.0
      * @return void
      */
-    private void defineAcaoEdicaoMenuFormulario(String strAcao) {
-        Integer codigoFormulario;
+    private void defineAcaoEdicaoMenuFuncao(String strAcao) {
+        Integer codigoFuncao;
         if (strAcao.equals("c")) {
-            showMenuFormulario();
+            showMenuFuncao();
         } else {
-            codigoFormulario = Integer.parseInt(strAcao);
-            FormularioView leitorFormulario = new FormularioView();
-            leitorFormulario.leitorEdicaoFormulario(codigoFormulario);
+            codigoFuncao = Integer.parseInt(strAcao);
+            FuncaoView leitorFuncao = new FuncaoView();
+            leitorFuncao.leitorEdicaoFuncao(codigoFuncao);
         }
     }
     /**
      *
-     * Menu principal formulario para listagem.
+     * Menu principal funcao para listagem.
      *
      * @author Fabricio Nogueira
      * @since 20 MAR 2013
      *
      */
-    public void exclusaoMenuFormulario() {
+    public void exclusaoMenuFuncao() {
         Scanner leitor = new Scanner(System.in);
         StringBuilder menu = new StringBuilder();
         String strAcao;
@@ -524,7 +525,7 @@ public class MenuFormulario {
          */
         menu.append(
             ProjetoStringUtils.rpad(
-                "EXCLUSÃO::Informe Código do formulario desejado",
+                "EXCLUSÃO::Informe Código da funcao desejado",
                 " ",
                 QTD_COL_INTERIOR
             )
@@ -546,10 +547,10 @@ public class MenuFormulario {
         try {
             System.out.println(menu);
             strAcao = leitor.nextLine().toString().toLowerCase();
-            defineAcaoExclusaoMenuFormulario(strAcao);
+            defineAcaoExclusaoMenuFuncao(strAcao);
         } catch (Exception e) {
             System.err.println("##ERRO:: " + e.getMessage());
-            exclusaoMenuFormulario();
+            exclusaoMenuFuncao();
         }
     }
     /**
@@ -561,14 +562,14 @@ public class MenuFormulario {
      * @version 1.0.0
      * @return void
      */
-    private void defineAcaoExclusaoMenuFormulario(String strAcao) {
-        Integer codigoFormulario;
+    private void defineAcaoExclusaoMenuFuncao(String strAcao) {
+        Integer codigoFuncao;
         if (strAcao.equals("c")) {
-            showMenuFormulario();
+            showMenuFuncao();
         } else {
-            codigoFormulario = Integer.parseInt(strAcao);
-            FormularioView leitorFormulario = new FormularioView();
-            leitorFormulario.leitorExclusaoFormulario(codigoFormulario);
+            codigoFuncao = Integer.parseInt(strAcao);
+            FuncaoView leitorFuncao = new FuncaoView();
+            leitorFuncao.leitorExclusaoFuncao(codigoFuncao);
         }
     }
 }
