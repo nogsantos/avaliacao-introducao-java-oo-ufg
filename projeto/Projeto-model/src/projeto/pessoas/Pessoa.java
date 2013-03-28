@@ -20,22 +20,29 @@ public class Pessoa {
     private String logradouro;
     private String telefone;
     private String email;
-    private Date  dataNascimento;
 
     public String getCodigoPessoa() {
         return codigoPessoa;
     }
 
-    public void setCodigoPessoa(String codigoPessoa) {
-        this.codigoPessoa = codigoPessoa;
+    public void setCodigoPessoa(String codigoPessoa) throws NullPointerException{
+        if(!codigoPessoa.isEmpty()){
+            this.codigoPessoa = codigoPessoa;
+        }else{
+            throw new NullPointerException("Código Inválido.");
+        }
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws NullPointerException{
+        if(!nome.isEmpty()){
+            this.nome = nome;
+        }else{
+            throw new NullPointerException("Nome Inválido.");
+        }
     }
 
     public String getLogradouro() {
@@ -61,13 +68,4 @@ public class Pessoa {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-    
 }

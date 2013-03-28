@@ -27,7 +27,7 @@ public interface UsuarioDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean cadastrar(Usuario usuario) throws SQLException;
+    public String cadastrar(Usuario usuario, Pessoa pessoa) throws SQLException;
     /**
      * Editação dos dados.
      * Implementa a edição dos dados
@@ -39,7 +39,7 @@ public interface UsuarioDAO {
      * @exception Gera uma exceção de sql (SqlException).
      * 
      */
-    public boolean editar(Usuario usuario) throws SQLException;
+    public String editar(Usuario usuario, Pessoa pessoa) throws SQLException;
     /**
      * Exclusão dos dados.
      * Implementa a edição dos dados.
@@ -51,7 +51,7 @@ public interface UsuarioDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean excluir(Usuario usuario) throws SQLException;
+    public String excluir(Usuario usuario, Pessoa pessoa) throws SQLException;
     /**
      * Listagem dos dados.
      * Listagem dos dados cadastrados.
@@ -74,5 +74,5 @@ public interface UsuarioDAO {
      * @exception Gera uma exceção de sql (SqlException)
      *
      */
-    public Usuario getByCodigo(int codigo) throws SQLException;
+    public Usuario getByCodigo(String codigoPessoa) throws SQLException;
 }

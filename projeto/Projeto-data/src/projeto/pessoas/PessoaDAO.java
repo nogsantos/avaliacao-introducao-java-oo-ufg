@@ -13,7 +13,6 @@
 package projeto.pessoas;
 
 import java.sql.SQLException;
-import java.util.List;
 
 
 public interface PessoaDAO {
@@ -28,7 +27,7 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean cadastrar(Pessoa pessoa) throws SQLException;
+    public Boolean cadastrar(Pessoa pessoa) throws SQLException;
     /**
      * Editação dos dados.
      * Implementa a edição dos dados
@@ -40,7 +39,7 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      * 
      */
-    public boolean editar(Pessoa pessoa) throws SQLException;
+    public Boolean editar(Pessoa pessoa) throws SQLException;
     /**
      * Exclusão dos dados.
      * Implementa a edição dos dados.
@@ -52,28 +51,5 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean excluir(Pessoa pessoa) throws SQLException;
-    /**
-     * Listagem dos dados.
-     * Listagem dos dados cadastrados.
-     *
-     * @author Fabricio Nogueira
-     * @version 1.0.0
-     * @since 25-Mar-2013 
-     * @return Objeto do tipo Lista. 
-     * @exception Gera uma exceção de sql (SqlException).
-     * 
-     */
-    public List<Pessoa> listar() throws SQLException;
-    /**
-     * Recuperação de um dado pelo seu identificador.
-     *
-     * @author Fabricio Nogueira
-     * @version 1.0.0
-     * @since 25-Mar-2013 
-     * @return Objeto
-     * @exception Gera uma exceção de sql (SqlException)
-     *
-     */
-    public Pessoa getByCodigo(int codigoPessoa) throws SQLException;
+    public Boolean excluir(Pessoa pessoa) throws SQLException;
 }

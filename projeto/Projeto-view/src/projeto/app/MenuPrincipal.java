@@ -24,8 +24,11 @@ import projeto.modulos.MenuModulo;
 import projeto.modulos.ModuloService;
 import projeto.modulos.ModuloView;
 import projeto.pessoas.MenuPerfil;
+import projeto.pessoas.MenuUsuario;
 import projeto.pessoas.PerfilService;
 import projeto.pessoas.PerfilView;
+import projeto.pessoas.UsuarioService;
+import projeto.pessoas.UsuarioView;
 import projeto.utils.ProjetoStringUtils;
 
 
@@ -386,7 +389,8 @@ public class MenuPrincipal {
                 perfilView.leitorCadastroPerfil();
                 break;
             case CADASTRAR_USUARIO:
-                System.err.println("Cadastro de usuário - Não Implementado");
+                UsuarioView usuarioView = new UsuarioView();
+                usuarioView.leitorCadastroUsuario();
                 break;
             case CADASTRAR_MODULO:
                 ModuloView moduloView = new ModuloView();
@@ -407,7 +411,10 @@ public class MenuPrincipal {
                 editarMenuPerfil.edicaoMenuPerfil();
                 break;
             case EDITAR_USUARIO:
-                System.err.println("Edição de usuário - Não Implementado");
+                UsuarioService editarUsuario = new UsuarioService();
+                editarUsuario.listar();
+                MenuUsuario editarMenuUsuario = new MenuUsuario();
+                editarMenuUsuario.edicaoMenuUsuario();
                 break;
             case EDITAR_MODULO:
                 ModuloService editarModulo = new ModuloService();
@@ -434,7 +441,10 @@ public class MenuPrincipal {
                 excluirMenuPerfil.exclusaoMenuPerfil();
                 break;
             case EXCLUIR_USUARIO:
-                System.err.println("Exclusão de usuário - Não Implementado");
+                UsuarioService excluirUsuario = new UsuarioService();
+                excluirUsuario.listar();
+                MenuUsuario excluirMenuUsuario = new MenuUsuario();
+                excluirMenuUsuario.exclusaoMenuUsuario();
                 break;
             case EXCLUIR_MODULO:
                 ModuloService excluirModulo = new ModuloService();
@@ -461,7 +471,10 @@ public class MenuPrincipal {
                 listarMenuPerfil.listagemMenuPerfil();
                 break;
             case LISTAR_USUARIO:
-                System.err.println("Relatório de usuários - Não Implementado");
+                UsuarioService listarUsuario = new UsuarioService();
+                listarUsuario.listar();
+                MenuUsuario listarMenuUsuario = new MenuUsuario();
+                listarMenuUsuario.listagemMenuUsuario();
                 break;
             case LISTAR_MODULO:
                 ModuloService listarModulo = new ModuloService();
