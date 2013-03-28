@@ -5,7 +5,6 @@ create table pessoa (
   , logradouro varchar(550)
   , email varchar(250) unique
   , telefone varchar(10)
-  , data_nascimento timestamp
   , constraint pessoa_codigo_pk primary key (codigo_pessoa)
 );
 
