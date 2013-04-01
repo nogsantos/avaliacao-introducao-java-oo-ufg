@@ -55,7 +55,6 @@ public class FuncaoService implements FuncaoInterface {
      */
     public FuncaoService(Integer codigoFuncao, Integer codigoFormulario,
             String nome, String descricao) {
-        
         this.funcao.setCodigoFuncao(codigoFuncao);
         this.formulario.setCodigoFormulario(codigoFormulario);
         this.funcao.setNome(nome);
@@ -73,10 +72,9 @@ public class FuncaoService implements FuncaoInterface {
     @Override
     public String cadastrar() {
         try {
-            this.funcaoData.cadastrar(this.funcao, this.formulario);
-            return "sucesso";
+            return this.funcaoData.cadastrar(this.funcao, this.formulario);
         } catch (SQLException ex) {
-            return ex.getMessage();
+            return ex.getSQLState();
         }
     }
     /**
@@ -91,10 +89,9 @@ public class FuncaoService implements FuncaoInterface {
     @Override
     public String editar() {
         try {
-            this.funcaoData.editar(this.funcao, this.formulario);
-            return "sucesso";
+            return this.funcaoData.editar(this.funcao, this.formulario);
         } catch (SQLException ex) {
-            return ex.getMessage();
+            return ex.getSQLState();
         }
     }
     /**
@@ -109,10 +106,9 @@ public class FuncaoService implements FuncaoInterface {
     @Override
     public String excluir() {
         try {
-            this.funcaoData.excluir(this.funcao);
-            return "sucesso";
-        } catch (Exception e) {
-            return e.getMessage();
+            return this.funcaoData.excluir(this.funcao);
+        } catch (SQLException e) {
+            return e.getSQLState();
         }
     }
     /**

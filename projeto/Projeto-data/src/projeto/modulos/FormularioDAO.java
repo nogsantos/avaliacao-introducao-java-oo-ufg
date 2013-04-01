@@ -30,7 +30,7 @@ public interface FormularioDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public void cadastrar(Formulario formulario, Modulo modulo) throws SQLException;
+    public String cadastrar(Formulario formulario, Modulo modulo) throws SQLException;
 
     /**
      * Editação dos dados.
@@ -43,7 +43,7 @@ public interface FormularioDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public void editar(Formulario formulario, Modulo modulo) throws SQLException;
+    public String editar(Formulario formulario, Modulo modulo) throws SQLException;
 
     /**
      * Exclusão dos dados.
@@ -56,7 +56,7 @@ public interface FormularioDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public void excluir(Formulario formulario) throws SQLException;
+    public String excluir(Formulario formulario) throws SQLException;
 
     /**
      * Listagem dos dados.
@@ -70,18 +70,4 @@ public interface FormularioDAO {
      *
      */
     public List<Formulario> listar() throws SQLException;
-
-    /**
-     * Recuperação de um dado pelo seu identificador.
-     *
-     * @author Fabricio Nogueira
-     * @version 1.0.0
-     * @since 26-Mar-2013
-     * @return Objeto
-     * @exception Gera uma exceção de sql (SqlException)
-     *
-     */
-    public Formulario getByCodigo(int codigoFormulario) throws SQLException;
-    
-
 }

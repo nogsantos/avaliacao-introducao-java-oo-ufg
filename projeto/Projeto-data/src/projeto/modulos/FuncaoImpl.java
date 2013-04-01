@@ -49,16 +49,16 @@ public class FuncaoImpl implements FuncaoDAO{
      *
      */
     @Override
-    public boolean cadastrar(Funcao funcao, Formulario formulario) throws SQLException {
-        this.sSql.append(" INSERT INTO funcao ( ");
-        this.sSql.append(" codigo_funcao, ");
-        this.sSql.append(" codigo_formulario, ");
-        this.sSql.append(" nome, ");
-        this.sSql.append(" descricao ");
-        this.sSql.append(" ) values ( ");
-        this.sSql.append(" ?,?,?,? ");
-        this.sSql.append(" ) ");
+    public String cadastrar(Funcao funcao, Formulario formulario) throws SQLException {
         try {
+            this.sSql.append(" INSERT INTO funcao ( ");
+            this.sSql.append(" codigo_funcao, ");
+            this.sSql.append(" codigo_formulario, ");
+            this.sSql.append(" nome, ");
+            this.sSql.append(" descricao ");
+            this.sSql.append(" ) values ( ");
+            this.sSql.append(" ?,?,?,? ");
+            this.sSql.append(" ) ");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setInt(1, funcao.getCodigoFuncao());
             this.preStatement.setInt(2, formulario.getCodigoFormulario() );
@@ -66,12 +66,12 @@ public class FuncaoImpl implements FuncaoDAO{
             this.preStatement.setString(4, funcao.getDescricao());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.FUNCAO.IMPLEMENTACAO.CADASTRAR::");
-            this.mensagem.append("Erro na inserção dos dados.: \n");
+            this.mensagem.append("Erro na inserção dos dados.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         } 
     }
     /**
@@ -83,8 +83,8 @@ public class FuncaoImpl implements FuncaoDAO{
      */
     public Integer funcaoNextVal() throws SQLException {
         String valor = "";
-        this.sSql.append(" SELECT MAX(codigo_funcao) + 1 as max FROM funcao ");
         try {
+            this.sSql.append(" SELECT MAX(codigo_funcao) + 1 as max FROM funcao ");
             this.statement = this.connection.createStatement();
             this.connection.setAutoCommit(true);
             this.resultSet = this.statement.executeQuery(this.sSql.toString());
@@ -104,14 +104,14 @@ public class FuncaoImpl implements FuncaoDAO{
      *
      */
     @Override
-    public boolean editar(Funcao funcao,Formulario formulario) throws SQLException {
-        this.sSql.append(" UPDATE funcao SET ");
-        this.sSql.append(" codigo_formulario = ?, ");
-        this.sSql.append(" nome = ? , ");
-        this.sSql.append(" descricao = ?  ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_funcao = ? ");
+    public String editar(Funcao funcao,Formulario formulario) throws SQLException {
         try {
+            this.sSql.append(" UPDATE funcao SET ");
+            this.sSql.append(" codigo_formulario = ?, ");
+            this.sSql.append(" nome = ? , ");
+            this.sSql.append(" descricao = ?  ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_funcao = ? ");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setInt    (1, formulario.getCodigoFormulario());
             this.preStatement.setString (2, funcao.getNome());
@@ -119,12 +119,12 @@ public class FuncaoImpl implements FuncaoDAO{
             this.preStatement.setInt    (4, funcao.getCodigoFuncao());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.FUNCAO.IMPLEMENTACAO.EDITAR::");
-            this.mensagem.append("Erro na inserção dos dados.: \n");
+            this.mensagem.append("Erro na inserção dos dados.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
     /**
@@ -135,24 +135,24 @@ public class FuncaoImpl implements FuncaoDAO{
      *
      */
     @Override
-    public boolean excluir(Funcao funcao) throws SQLException {
-        this.sSql.append(" DELETE ");
-        this.sSql.append(" FROM funcao ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_funcao = ? ");
+    public String excluir(Funcao funcao) throws SQLException {
         try {
+            this.sSql.append(" DELETE ");
+            this.sSql.append(" FROM funcao ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_funcao = ? ");
             this.preStatement = this.connection.prepareStatement(
-                    this.sSql.toString()
+                this.sSql.toString()
             );
             this.preStatement.setInt(1, funcao.getCodigoFuncao());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.FUNCAO.IMPLEMENTACAO.EXCLUSÃO::");
-            this.mensagem.append("Erro na exclusão do dado.:\n");
+            this.mensagem.append("Erro na exclusão do dado.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
     /**
@@ -164,16 +164,16 @@ public class FuncaoImpl implements FuncaoDAO{
      */
     @Override
     public List<Funcao> listar() throws SQLException {
-        List<Funcao> listaDeFuncoes = new ArrayList();
-        this.sSql.append(" SELECT ");
-        this.sSql.append(" fu.codigo_funcao, ");
-        this.sSql.append(" f.codigo_formulario||' - '||f.nome formulario, ");
-        this.sSql.append(" fu.nome, ");
-        this.sSql.append(" fu.descricao ");
-        this.sSql.append(" from funcao fu, formulario f ");
-        this.sSql.append(" where fu.codigo_formulario = f.codigo_formulario ");
-        this.sSql.append(" order by fu.codigo_funcao desc ");
         try {
+            List<Funcao> listaDeFuncoes = new ArrayList();
+            this.sSql.append(" SELECT ");
+            this.sSql.append(" fu.codigo_funcao, ");
+            this.sSql.append(" f.codigo_formulario||' - '||f.nome formulario, ");
+            this.sSql.append(" fu.nome, ");
+            this.sSql.append(" fu.descricao ");
+            this.sSql.append(" from funcao fu, formulario f ");
+            this.sSql.append(" where fu.codigo_formulario = f.codigo_formulario ");
+            this.sSql.append(" order by fu.codigo_funcao desc ");
             this.statement = this.connection.createStatement();
             this.resultSet = statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
@@ -187,21 +187,9 @@ public class FuncaoImpl implements FuncaoDAO{
             return listaDeFuncoes;
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.FUNCOES.IMPLEMENTACAO.LISTAGEM::");
-            this.mensagem.append("Erro na listagem dos dados.:\n");
+            this.mensagem.append("Erro na listagem dos dados.");
             this.mensagem.append(e.getSQLState());
             throw new SQLException(this.mensagem.toString());
         }
-    }
-
-    @Override
-    public Funcao getByCodigo(int codigoFuncao) throws SQLException {
-        /**
-         * Método getByCodigo
-         *
-         * @author Fabricio Nogueira
-         * @version 1.0.0
-         *
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

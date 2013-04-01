@@ -49,19 +49,19 @@ public class FormularioImpl implements FormularioDAO{
      *
      */
     @Override
-    public void cadastrar(Formulario formulario, 
+    public String cadastrar(Formulario formulario, 
                                     Modulo modulo) throws SQLException {
-        this.sSql.append(" INSERT INTO formulario ( ");
-        this.sSql.append(" codigo_formulario, ");
-        this.sSql.append(" codigo_modulo, ");
-        this.sSql.append(" nome, ");
-        this.sSql.append(" nome_menu, ");
-        this.sSql.append(" descricao, ");
-        this.sSql.append(" ordem, ");
-        this.sSql.append(" flag_oculto )");
-        this.sSql.append(" values ");
-        this.sSql.append(" (?,?,?,?,?,?,? )");
         try {
+            this.sSql.append(" INSERT INTO formulario ( ");
+            this.sSql.append(" codigo_formulario, ");
+            this.sSql.append(" codigo_modulo, ");
+            this.sSql.append(" nome, ");
+            this.sSql.append(" nome_menu, ");
+            this.sSql.append(" descricao, ");
+            this.sSql.append(" ordem, ");
+            this.sSql.append(" flag_oculto )");
+            this.sSql.append(" values ");
+            this.sSql.append(" (?,?,?,?,?,?,? )");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setInt    (1, formulario.getCodigoFormulario());
             this.preStatement.setInt    (2, modulo.getCodigoModulo());
@@ -72,11 +72,12 @@ public class FormularioImpl implements FormularioDAO{
             this.preStatement.setString (7, formulario.getFlagOculto());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.FORMULARIO.IMPLEMENTACAO.CADASTRAR::");
-            this.mensagem.append("Erro na inserção dos dados.: \n");
+            this.mensagem.append("Erro na inserção dos dados.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         } 
     }
     /**
@@ -88,8 +89,8 @@ public class FormularioImpl implements FormularioDAO{
      */
     public Integer formularioNextVal() throws SQLException {
         String valor = "";
-        this.sSql.append(" SELECT MAX(codigo_formulario) + 1 as max FROM formulario ");
         try {
+            this.sSql.append(" SELECT MAX(codigo_formulario) + 1 as max FROM formulario ");
             this.statement = this.connection.createStatement();
             this.connection.setAutoCommit(true);
             this.resultSet = this.statement.executeQuery(this.sSql.toString());
@@ -109,18 +110,18 @@ public class FormularioImpl implements FormularioDAO{
      *
      */
     @Override
-    public void editar(Formulario formulario, 
+    public String editar(Formulario formulario, 
                                 Modulo modulo) throws SQLException {
-        this.sSql.append(" UPDATE formulario SET ");
-        this.sSql.append(" codigo_modulo = ?, ");
-        this.sSql.append(" nome = ?, ");
-        this.sSql.append(" nome_menu = ?, ");
-        this.sSql.append(" descricao = ?, ");
-        this.sSql.append(" ordem = ? , ");
-        this.sSql.append(" flag_oculto = ? ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_formulario = ? ");
         try {
+            this.sSql.append(" UPDATE formulario SET ");
+            this.sSql.append(" codigo_modulo = ?, ");
+            this.sSql.append(" nome = ?, ");
+            this.sSql.append(" nome_menu = ?, ");
+            this.sSql.append(" descricao = ?, ");
+            this.sSql.append(" ordem = ? , ");
+            this.sSql.append(" flag_oculto = ? ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_formulario = ? ");
             this.preStatement = this.connection.prepareStatement(
                 this.sSql.toString()
             );
@@ -133,11 +134,12 @@ public class FormularioImpl implements FormularioDAO{
             this.preStatement.setInt    (7, formulario.getCodigoFormulario());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.FORMULARIO.IMPLEMENTACAO.EDIÇÃO::");
-            this.mensagem.append("Erro na edição do dado.: \n");
+            this.mensagem.append("Erro na edição do dado.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
     /**
@@ -148,24 +150,24 @@ public class FormularioImpl implements FormularioDAO{
      *
      */
     @Override
-    public void excluir(Formulario formulario) throws SQLException {
-        this.sSql.append(" DELETE ");
-        this.sSql.append(" FROM formulario ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_formulario = ? ");
+    public String excluir(Formulario formulario) throws SQLException {
         try {
+            this.sSql.append(" DELETE ");
+            this.sSql.append(" FROM formulario ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_formulario = ? ");
             this.preStatement = this.connection.prepareStatement(
-                    this.sSql.toString()
+                this.sSql.toString()
             );
             this.preStatement.setInt(1, formulario.getCodigoFormulario());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.FORMULARIO.IMPLEMENTACAO.EXCLUSÃO::");
-            this.mensagem.append("Erro na exclusão do dado.:");
-            this.mensagem.append("Pode estar sendo referênciado.");
+            this.mensagem.append("Erro na exclusão do dado.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
     /**
@@ -177,22 +179,22 @@ public class FormularioImpl implements FormularioDAO{
      */
     @Override
     public List<Formulario> listar() throws SQLException {
-        List<Formulario> listaDeFormularios = new ArrayList();
-        this.sSql.append(" SELECT ");
-        this.sSql.append(" f.codigo_formulario, ");
-        this.sSql.append(" m.codigo_modulo||'-'||m.nome modulo, ");
-        this.sSql.append(" f.nome, ");
-        this.sSql.append(" f.nome_menu, ");
-        this.sSql.append(" f.descricao, ");
-        this.sSql.append(" f.ordem, ");
-        this.sSql.append(" case f.flag_oculto when 't' then 'Oculto' when 'f' ");
-        this.sSql.append(" then 'Visivel' else 'Não Definido' end flag_oculto ");
-        this.sSql.append(" FROM ");
-        this.sSql.append(" formulario f, modulo m ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" m.codigo_modulo = f.codigo_modulo ");
-        this.sSql.append(" ORDER BY f.codigo_formulario DESC ");
         try {
+            List<Formulario> listaDeFormularios = new ArrayList();
+            this.sSql.append(" SELECT ");
+            this.sSql.append(" f.codigo_formulario, ");
+            this.sSql.append(" m.codigo_modulo||'-'||m.nome modulo, ");
+            this.sSql.append(" f.nome, ");
+            this.sSql.append(" f.nome_menu, ");
+            this.sSql.append(" f.descricao, ");
+            this.sSql.append(" f.ordem, ");
+            this.sSql.append(" case f.flag_oculto when 't' then 'Oculto' when 'f' ");
+            this.sSql.append(" then 'Visivel' else 'Não Definido' end flag_oculto ");
+            this.sSql.append(" FROM ");
+            this.sSql.append(" formulario f, modulo m ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" m.codigo_modulo = f.codigo_modulo ");
+            this.sSql.append(" ORDER BY f.codigo_formulario DESC ");
             this.statement = this.connection.createStatement();
             this.resultSet = statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
@@ -214,17 +216,5 @@ public class FormularioImpl implements FormularioDAO{
             this.mensagem.append(e.getSQLState());
             throw new SQLException(this.mensagem.toString());
         }
-    }
-
-    @Override
-    public Formulario getByCodigo(int codigoFormulario) throws SQLException {
-        /**
-         * Método getByCodigo
-         *
-         * @author Fabricio Nogueira
-         * @version 1.0.0
-         *
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

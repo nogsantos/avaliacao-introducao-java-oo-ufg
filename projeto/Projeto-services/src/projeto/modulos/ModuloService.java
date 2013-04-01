@@ -32,8 +32,7 @@ public class ModuloService implements ModuloInterface {
      * Sobrecarga no Construtor
      * @param null
      */
-    public ModuloService() {
-    }
+    public ModuloService() {}
     /**
      * Sobrecarga Construtor 
      * Apenas código como parametro.
@@ -69,11 +68,11 @@ public class ModuloService implements ModuloInterface {
      *
      */
     @Override
-    public boolean cadastrar(){
+    public String cadastrar(){
         try {
             return this.moduloData.cadastrar(this.modulo);
         } catch (SQLException ex) {
-            return false;
+            return ex.getSQLState();
         }
     }
     /**
@@ -86,11 +85,11 @@ public class ModuloService implements ModuloInterface {
      *
      */
     @Override
-    public boolean editar(){
+    public String editar(){
         try {
             return this.moduloData.editar(this.modulo);
         } catch (SQLException ex) {
-            return false;
+            return ex.getSQLState();
         }
     }
     /**
@@ -103,11 +102,11 @@ public class ModuloService implements ModuloInterface {
      *
      */
     @Override
-    public boolean excluir(){
+    public String excluir(){
         try {
             return this.moduloData.excluir(this.modulo);
-        } catch (Exception e) {
-            return false;
+        } catch (SQLException e) {
+            return e.getSQLState();
         }
     }
     /**
@@ -142,15 +141,19 @@ public class ModuloService implements ModuloInterface {
              * Cabeçalho
              */
             listagemModulos.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "***** LISTAGEM DE MÓDULOS ",
                     "*",
-                    QTD_COL_EXTERIOR)).append("\n");
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
             listagemModulos.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "-",
                     "-",
-                    QTD_COL_EXTERIOR)).append("\n");
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
             /*
              * Titulos da tabela
              */
@@ -193,16 +196,15 @@ public class ModuloService implements ModuloInterface {
              * Dados da tabela
              */
             for (Modulo moduloList : listaDeModulos) {
-                listagemModulos.append("| ").
-                    append(
-                        ProjetoStringUtils.rpad(
-                            Integer.toString(
-                                moduloList.getCodigoModulo()
-                            ), 
-                            " ", 
-                            6
-                        )
-                    ).append("|");
+                listagemModulos.append("| ").append(
+                    ProjetoStringUtils.rpad(
+                        Integer.toString(
+                            moduloList.getCodigoModulo()
+                        ), 
+                        " ", 
+                        6
+                    )
+                ).append("|");
                 listagemModulos.append(
                     ProjetoStringUtils.rpad(
                         moduloList.getNome(),
@@ -267,9 +269,9 @@ public class ModuloService implements ModuloInterface {
         StringBuilder listagemModulosSimples = new StringBuilder();
         if (listaDeModulosSimples.isEmpty()) {
             return ProjetoStringUtils.rpad(
-                    "***** A Tabela de módulos está vazia ",
-                    " * ",
-                    QTD_COL_EXTERIOR
+                "***** A Tabela de módulos está vazia ",
+                " * ",
+                QTD_COL_EXTERIOR
             );
         } else {
             /*

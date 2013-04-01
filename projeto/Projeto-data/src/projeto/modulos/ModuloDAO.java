@@ -28,7 +28,7 @@ public interface ModuloDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean cadastrar(Modulo modulo) throws SQLException;
+    public String cadastrar(Modulo modulo) throws SQLException;
     /**
      * Editação dos dados.
      * Implementa a edição dos dados
@@ -40,7 +40,7 @@ public interface ModuloDAO {
      * @exception Gera uma exceção de sql (SqlException).
      * 
      */
-    public boolean editar(Modulo modulo) throws SQLException;
+    public String editar(Modulo modulo) throws SQLException;
     /**
      * Exclusão dos dados.
      * Implementa a edição dos dados.
@@ -52,7 +52,7 @@ public interface ModuloDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean excluir(Modulo modulo) throws SQLException;
+    public String excluir(Modulo modulo) throws SQLException;
     /**
      * Listagem dos dados.
      * Listagem dos dados cadastrados.
@@ -65,16 +65,4 @@ public interface ModuloDAO {
      * 
      */
     public List<Modulo> listar() throws SQLException;
-    /**
-     * Recuperação de um dado pelo seu identificador.
-     *
-     * @author Fabricio Nogueira
-     * @version 1.0.0
-     * @since 25-Mar-2013 
-     * @return Objeto
-     * @exception Gera uma exceção de sql (SqlException)
-     *
-     */
-    public Modulo getByCodigo(int codigoModulo) throws SQLException;
-
 }

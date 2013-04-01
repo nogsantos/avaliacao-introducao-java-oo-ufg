@@ -20,18 +20,19 @@ import projeto.utils.ProjetoStringUtils;
 
 public class MenuUsuario {
 
-    private static final int SAIR         = 0;
-    private static final int MENU_INICIAL = 1;
-    private static final int EDITAR       = 2;
-    private static final int EXCLUIR      = 3;
-    private static final int LISTAR       = 4;
-    private static final int CONTINUAR    = 5;
+    private static final int SAIR           = 0;
+    private static final int MENU_INICIAL   = 1;
+    private static final int EDITAR         = 2;
+    private static final int EXCLUIR        = 3;
+    private static final int LISTAR         = 4;
+    private static final int CONTINUAR      = 5;
+    private static final int DEFINIR_PERFIL = 6;
     /*
      * Definindo a quantidade de colunas
      */
-    private static final int QTD_COL_EXTERIOR     = 66;
-    private static final int QTD_COL_INTERIOR     = 65;
-    private static final int QTD_COL_OPCOES       = 32;
+    private static final int QTD_COL_EXTERIOR = 66;
+    private static final int QTD_COL_INTERIOR = 65;
+    private static final int QTD_COL_OPCOES   = 32;
     /**
      *
      * Menu principal usuario.
@@ -126,7 +127,7 @@ public class MenuUsuario {
             intAcao = leitor.nextInt();
             defineAcaoMenuUsuario(intAcao);
         } catch (Exception e) {
-            System.err.println("##ERRO:: " + e.getMessage());
+            System.err.println("##ERRO::" + e.getMessage());
             showMenuUsuario();
         }
     }
@@ -149,7 +150,7 @@ public class MenuUsuario {
                  * Listando perfis cadastrados
                  */
                 UsuarioService editarUsuario = new UsuarioService();
-                editarUsuario.listar();
+                editarUsuario.listagemSimples();
                 /*
                  * Menu com as opções de edição
                  */
@@ -161,7 +162,7 @@ public class MenuUsuario {
                  * Listando perfis cadastrados
                  */
                 UsuarioService excluirUsuario = new UsuarioService();
-                excluirUsuario.listar();
+                excluirUsuario.listagemSimples();
                 /*
                  * Menu com as opções de exclusão
                  */
@@ -260,7 +261,7 @@ public class MenuUsuario {
         ).append("*");
         menu.append(
             ProjetoStringUtils.rpad(
-                " ", 
+                "6. Definir perfil", 
                 " ",
                 QTD_COL_OPCOES
             )
@@ -277,7 +278,7 @@ public class MenuUsuario {
             intAcao = leitor.nextInt();
             defineAcaoMenuUsuarioError(intAcao);
         } catch (Exception e) {
-            System.err.println("##ERRO:: " + e.getMessage());
+            System.err.println("##ERRO::" + e.getMessage());
             showMenuUsuarioError();
         }
     }
@@ -298,6 +299,9 @@ public class MenuUsuario {
             case CONTINUAR:
                 UsuarioView usuarioView = new UsuarioView();
                 usuarioView.leitorCadastroUsuario();
+                break;
+            case DEFINIR_PERFIL:
+                UsuarioPerfilView usuarioPerfilView = new UsuarioPerfilView();
                 break;
                 case SAIR:
                     System.exit(0);
@@ -385,7 +389,7 @@ public class MenuUsuario {
             intAcao = leitor.nextInt();
             defineAcaoListagemMenuUsuario(intAcao);
         } catch (Exception e) {
-            System.err.println("##ERRO:: " + e.getMessage());
+            System.err.println("##ERRO::" + e.getMessage());
             listagemMenuUsuario();
         }
     }
@@ -441,7 +445,7 @@ public class MenuUsuario {
          */
         menu.append(
             ProjetoStringUtils.rpad(
-                "EDIÇÃO::Informe Cpf: dor usuario desejado",
+                "EDIÇÃO::Informe Cpf do usuário",
                 " ",
                 QTD_COL_INTERIOR
             )
@@ -468,7 +472,7 @@ public class MenuUsuario {
             strAcao = leitor.nextLine().toString().toLowerCase();
             defineAcaoEdicaoMenuUsuario(strAcao);
         } catch (Exception e) {
-            System.err.println("##ERRO:: " + e.getMessage());
+            System.err.println("##ERRO::" + e.getMessage());
             edicaoMenuUsuario();
         }
     }
@@ -482,13 +486,11 @@ public class MenuUsuario {
     * @return void
     */
     private void defineAcaoEdicaoMenuUsuario(String strAcao) {
-        Integer codigoUsuario;
         if(strAcao.equals("c")) {
             showMenuUsuario();
         }else{
-            codigoUsuario = Integer.parseInt(strAcao);
             UsuarioView leitorUsuario = new UsuarioView();
-            leitorUsuario.leitorEdicaoUsuario(codigoUsuario);
+            leitorUsuario.leitorEdicaoUsuario(strAcao);
         }
     }
     /**
@@ -518,7 +520,7 @@ public class MenuUsuario {
          */
         menu.append(
             ProjetoStringUtils.rpad(
-                "EXCLUSÃO::Informe Código dor usuario desejado",
+                "EXCLUSÃO::Informe Código do usuário",
                 " ",
                 QTD_COL_INTERIOR
             )
@@ -542,7 +544,7 @@ public class MenuUsuario {
             strAcao = leitor.nextLine().toString().toLowerCase();
             defineAcaoExclusaoMenuUsuario(strAcao);
         } catch (Exception e) {
-            System.err.println("##ERRO:: " + e.getMessage());
+            System.err.println("##ERRO::" + e.getMessage());
             exclusaoMenuUsuario();
         }
     }
@@ -556,13 +558,11 @@ public class MenuUsuario {
     * @return void
     */
     private void defineAcaoExclusaoMenuUsuario(String strAcao) {
-        Integer codigoUsuario;
         if(strAcao.equals("c")) {
             showMenuUsuario();
         }else{
-            codigoUsuario = Integer.parseInt(strAcao);
             UsuarioView leitorUsuario = new UsuarioView();
-            leitorUsuario.leitorExclusaoUsuario(codigoUsuario);
+            leitorUsuario.leitorExclusaoUsuario(strAcao);
         }
     }
 

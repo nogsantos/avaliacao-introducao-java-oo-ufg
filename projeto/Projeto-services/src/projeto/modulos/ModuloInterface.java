@@ -24,7 +24,7 @@ public interface ModuloInterface {
      * @return void
      *
      */
-    boolean cadastrar();
+    String cadastrar();
     /**
      * Serviço para edição dos dados.
      *
@@ -34,7 +34,7 @@ public interface ModuloInterface {
      * @return boolean
      *
      */
-    boolean editar();
+    String editar();
     /**
      * Serviço para exclusão dos dados.
      *
@@ -44,7 +44,7 @@ public interface ModuloInterface {
      * @return void
      *
      */
-    boolean excluir();
+    String excluir();
     /**
      * Serviço para listagem dos dados.
      *

@@ -67,7 +67,8 @@ public class PerfilView {
                 nome, 
                 descricao
         );
-        if(perfilCadastrar.cadastrar()){
+        String cadastrar = perfilCadastrar.cadastrar();
+        if(cadastrar.equals("sucesso")){
             System.out.println(
                 ProjetoStringUtils.rpad(
                     "SUCESSO:: Dado inserido com sucesso.", 
@@ -77,6 +78,7 @@ public class PerfilView {
             );
             this.menuPerfil.showMenuPerfil();
         }else{
+            System.err.println(cadastrar);
             this.menuPerfil.showMenuPerfilError();
         }
     }
@@ -131,7 +133,8 @@ public class PerfilView {
                 nome, 
                 descricao
             );
-            if(perfilEditar.editar()){
+            String editar = perfilEditar.editar();
+            if(editar.equals("sucesso")){
                 System.out.println(
                     ProjetoStringUtils.rpad(
                         "SUCESSO::Dado editado com sucesso.",
@@ -143,7 +146,7 @@ public class PerfilView {
             }else{
                 System.err.println(
                     ProjetoStringUtils.rpad(
-                        "***** O pefil informado não existe! ",
+                        editar,
                         "*",
                         66
                     )
@@ -195,7 +198,8 @@ public class PerfilView {
                     PerfilService perfilExcluir = new PerfilService(
                         codigoPerfil
                     );
-                    if(perfilExcluir.excluir()){
+                    String excluir = perfilExcluir.excluir();
+                    if(excluir.equals("sucesso")){
                         System.out.println(
                             ProjetoStringUtils.rpad(
                                 "SUCESSO::Dado excluído com sucesso.",
@@ -207,7 +211,7 @@ public class PerfilView {
                     }else{
                         System.err.println(
                             ProjetoStringUtils.rpad(
-                                "***** O pefil informado não existe! ",
+                                excluir,
                                 "*",
                                 66
                             )

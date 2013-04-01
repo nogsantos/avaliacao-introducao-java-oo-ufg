@@ -48,27 +48,27 @@ public class PerfilImpl implements PerfilDAO{
      * @return boolean
      */
     @Override
-    public boolean cadastrar(Perfil perfil) throws SQLException{
-        this.sSql.append(" INSERT INTO perfil ( ");
-        this.sSql.append(" codigo_perfil, ");
-        this.sSql.append(" nome, ");
-        this.sSql.append(" descricao ");
-        this.sSql.append(" ) values ( ");
-        this.sSql.append(" ?,?,? ");
-        this.sSql.append(" ) ");
+    public String cadastrar(Perfil perfil) throws SQLException{
         try {
+            this.sSql.append(" INSERT INTO perfil ( ");
+            this.sSql.append(" codigo_perfil, ");
+            this.sSql.append(" nome, ");
+            this.sSql.append(" descricao ");
+            this.sSql.append(" ) values ( ");
+            this.sSql.append(" ?,?,? ");
+            this.sSql.append(" ) ");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setInt(1, perfil.getCodigoPerfil());
             this.preStatement.setString(2, perfil.getNome());
             this.preStatement.setString(3, perfil.getDescricao());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.CADASTRAR::");
-            this.mensagem.append("Erro na inserção dos dados.: \n");
+            this.mensagem.append("Erro na inserção dos dados.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         } 
     }
     /**
@@ -78,10 +78,10 @@ public class PerfilImpl implements PerfilDAO{
      * @version 1.0.0 
      * @return Integer Próximo codigo na sequencia regitrado na tabela
      */
-    public  Integer perfilNextVal() throws SQLException{
+    public Integer perfilNextVal() throws SQLException{
         String valor = "";
-        this.sSql.append(" SELECT MAX(codigo_perfil) + 1 as max FROM perfil ");
         try {
+            this.sSql.append(" SELECT MAX(codigo_perfil) + 1 as max FROM perfil ");
             this.statement = this.connection.createStatement();
             this.connection.setAutoCommit(true);
             this.resultSet = this.statement.executeQuery(this.sSql.toString());
@@ -101,27 +101,27 @@ public class PerfilImpl implements PerfilDAO{
      * @return boolean
      */
     @Override
-    public boolean editar(Perfil perfil) throws SQLException{
-        this.sSql.append(" UPDATE perfil SET ");
-        this.sSql.append(" nome = ?, ");
-        this.sSql.append(" descricao = ? ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_perfil = ? ");
+    public String editar(Perfil perfil) throws SQLException{
         try {
+            this.sSql.append(" UPDATE perfil SET ");
+            this.sSql.append(" nome = ?, ");
+            this.sSql.append(" descricao = ? ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_perfil = ? ");
             this.preStatement = this.connection.prepareStatement(
-                    this.sSql.toString()
+                this.sSql.toString()
             );
             this.preStatement.setString(1, perfil.getNome());
             this.preStatement.setString(2, perfil.getDescricao());
             this.preStatement.setInt(3, perfil.getCodigoPerfil());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.EDIÇÃO::");
-            this.mensagem.append("Erro na edição do dado.: \n");
+            this.mensagem.append("Erro na edição do dado.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         } 
     }
     /**
@@ -132,24 +132,24 @@ public class PerfilImpl implements PerfilDAO{
      *
      */
     @Override
-    public boolean excluir(Perfil perfil) throws SQLException{
-        this.sSql.append(" DELETE ");
-        this.sSql.append(" FROM perfil ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_perfil = ? ");
+    public String excluir(Perfil perfil) throws SQLException{
         try {
+            this.sSql.append(" DELETE ");
+            this.sSql.append(" FROM perfil ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_perfil = ? ");
             this.preStatement = this.connection.prepareStatement(
-                    this.sSql.toString()
+                this.sSql.toString()
             );
             this.preStatement.setInt(1, perfil.getCodigoPerfil());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.EXCLUSÃO::");
-            this.mensagem.append("Erro na exclusão do dado.:\n");
+            this.mensagem.append("Erro na exclusão do dado.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         } 
     }
     /**
@@ -162,16 +162,16 @@ public class PerfilImpl implements PerfilDAO{
      */
     @Override
     public List<Perfil> listar() throws SQLException{
-        List<Perfil> listaDePerfis = new ArrayList();
-        this.sSql.append(" SELECT ");
-        this.sSql.append(" codigo_perfil, ");
-        this.sSql.append(" nome, ");
-        this.sSql.append(" descricao ");
-        this.sSql.append(" FROM ");
-        this.sSql.append(" perfil ");
-        this.sSql.append(" ORDER BY ");
-        this.sSql.append(" codigo_perfil DESC ");
         try {
+            List<Perfil> listaDePerfis = new ArrayList();
+            this.sSql.append(" SELECT ");
+            this.sSql.append(" codigo_perfil, ");
+            this.sSql.append(" nome, ");
+            this.sSql.append(" descricao ");
+            this.sSql.append(" FROM ");
+            this.sSql.append(" perfil ");
+            this.sSql.append(" ORDER BY ");
+            this.sSql.append(" codigo_perfil DESC ");
             this.statement = this.connection.createStatement();
             this.resultSet = statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
@@ -185,7 +185,7 @@ public class PerfilImpl implements PerfilDAO{
             return listaDePerfis;
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.LISTAGEM::");
-            this.mensagem.append("Erro na listagem dos dados.:\n");
+            this.mensagem.append("Erro na listagem dos dados.");
             this.mensagem.append(e.getSQLState());
             throw new SQLException(this.mensagem.toString());
         } 
@@ -201,15 +201,15 @@ public class PerfilImpl implements PerfilDAO{
     @Override
     public Perfil getByCodigo(int codigoPerfil) throws SQLException{
         if(codigoPerfil >= 0){
-            this.sSql.append(" SELECT ");
-            this.sSql.append(" codigo_perfil, ");
-            this.sSql.append(" nome, ");
-            this.sSql.append(" descricao ");
-            this.sSql.append(" FROM perfil ");
-            this.sSql.append(" WHERE ");
-            this.sSql.append(" codigo_perfil = ");
-            this.sSql.append(codigoPerfil);
             try {
+                this.sSql.append(" SELECT ");
+                this.sSql.append(" codigo_perfil, ");
+                this.sSql.append(" nome, ");
+                this.sSql.append(" descricao ");
+                this.sSql.append(" FROM perfil ");
+                this.sSql.append(" WHERE ");
+                this.sSql.append(" codigo_perfil = ");
+                this.sSql.append(codigoPerfil);
                 this.statement = this.connection.createStatement();
                 this.connection.setAutoCommit(true);
                 this.resultSet = statement.executeQuery(this.sSql.toString());
@@ -244,15 +244,15 @@ public class PerfilImpl implements PerfilDAO{
      */
     public boolean confirmaPerfil(int codigoPerfil) throws SQLException{
         if(codigoPerfil >= 0){
-            this.sSql.append(" SELECT ");
-            this.sSql.append(" codigo_perfil, ");
-            this.sSql.append(" nome, ");
-            this.sSql.append(" descricao ");
-            this.sSql.append(" FROM perfil ");
-            this.sSql.append(" WHERE ");
-            this.sSql.append(" codigo_perfil = ");
-            this.sSql.append(codigoPerfil);
             try {
+                this.sSql.append(" SELECT ");
+                this.sSql.append(" codigo_perfil, ");
+                this.sSql.append(" nome, ");
+                this.sSql.append(" descricao ");
+                this.sSql.append(" FROM perfil ");
+                this.sSql.append(" WHERE ");
+                this.sSql.append(" codigo_perfil = ");
+                this.sSql.append(codigoPerfil);
                 this.statement = this.connection.createStatement();
                 this.connection.setAutoCommit(true);
                 this.resultSet = this.statement.executeQuery(this.sSql.toString());

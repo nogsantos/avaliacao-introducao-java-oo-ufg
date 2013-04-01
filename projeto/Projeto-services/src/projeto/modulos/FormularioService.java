@@ -19,7 +19,6 @@ import projeto.utils.ProjetoStringUtils;
 
 
 public class FormularioService implements FormularioInterface {
-
     /*
      * Instância da implementação DAO do formulário.
      */
@@ -30,15 +29,12 @@ public class FormularioService implements FormularioInterface {
      * Definindo a quantidade de colunas
      */
     private static final int QTD_COL_EXTERIOR = 117;
-
     /**
      * Sobrecarga no Construtor
      *
      * @param null
      */
-    public FormularioService() {
-    }
-
+    public FormularioService() {}
     /**
      * Sobrecarga Construtor
      * Apenas código como parametro.
@@ -48,7 +44,6 @@ public class FormularioService implements FormularioInterface {
     public FormularioService(Integer codigoFormulario) {
         this.formulario.setCodigoFormulario(codigoFormulario);
     }
-
     /**
      * Sobrecarga Construtor
      * Todos os parametros.
@@ -59,8 +54,8 @@ public class FormularioService implements FormularioInterface {
      * @param int ordem
      */
     public FormularioService(Integer codigoFormulario, Integer codigoModulo,
-            String nome, String nomeMenu, String descricao, int ordem, String flagOculto) {
-        
+            String nome, String nomeMenu, String descricao, 
+            int ordem, String flagOculto) {
         this.formulario.setCodigoFormulario(codigoFormulario);
         this.modulo.setCodigoModulo(codigoModulo);
         this.formulario.setNome(nome);
@@ -69,7 +64,6 @@ public class FormularioService implements FormularioInterface {
         this.formulario.setOrdem(ordem);
         this.formulario.setFlagOculto(flagOculto);
     }
-
     /**
      * Serviço para cadastro dos dados.
      *
@@ -82,13 +76,11 @@ public class FormularioService implements FormularioInterface {
     @Override
     public String cadastrar() {
         try {
-            this.formularioData.cadastrar(this.formulario, this.modulo);
-            return "sucesso";
+            return this.formularioData.cadastrar(this.formulario, this.modulo);
         } catch (SQLException ex) {
             return ex.getMessage();
         }
     }
-
     /**
      * Serviço para edição dos dados.
      *
@@ -101,13 +93,11 @@ public class FormularioService implements FormularioInterface {
     @Override
     public String editar() {
         try {
-            this.formularioData.editar(this.formulario, this.modulo);
-            return "sucesso";
+            return this.formularioData.editar(this.formulario, this.modulo);
         } catch (SQLException ex) {
             return ex.getMessage();
         }
     }
-
     /**
      * Serviço para exclusão dos dados.
      *
@@ -120,13 +110,11 @@ public class FormularioService implements FormularioInterface {
     @Override
     public String excluir() {
         try {
-            this.formularioData.excluir(this.formulario);
-            return "sucesso";
+            return this.formularioData.excluir(this.formulario);
         } catch (Exception e) {
             return e.getMessage();
         }
     }
-
     /**
      * Serviço para listagem dos dados.
      *
@@ -148,107 +136,142 @@ public class FormularioService implements FormularioInterface {
         int count = 0;
         if (listaDeFormularios.isEmpty()) {
             System.err.println(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "***** A Tabela de formulários está vazia ",
                     " * ",
-                    QTD_COL_EXTERIOR));
+                    QTD_COL_EXTERIOR
+                )
+            );
         } else {
             /*
              * Cabeçalho
              */
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "***** LISTAGEM DE FORMULÁRIOS ",
                     "*",
-                    QTD_COL_EXTERIOR)).append("\n");
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "-",
                     "-",
-                    QTD_COL_EXTERIOR)).append("\n");
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
             /*
              * Titulos da tabela
              */
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Codigo ",
                     " ",
-                    6));
+                    6
+                )
+            );
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Módulo ",
                     " ",
-                    18));
+                    18
+                )
+            );
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Nome ",
                     " ",
-                    22));
+                    22
+                )
+            );
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Nome Menu ",
                     " ",
-                    22));
+                    22
+                )
+            );
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Descrição ",
                     " ",
-                    28));
+                    28
+                )
+            );
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Ordem ",
                     " ",
-                    6));
+                    6
+                )
+            );
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Visuali. ",
                     " ",
-                    11)).append("|").append("\n");
+                    11
+                )
+            ).append("|").append("\n");
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "-",
                     "-",
-                    QTD_COL_EXTERIOR)).append("\n");
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
             /*
              * Dados da tabela
              */
             for (Formulario formularioList : listaDeFormularios) {
-                listagemFormularios.append("| ").
-                        append(
-                        ProjetoStringUtils.rpad(
+                listagemFormularios.append("| ").append(
+                    ProjetoStringUtils.rpad(
                         formularioList.getCodigoFormulario().toString(),
                         " ",
-                        6)).append("|");
+                        6
+                    )
+                ).append("|");
                 listagemFormularios.append(
-                        ProjetoStringUtils.rpad(
+                    ProjetoStringUtils.rpad(
                         formularioList.getNomeModulo(),
                         " ",
-                        17)).append("|");
+                        17
+                    )
+                ).append("|");
                 listagemFormularios.append(
-                        ProjetoStringUtils.rpad(
+                    ProjetoStringUtils.rpad(
                         formularioList.getNome(),
                         " ",
-                        21)).append("|");
+                        21
+                    )
+                ).append("|");
                 listagemFormularios.append(
-                        ProjetoStringUtils.rpad(
+                    ProjetoStringUtils.rpad(
                         formularioList.getNomeMenu(),
                         " ",
-                        21)).append("|");
+                        21
+                    )
+                ).append("|");
                 listagemFormularios.append(
-                        ProjetoStringUtils.rpad(
+                    ProjetoStringUtils.rpad(
                         formularioList.getDescricao(),
                         " ",
-                        27)).append("|");
+                        27
+                    )
+                ).append("|");
                 listagemFormularios.append(
-                        ProjetoStringUtils.rpad(
+                    ProjetoStringUtils.rpad(
                         formularioList.getOrdem().toString(),
                         " ",
-                        6)).append("|");
+                        6
+                    )
+                ).append("|");
                 listagemFormularios.append(
-                        ProjetoStringUtils.rpad(
+                    ProjetoStringUtils.rpad(
                         formularioList.getFlagOculto(),
                         " ",
-                        10  ));
+                        10
+                    )
+                );
                 listagemFormularios.append("|");
                 listagemFormularios.append("\n");
                 count++;
@@ -257,15 +280,19 @@ public class FormularioService implements FormularioInterface {
              * Rodapé
              */
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "-",
                     "-",
-                    QTD_COL_EXTERIOR)).append("\n");
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
             listagemFormularios.append(
-                    ProjetoStringUtils.lpad(
+                ProjetoStringUtils.lpad(
                     "Total de " + count + " registros",
                     " ",
-                    QTD_COL_EXTERIOR)).append("\n");
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
             System.out.println(listagemFormularios);
         }
     }
@@ -288,57 +315,70 @@ public class FormularioService implements FormularioInterface {
         StringBuilder listagemFormularios = new StringBuilder();
         if (listaDeFormularios.isEmpty()) {
             return ProjetoStringUtils.rpad(
-                    "***** A Tabela de formulários está vazia ",
-                    " * ",
-                    66
+                "***** A Tabela de formulários está vazia ",
+                " * ",
+                66
             );
         } else {
             /*
              * Cabeçalho
              */
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "***** FORMULÁRIOS ",
                     "*",
-                    66)).append("\n");
+                    66
+                )
+            ).append("\n");
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "-",
                     "-",
-                    66)).append("\n");
+                    66
+                )
+            ).append("\n");
             /*
              * Titulos da tabela
              */
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Codigo ",
                     " ",
-                    6));
+                    6
+                )
+            );
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "|Nome ",
                     " ",
-                    57)).append("|").append("\n");
+                    57
+                )
+            ).append("|").append("\n");
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "-",
                     "-",
-                    66)).append("\n");
+                    66
+                )
+            ).append("\n");
             /*
              * Dados da tabela
              */
             for (Formulario formularioList : listaDeFormularios) {
-                listagemFormularios.append("| ").
-                        append(
-                        ProjetoStringUtils.rpad(
+                listagemFormularios.append("| ").append(
+                    ProjetoStringUtils.rpad(
                         formularioList.getCodigoFormulario().toString(),
                         " ",
-                        6)).append("|");
+                        6
+                    )
+                ).append("|");
                 listagemFormularios.append(
-                        ProjetoStringUtils.rpad(
+                    ProjetoStringUtils.rpad(
                         formularioList.getNome(),
                         " ",
-                        56));
+                        56
+                    )
+                );
                 listagemFormularios.append("|");
                 listagemFormularios.append("\n");
             }
@@ -346,11 +386,12 @@ public class FormularioService implements FormularioInterface {
              * Rodapé
              */
             listagemFormularios.append(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "-",
                     "-",
-                    66)).append("\n");
-            
+                    66
+                )
+            ).append("\n");
             return listagemFormularios.toString();
         }
     }

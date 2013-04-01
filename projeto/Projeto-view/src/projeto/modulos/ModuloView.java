@@ -69,14 +69,18 @@ public class ModuloView {
                 descricao,
                 ordem
         );
-        if (moduloCadastrar.cadastrar()) {
+        String cadastrar = moduloCadastrar.cadastrar();
+        if (cadastrar.equals("sucesso")) {
             System.out.println(
-                    ProjetoStringUtils.rpad(
+                ProjetoStringUtils.rpad(
                     "SUCESSO:: Dado inserido com sucesso.",
                     "*",
-                    66));
+                    66
+                )
+            );
             this.menuModulo.showMenuModulo();
         } else {
+            System.err.println(cadastrar);
             this.menuModulo.showMenuModuloError();
         }
     }
@@ -132,7 +136,8 @@ public class ModuloView {
                 descricao,
                 ordem
             );
-            if (moduloEditar.editar()) {
+            String editar = moduloEditar.editar();
+            if (editar.equals("sucesso")) {
                 System.out.println(
                     ProjetoStringUtils.rpad(
                         "SUCESSO::Dado editado com sucesso.",
@@ -144,7 +149,7 @@ public class ModuloView {
             } else {
                 System.err.println(
                     ProjetoStringUtils.rpad(
-                        "***** O módulo informado não existe! ",
+                        editar,
                         "*",
                         66
                     )
@@ -193,19 +198,24 @@ public class ModuloView {
                     ModuloService moduloExcluir = new ModuloService(
                             codigoModulo
                     );
-                    if (moduloExcluir.excluir()) {
+                    String excluir = moduloExcluir.excluir();
+                    if (excluir.equals("sucesso")) {
                         System.out.println(
-                                ProjetoStringUtils.rpad(
+                            ProjetoStringUtils.rpad(
                                 "SUCESSO::Dado excluído com sucesso.",
                                 "*",
-                                66));
+                                66
+                            )
+                        );
                         this.menuModulo.showMenuModulo();
                     } else {
                         System.err.println(
-                                ProjetoStringUtils.rpad(
-                                "***** O módulo informado não existe! ",
+                            ProjetoStringUtils.rpad(
+                                excluir,
                                 "*",
-                                66));
+                                66
+                            )
+                        );
                         this.menuModulo.showMenuModuloError();
                     }
                     break;

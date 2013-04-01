@@ -29,7 +29,7 @@ public interface FuncaoDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean cadastrar(Funcao funcao, Formulario formulario) throws SQLException;
+    public String cadastrar(Funcao funcao, Formulario formulario) throws SQLException;
 
     /**
      * Editação dos dados.
@@ -42,7 +42,7 @@ public interface FuncaoDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean editar(Funcao funcao,Formulario formulario) throws SQLException;
+    public String editar(Funcao funcao,Formulario formulario) throws SQLException;
 
     /**
      * Exclusão dos dados.
@@ -55,7 +55,7 @@ public interface FuncaoDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean excluir(Funcao funcao) throws SQLException;
+    public String excluir(Funcao funcao) throws SQLException;
 
     /**
      * Listagem dos dados.
@@ -69,17 +69,4 @@ public interface FuncaoDAO {
      *
      */
     public List<Funcao> listar() throws SQLException;
-
-    /**
-     * Recuperação de um dado pelo seu identificador.
-     *
-     * @author Fabricio Nogueira
-     * @version 1.0.0
-     * @since 26-Mar-2013
-     * @return Objeto
-     * @exception Gera uma exceção de sql (SqlException)
-     *
-     */
-    public Funcao getByCodigo(int codigoFuncao) throws SQLException;    
-
 }

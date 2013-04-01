@@ -27,7 +27,7 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public Boolean cadastrar(Pessoa pessoa) throws SQLException;
+    public String cadastrar(Pessoa pessoa) throws SQLException;
     /**
      * Editação dos dados.
      * Implementa a edição dos dados
@@ -39,7 +39,7 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      * 
      */
-    public Boolean editar(Pessoa pessoa) throws SQLException;
+    public String editar(Pessoa pessoa) throws SQLException;
     /**
      * Exclusão dos dados.
      * Implementa a edição dos dados.
@@ -51,5 +51,5 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public Boolean excluir(Pessoa pessoa) throws SQLException;
+    public String excluir(Pessoa pessoa) throws SQLException;
 }

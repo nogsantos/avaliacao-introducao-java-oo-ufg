@@ -412,7 +412,7 @@ public class MenuPrincipal {
                 break;
             case EDITAR_USUARIO:
                 UsuarioService editarUsuario = new UsuarioService();
-                editarUsuario.listar();
+                editarUsuario.listagemSimples();
                 MenuUsuario editarMenuUsuario = new MenuUsuario();
                 editarMenuUsuario.edicaoMenuUsuario();
                 break;
@@ -442,7 +442,7 @@ public class MenuPrincipal {
                 break;
             case EXCLUIR_USUARIO:
                 UsuarioService excluirUsuario = new UsuarioService();
-                excluirUsuario.listar();
+                excluirUsuario.listagemSimples();
                 MenuUsuario excluirMenuUsuario = new MenuUsuario();
                 excluirMenuUsuario.exclusaoMenuUsuario();
                 break;

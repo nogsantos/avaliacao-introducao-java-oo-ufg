@@ -28,7 +28,7 @@ public interface PerfilDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean cadastrar(Perfil perfil) throws SQLException;
+    public String cadastrar(Perfil perfil) throws SQLException;
     /**
      * Editação dos dados.
      * Implementa a edição dos dados
@@ -40,7 +40,7 @@ public interface PerfilDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean editar(Perfil perfil) throws SQLException;
+    public String editar(Perfil perfil) throws SQLException;
     /**
      * Exclusão dos dados.
      * Implementa a edição dos dados.
@@ -52,7 +52,7 @@ public interface PerfilDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public boolean excluir(Perfil perfil) throws SQLException;
+    public String excluir(Perfil perfil) throws SQLException;
     /**
      * Listagem dos dados.
      * Listagem dos dados cadastrados.

@@ -59,11 +59,11 @@ public class PerfilService implements PerfilInterface {
      *
      */
     @Override
-    public boolean cadastrar(){
+    public String cadastrar(){
         try {
             return this.perfilData.cadastrar(this.perfil);
         } catch (SQLException ex) {
-            return false;
+            return ex.getSQLState();
         }
     }
     /**
@@ -77,11 +77,11 @@ public class PerfilService implements PerfilInterface {
      *
      */
     @Override
-    public boolean editar(){
+    public String editar(){
         try {           
             return this.perfilData.editar(this.perfil);
         } catch (SQLException ex) {
-            return false;
+            return ex.getSQLState();
         }
     }
     /**
@@ -95,11 +95,11 @@ public class PerfilService implements PerfilInterface {
      *
      */
     @Override
-    public boolean excluir(){
+    public String excluir(){
         try {
             return this.perfilData.excluir(this.perfil);
         } catch (SQLException ex) {
-            return false;
+            return ex.getSQLState();
         }
     }
     /**

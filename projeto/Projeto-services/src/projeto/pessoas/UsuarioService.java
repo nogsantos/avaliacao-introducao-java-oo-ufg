@@ -14,6 +14,8 @@
 package projeto.pessoas;
 
 import java.sql.SQLException;
+import java.util.List;
+import projeto.utils.ProjetoStringUtils;
 
 
 public class UsuarioService implements UsuarioInterface {
@@ -26,7 +28,8 @@ public class UsuarioService implements UsuarioInterface {
     /*
      * Definindo a quantidade de colunas
      */
-    private static final int QTD_COL_EXTERIOR = 66;
+    private static final int QTD_COL_EXTERIOR = 142;
+    private static final int QTD_COL_EXTERIOR_MIN = 66;
     /**
      * Sobrecarga no Construtor
      *
@@ -51,14 +54,12 @@ public class UsuarioService implements UsuarioInterface {
      * @param String logradouro
      * @param String email
      * @param String telefone
-     * @param Date dataNascimento
      * @param String login
      * @param String senha
      */
     public UsuarioService(String codigoPessoa, String nome, 
             String logradouro, String email, String telefone, 
             String login, String senha) {
-        
         this.pessoa.setCodigoPessoa(codigoPessoa);
         this.pessoa.setNome(nome);
         this.pessoa.setLogradouro(logradouro);
@@ -79,8 +80,7 @@ public class UsuarioService implements UsuarioInterface {
     @Override
     public String cadastrar() {
         try {
-            this.usuarioData.cadastrar(this.usuario, this.pessoa);
-            return "sucesso";
+            return this.usuarioData.cadastrar(this.usuario, this.pessoa);
         } catch (SQLException ex) {
             return ex.getMessage();
         }
@@ -97,8 +97,7 @@ public class UsuarioService implements UsuarioInterface {
     @Override
     public String editar() {
         try {
-            this.usuarioData.editar(this.usuario, this.pessoa);
-            return "sucesso";
+            return this.usuarioData.editar(this.usuario, this.pessoa);
         } catch (SQLException ex) {
             return ex.getMessage();
         }
@@ -115,8 +114,7 @@ public class UsuarioService implements UsuarioInterface {
     @Override
     public String excluir() {
         try {
-            this.usuarioData.excluir(this.usuario, this.pessoa);
-            return "sucesso";
+            return this.usuarioData.excluir(this.usuario, this.pessoa);
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -132,133 +130,276 @@ public class UsuarioService implements UsuarioInterface {
      */
     @Override
     public void listar() {
-//        List<Funcao> listaDeFuncoes = null;
-//        try {
-//            listaDeFuncoes = this.usuarioData.listar();
-//        } catch (SQLException ex) {
-//            System.err.println(ex.getSQLState());
-//        }
-//        StringBuilder listagemFuncoes = new StringBuilder();
-//        int count = 0;
-//        if (listaDeFuncoes.isEmpty()) {
-//            System.err.println(
-//                ProjetoStringUtils.rpad(
-//                    "***** A Tabela de funções está vazia ",
-//                    " * ",
-//                    QTD_COL_EXTERIOR
-//                )
-//            );
-//        } else {
-//            /*
-//             * Cabeçalho
-//             */
-//            listagemFuncoes.append(
-//                ProjetoStringUtils.rpad(
-//                    "***** LISTAGEM DE FUNÇÕES ",
-//                    "*",
-//                    QTD_COL_EXTERIOR
-//                )
-//            ).append("\n");
-//            listagemFuncoes.append(
-//                ProjetoStringUtils.rpad(
-//                    "-",
-//                    "-",
-//                    QTD_COL_EXTERIOR
-//                )
-//            ).append("\n");
-//            /*
-//             * Titulos da tabela
-//             */
-//            listagemFuncoes.append(
-//                ProjetoStringUtils.rpad(
-//                    "|Codigo ",
-//                    " ",
-//                    6
-//                )
-//            );
-//            listagemFuncoes.append(
-//                ProjetoStringUtils.rpad(
-//                    "|Formulário ",
-//                    " ",
-//                    18
-//                )
-//            );
-//            listagemFuncoes.append(
-//                ProjetoStringUtils.rpad(
-//                    "|Nome ",
-//                    " ",
-//                    17
-//                )
-//            );
-//            listagemFuncoes.append(
-//                ProjetoStringUtils.rpad(
-//                    "|Descrição ",
-//                    " ",
-//                   22
-//                )
-//            ).append("|").append("\n");
-//            listagemFuncoes.append(
-//                    ProjetoStringUtils.rpad(
-//                    "-",
-//                    "-",
-//                    QTD_COL_EXTERIOR
-//                )
-//            ).append("\n");
-//            /*
-//             * Dados da tabela
-//             */
-//            for (Funcao funcaoList : listaDeFuncoes) {
-//                listagemFuncoes.append("| ").append(
-//                    ProjetoStringUtils.rpad(
-//                        funcaoList.getCodigoFuncao().toString(),
-//                        " ",
-//                        6
-//                    )
-//                ).append("|");
-//                listagemFuncoes.append(
-//                    ProjetoStringUtils.rpad(
-//                        funcaoList.getNomeFormulario(),
-//                        " ",
-//                        17
-//                    )
-//                ).append("|");
-//                listagemFuncoes.append(
-//                    ProjetoStringUtils.rpad(
-//                        funcaoList.getNome(),
-//                        " ",
-//                        16
-//                    )
-//                ).append("|");
-//                listagemFuncoes.append(
-//                    ProjetoStringUtils.rpad(
-//                        funcaoList.getDescricao(),
-//                        " ",
-//                        21
-//                    )
-//                );
-//                listagemFuncoes.append("|");
-//                listagemFuncoes.append("\n");
-//                count++;
-//            }
-//            /*
-//             * Rodapé
-//             */
-//            listagemFuncoes.append(
-//                ProjetoStringUtils.rpad(
-//                    "-",
-//                    "-",
-//                    QTD_COL_EXTERIOR
-//                )
-//            ).append("\n");
-//            listagemFuncoes.append(
-//                ProjetoStringUtils.lpad(
-//                    "Total de " + count + " registros",
-//                    " ",
-//                    QTD_COL_EXTERIOR
-//                )
-//            ).append("\n");
-//            System.out.println(listagemFuncoes);
-//        }
+        List<Usuario> listaDeUsuarios = null;
+        try {
+            listaDeUsuarios = this.usuarioData.listar();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState());
+        }
+        StringBuilder listagemUsuarios = new StringBuilder();
+        int count = 0;
+        if (listaDeUsuarios.isEmpty()) {
+            System.err.println(
+                ProjetoStringUtils.rpad(
+                    "***** A Tabela de Usuários está vazia ",
+                    " * ",
+                    QTD_COL_EXTERIOR
+                )
+            );
+        } else {
+            /*
+             * Cabeçalho
+             */
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "***** LISTAGEM DE USUÁRIOS ",
+                    "*",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            /*
+             * Titulos da tabela
+             */
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Codigo ",
+                    " ",
+                    13
+                )
+            );
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Nome ",
+                    " ",
+                    18
+                )
+            );
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Logradouro ",
+                    " ",
+                    18
+                )
+            );
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Email ",
+                    " ",
+                    21
+                )
+            );
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Telefone ",
+                    " ",
+                    15
+                )
+            );
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Login ",
+                    " ",
+                    15
+                )
+            );
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Senha ",
+                    " ",
+                   41
+                )
+            ).append("|").append("\n");
+            listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            /*
+             * Dados da tabela
+             */
+            for (Usuario usuarioList : listaDeUsuarios) {
+                listagemUsuarios.append("|").append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getCodigoPessoa(),
+                        " ",
+                        12
+                    )
+                ).append("|");
+                listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getNome(),
+                        " ",
+                        17
+                    )
+                ).append("|");
+                listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getLogradouro(),
+                        " ",
+                        17
+                    )
+                ).append("|");
+                listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getEmail(),
+                        " ",
+                        20
+                    )
+                ).append("|");
+                listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getTelefone(),
+                        " ",
+                        14
+                    )
+                ).append("|");
+                listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getLogin(),
+                        " ",
+                        14
+                    )
+                ).append("|");
+                listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getSenha(),
+                        " ",
+                        40
+                    )
+                );
+                listagemUsuarios.append("|");
+                listagemUsuarios.append("\n");
+                count++;
+            }
+            /*
+             * Rodapé
+             */
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            listagemUsuarios.append(
+                ProjetoStringUtils.lpad(
+                    "Total de " + count + " registros",
+                    " ",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            System.out.println(listagemUsuarios);
+        }
+    }
+    /**
+     * Serviço para listagem dos dados simples.
+     *
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     * @since 01-Apr-2013
+     * @return void
+     *
+     */
+    public void listagemSimples() {
+        List<Usuario> listaDeUsuarios = null;
+        try {
+            listaDeUsuarios = this.usuarioData.listar();
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState());
+        }
+        StringBuilder listagemUsuarios = new StringBuilder();
+        if (listaDeUsuarios.isEmpty()) {
+            System.err.println(
+                ProjetoStringUtils.rpad(
+                    "***** A Tabela de Usuários está vazia ",
+                    " * ",
+                    QTD_COL_EXTERIOR_MIN
+                )
+            );
+        } else {
+            /*
+             * Cabeçalho
+             */
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "***** LISTAGEM DE USUÁRIOS SIMPLES ",
+                    "*",
+                    QTD_COL_EXTERIOR_MIN
+                )
+            ).append("\n");
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    QTD_COL_EXTERIOR_MIN
+                )
+            ).append("\n");
+            /*
+             * Titulos da tabela
+             */
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Codigo ",
+                    " ",
+                    6
+                )
+            );
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "|Nome ",
+                    " ",
+                    57
+                )
+            ).append("|").append("\n");
+            listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    QTD_COL_EXTERIOR_MIN
+                )
+            ).append("\n");
+            /*
+             * Dados da tabela
+             */
+            for (Usuario usuarioList : listaDeUsuarios) {
+                listagemUsuarios.append("| ").append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getCodigoPessoa(),
+                        " ",
+                        6
+                    )
+                ).append("|");
+                listagemUsuarios.append(
+                    ProjetoStringUtils.rpad(
+                        usuarioList.getNome(),
+                        " ",
+                        56
+                    )
+                );
+                listagemUsuarios.append("|");
+                listagemUsuarios.append("\n");
+            }
+            /*
+             * Rodapé
+             */
+            listagemUsuarios.append(
+                ProjetoStringUtils.rpad(
+                    "-",
+                    "-",
+                    QTD_COL_EXTERIOR_MIN
+                )
+            ).append("\n");
+            System.out.println(listagemUsuarios);
+        }
     }
 
 }

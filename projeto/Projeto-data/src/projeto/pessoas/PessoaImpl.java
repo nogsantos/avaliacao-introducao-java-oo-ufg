@@ -10,7 +10,6 @@
 
 package projeto.pessoas;
 
-import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -37,16 +36,16 @@ public class PessoaImpl implements PessoaDAO{
      * @return boolean
      */
     @Override
-    public Boolean cadastrar(Pessoa pessoa) throws SQLException {
-        this.sSql.append(" INSERT INTO pessoa ( ");
-        this.sSql.append(" codigo_pessoa, ");
-        this.sSql.append(" nome, ");
-        this.sSql.append(" logradouro, ");
-        this.sSql.append(" email, ");
-        this.sSql.append(" telefone ");
-        this.sSql.append(" ) VALUES ( ");
-        this.sSql.append(" ?,?,?,?,? ) ");
+    public String cadastrar(Pessoa pessoa) throws SQLException {
         try {
+            this.sSql.append(" INSERT INTO pessoa ( ");
+            this.sSql.append(" codigo_pessoa, ");
+            this.sSql.append(" nome, ");
+            this.sSql.append(" logradouro, ");
+            this.sSql.append(" email, ");
+            this.sSql.append(" telefone ");
+            this.sSql.append(" ) VALUES ( ");
+            this.sSql.append(" ?,?,?,?,? ) ");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setString(1, pessoa.getCodigoPessoa());
             this.preStatement.setString(2, pessoa.getNome());
@@ -55,12 +54,12 @@ public class PessoaImpl implements PessoaDAO{
             this.preStatement.setString(5, pessoa.getTelefone());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.PESSOA.IMPLEMENTACAO.CADASTRAR::");
             this.mensagem.append("Erro na inserção dos dados.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
     /**
@@ -71,29 +70,29 @@ public class PessoaImpl implements PessoaDAO{
      * @return boolean
      */
     @Override
-    public Boolean editar(Pessoa pessoa) throws SQLException, InvalidParameterException {
-        this.sSql.append(" INSERT pessoa SET ");
-        this.sSql.append(" nome = ?, ");
-        this.sSql.append(" logradouro = ?, ");
-        this.sSql.append(" email = ?, ");
-        this.sSql.append(" telefone = ?, ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_pessoa = ? ");
+    public String editar(Pessoa pessoa) throws SQLException {
         try {
+            this.sSql.append(" UPDATE pessoa SET ");
+            this.sSql.append(" nome = ?, ");
+            this.sSql.append(" logradouro = ?, ");
+            this.sSql.append(" email = ?, ");
+            this.sSql.append(" telefone = ? ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_pessoa = ? ");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setString(1, pessoa.getNome());
             this.preStatement.setString(2, pessoa.getLogradouro());
             this.preStatement.setString(3, pessoa.getEmail());
             this.preStatement.setString(4, pessoa.getTelefone());
-            this.preStatement.setString(6, pessoa.getCodigoPessoa());
+            this.preStatement.setString(5, pessoa.getCodigoPessoa());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.PESSOA.IMPLEMENTACAO.EDITAR::");
-            this.mensagem.append("Erro na edição dos dados.: \n");
+            this.mensagem.append("Erro na edição dos dados.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
     /**
@@ -104,21 +103,21 @@ public class PessoaImpl implements PessoaDAO{
      *
      */
     @Override
-    public Boolean excluir(Pessoa pessoa) throws SQLException {
-        this.sSql.append(" DELETE FROM pessoa ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_pessoa = ? ");
+    public String excluir(Pessoa pessoa) throws SQLException {
         try {
+            this.sSql.append(" DELETE FROM pessoa ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_pessoa = ? ");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setString(1, pessoa.getCodigoPessoa());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.PESSOA.IMPLEMENTACAO.EXCLUIR::");
-            this.mensagem.append("Erro na edição dos dados.: \n");
+            this.mensagem.append("Erro na edição dos dados.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
 }

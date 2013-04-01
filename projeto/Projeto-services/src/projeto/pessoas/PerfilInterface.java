@@ -14,7 +14,7 @@ public interface PerfilInterface {
      * @version 1.0.0
      *
      */
-    boolean editar();
+    String editar();
 
     /**
      * Exclusão dos dados.
@@ -23,7 +23,7 @@ public interface PerfilInterface {
      * @version 1.0.0
      *
      */
-    boolean excluir();
+    String excluir();
 
     /**
      * cadastro dos dados.
@@ -32,7 +32,7 @@ public interface PerfilInterface {
      * @version 1.0.0
      *
      */
-    boolean cadastrar();
+    String cadastrar();
 
     /**
      * Implementação da listagem dos perfis.

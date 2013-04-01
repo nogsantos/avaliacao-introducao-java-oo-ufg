@@ -41,7 +41,6 @@ public class ModuloImpl implements ModuloDAO{
         this.statement    = null;
         this.resultSet    = null;
     }
-    
     /**
      * Método cadastrar.
      *
@@ -50,16 +49,16 @@ public class ModuloImpl implements ModuloDAO{
      *
      */
     @Override
-    public boolean cadastrar(Modulo modulo) throws SQLException {
-        this.sSql.append("INSERT INTO modulo ( ");
-        this.sSql.append(" codigo_modulo, ");
-        this.sSql.append(" nome, ");
-        this.sSql.append(" descricao, ");
-        this.sSql.append(" ordem ");
-        this.sSql.append(") values ( ");
-        this.sSql.append(" ?,?,?,? ");
-        this.sSql.append(") ");
+    public String cadastrar(Modulo modulo) throws SQLException {
         try {
+            this.sSql.append("INSERT INTO modulo ( ");
+            this.sSql.append(" codigo_modulo, ");
+            this.sSql.append(" nome, ");
+            this.sSql.append(" descricao, ");
+            this.sSql.append(" ordem ");
+            this.sSql.append(") values ( ");
+            this.sSql.append(" ?,?,?,? ");
+            this.sSql.append(") ");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
             this.preStatement.setInt(1, modulo.getCodigoModulo());
             this.preStatement.setString(2, modulo.getNome());
@@ -67,12 +66,12 @@ public class ModuloImpl implements ModuloDAO{
             this.preStatement.setInt(4, modulo.getOrdem());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.MODULO.IMPLEMENTACAO.CADASTRAR::");
-            this.mensagem.append("Erro na inserção dos dados.: \n");
+            this.mensagem.append("Erro na inserção dos dados.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         } 
     }
     /**
@@ -84,8 +83,8 @@ public class ModuloImpl implements ModuloDAO{
      */
     public Integer moduloNextVal() throws SQLException {
         String valor = "";
-        this.sSql.append("SELECT MAX(codigo_modulo) + 1 as max FROM modulo");
         try {
+            this.sSql.append("SELECT MAX(codigo_modulo) + 1 as max FROM modulo");
             this.statement = this.connection.createStatement();
             this.connection.setAutoCommit(true);
             this.resultSet = this.statement.executeQuery(this.sSql.toString());
@@ -105,14 +104,14 @@ public class ModuloImpl implements ModuloDAO{
      *
      */
     @Override
-    public boolean editar(Modulo modulo) throws SQLException {
-        this.sSql.append(" UPDATE modulo SET ");
-        this.sSql.append(" nome = ?, ");
-        this.sSql.append(" descricao = ?, ");
-        this.sSql.append(" ordem = ? ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_modulo = ? ");
+    public String editar(Modulo modulo) throws SQLException {
         try {
+            this.sSql.append(" UPDATE modulo SET ");
+            this.sSql.append(" nome = ?, ");
+            this.sSql.append(" descricao = ?, ");
+            this.sSql.append(" ordem = ? ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_modulo = ? ");
             this.preStatement = this.connection.prepareStatement(
                 this.sSql.toString()
             );
@@ -122,12 +121,12 @@ public class ModuloImpl implements ModuloDAO{
             this.preStatement.setInt(4, modulo.getCodigoModulo());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.MODULO.IMPLEMENTACAO.EDIÇÃO::");
-            this.mensagem.append("Erro na edição do dado.: \n");
+            this.mensagem.append("Erro na edição do dado.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
     /**
@@ -138,24 +137,24 @@ public class ModuloImpl implements ModuloDAO{
      *
      */
     @Override
-    public boolean excluir(Modulo modulo) throws SQLException {
-        this.sSql.append(" DELETE ");
-        this.sSql.append(" FROM modulo ");
-        this.sSql.append(" WHERE ");
-        this.sSql.append(" codigo_modulo = ? ");
+    public String excluir(Modulo modulo) throws SQLException {
         try {
+            this.sSql.append(" DELETE ");
+            this.sSql.append(" FROM modulo ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" codigo_modulo = ? ");
             this.preStatement = this.connection.prepareStatement(
-                    this.sSql.toString()
+                this.sSql.toString()
             );
             this.preStatement.setInt(1, modulo.getCodigoModulo());
             this.connection.setAutoCommit(true);
             this.preStatement.executeUpdate();
-            return true;
+            return "sucesso";
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.MODULO.IMPLEMENTACAO.EXCLUSÃO::");
-            this.mensagem.append("Erro na exclusão do dado.:\n");
+            this.mensagem.append("Erro na exclusão do dado.");
             this.mensagem.append(e.getMessage());
-            throw new SQLException(this.mensagem.toString());
+            return this.mensagem.toString();
         }
     }
     /**
@@ -167,17 +166,17 @@ public class ModuloImpl implements ModuloDAO{
      */
     @Override
     public List<Modulo> listar() throws SQLException {
-        List<Modulo> listaDeModulos = new ArrayList();
-        this.sSql.append(" SELECT ");
-        this.sSql.append(" codigo_modulo, ");
-        this.sSql.append(" nome, ");
-        this.sSql.append(" descricao, ");
-        this.sSql.append(" ordem ");
-        this.sSql.append(" FROM ");
-        this.sSql.append(" modulo ");
-        this.sSql.append(" ORDER BY ");
-        this.sSql.append(" codigo_modulo DESC ");
         try {
+            List<Modulo> listaDeModulos = new ArrayList();
+            this.sSql.append(" SELECT ");
+            this.sSql.append(" codigo_modulo, ");
+            this.sSql.append(" nome, ");
+            this.sSql.append(" descricao, ");
+            this.sSql.append(" ordem ");
+            this.sSql.append(" FROM ");
+            this.sSql.append(" modulo ");
+            this.sSql.append(" ORDER BY ");
+            this.sSql.append(" codigo_modulo DESC ");
             this.statement = this.connection.createStatement();
             this.resultSet = statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
@@ -186,13 +185,12 @@ public class ModuloImpl implements ModuloDAO{
                 moduloList.setNome(this.resultSet.getString("nome"));
                 moduloList.setDescricao(this.resultSet.getString("descricao"));
                 moduloList.setOrdem(this.resultSet.getInt("ordem"));
-
                 listaDeModulos.add(moduloList);
             }
             return listaDeModulos;
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.MODULO.IMPLEMENTACAO.LISTAGEM::");
-            this.mensagem.append("Erro na listagem dos dados.:\n");
+            this.mensagem.append("Erro na listagem dos dados.");
             this.mensagem.append(e.getSQLState());
             throw new SQLException(this.mensagem.toString());
         }
@@ -205,15 +203,15 @@ public class ModuloImpl implements ModuloDAO{
      *
      */
     public List<Modulo> listagemSimples() throws SQLException {
-        List<Modulo> listaDeModulos = new ArrayList();
-        this.sSql.append(" SELECT ");
-        this.sSql.append(" codigo_modulo, ");
-        this.sSql.append(" nome ");
-        this.sSql.append(" FROM ");
-        this.sSql.append(" modulo ");
-        this.sSql.append(" ORDER BY ");
-        this.sSql.append(" codigo_modulo DESC ");
         try {
+            List<Modulo> listaDeModulos = new ArrayList();
+            this.sSql.append(" SELECT ");
+            this.sSql.append(" codigo_modulo, ");
+            this.sSql.append(" nome ");
+            this.sSql.append(" FROM ");
+            this.sSql.append(" modulo ");
+            this.sSql.append(" ORDER BY ");
+            this.sSql.append(" codigo_modulo DESC ");
             this.statement = this.connection.createStatement();
             this.resultSet = statement.executeQuery(this.sSql.toString());
             while (this.resultSet.next()) {
@@ -225,21 +223,9 @@ public class ModuloImpl implements ModuloDAO{
             return listaDeModulos;
         } catch (SQLException e) {
             this.mensagem.append("##ERRO.MODULO.IMPLEMENTACAO.LISTAGEMSIMPLES::");
-            this.mensagem.append("Erro na listagem dos dados.:\n");
+            this.mensagem.append("Erro na listagem dos dados.");
             this.mensagem.append(e.getSQLState());
             throw new SQLException(this.mensagem.toString());
         }
-    }
-
-    @Override
-    public Modulo getByCodigo(int codigoModulo) throws SQLException {
-        /**
-         * Método getByCodigo
-         *
-         * @author Fabricio Nogueira
-         * @version 1.0.0
-         *
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
