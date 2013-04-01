@@ -302,6 +302,7 @@ public class MenuUsuario {
                 break;
             case DEFINIR_PERFIL:
                 UsuarioPerfilView usuarioPerfilView = new UsuarioPerfilView();
+                
                 break;
                 case SAIR:
                     System.exit(0);
