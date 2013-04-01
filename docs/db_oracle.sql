@@ -64,18 +64,18 @@ create table funcao(
         foreign key (codigo_formulario) references formulario (codigo_formulario)
 );
 
-create table perfil_mofofu(
+create table permissao(
   codigo_perfil number(10,4)
   , codigo_modulo number(10,4)
   , codigo_formulario number(10,4)
   , codigo_funcao number(10,4)
-  , constraint perfil_mofofu_perfil_fk 
+  , constraint permissao_perfil_fk 
         foreign key (codigo_perfil) references perfil (codigo_perfil)
-  , constraint perfil_mofofu_modulo_fk 
+  , constraint permissao_modulo_fk 
         foreign key (codigo_modulo) references modulo (codigo_modulo)
-  , constraint perfil_mofofu_formulario_fk 
+  , constraint permissao_formulario_fk 
         foreign key (codigo_formulario) references formulario (codigo_formulario)
-  , constraint perfil_mofofu_funcao_fk 
+  , constraint permissao_funcao_fk 
         foreign key (codigo_funcao) references funcao (codigo_funcao)
 );
 comment on table pessoa is 'Entidade Principal para o cadastro de pessoas no sistema.';
@@ -111,7 +111,7 @@ comment on table funcao is 'Permite o cadastro de funções vinculadas aos fomrm
 comment on column funcao.nome is 'Nome função';
 comment on column funcao.descricao is 'Descrição detalhada sobre a função';
 
-comment on table perfil_mofofu is 'Permite o cadastro de permissões no sistema por perfil, é importante ressaltar que é necessário seguir a hierarquia onde a função depende do formulario que consequentemente depende do módulo para existir.';
+comment on table permissao is 'Permite o cadastro de permissões no sistema por perfil, é importante ressaltar que é necessário seguir a hierarquia onde a função depende do formulario que consequentemente depende do módulo para existir.';
 
 insert into perfil values(0,'Nome modelo', 'descrição modelo');
 insert into modulo values(0,'Nome modelo', 'descrição modelo',0);
