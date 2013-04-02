@@ -45,3 +45,8 @@ Na opção de **Edição**, o usuário será redirecionado para uma tela que con
 Na opção de **Exclusão**, o usuário será redirecionado para uma tela que contenha uma listagem com o código e nome do dado, para excluir ele deverá selecionar o código para ser redirecionado para a tela de exclusão, ou cancelar retornando ao menu inicial. Na tela de exclusão, será apresentado o dado que foi selecionado e as opções de confirmar a exclusão ou cancelar retornando a listagem inicial da exclusão. Confirmando a exclusão, o dado deve ser deletado levando em consideração seus relacionamentos dentro do sistema, caso possua, retornar uma mensagem de erro informado o motivo do não cancelamento, quando a exclusão for realizada com sucesso o usuário deverá ser redirecionado para a listagem inicial de exclusão visualizando a listagem inicial sem o dado que foi removido. Nessa tela deverá haver a opção de voltar ao menu inicial. 
 
 Na opção de **Listar**, o usuário será redirecionado para uma tela com a listagem de todos os dados cadastrados com a opção de visualização específica de um dado selecionando o seu código ou a opção de voltar ao menú inicial.
+=====
+### Alunos
+**Fabricio Nogueira dos Santos**
+**José Gomes P. Junior**
+
