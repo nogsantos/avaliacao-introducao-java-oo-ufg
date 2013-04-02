@@ -1,32 +1,32 @@
+BEGIN transaction;
 create table pessoa (
-  codigo_pessoa varchar2(15)
-  , nome  varchar2(250) not null
-  , logradouro varchar2(550)
-  , email varchar2(250) unique
-  , telefone varchar2(10)
-  , data_nascimento date
+  codigo_pessoa varchar(15)
+  , nome  varchar(250) not null
+  , logradouro varchar(550)
+  , email varchar(250) unique
+  , telefone varchar(10)
   , constraint pessoa_codigo_pk primary key (codigo_pessoa)
 );
 
 create table usuario(
-  codigo_pessoa varchar2(15)
-  , login varchar2(30) not null
-  , senha varchar2(45) not null
+  codigo_pessoa varchar(15)
+  , login varchar(30) not null
+  , senha varchar(45) not null
   , constraint usuario_codigo_pessoa_pk primary key (codigo_pessoa)
   , constraint usuario_fk 
         foreign key (codigo_pessoa) references pessoa (codigo_pessoa)
 );
 
 create table perfil(
-  codigo_perfil number(10,4)
-  , nome varchar2(250) not null
-  , descricao varchar2(550)
+  codigo_perfil bigserial
+  , nome varchar(250) not null
+  , descricao varchar(550)
   , constraint perfil_codigo_perfil_pk primary key (codigo_perfil)
 );
 
 create table usuario_perfil(
-  codigo_pessoa varchar2(15)
-  , codigo_perfil number(10,4)
+  codigo_pessoa varchar(15)
+  , codigo_perfil int
   , constraint usuario_perfil_pk primary key (codigo_pessoa, codigo_perfil)
   , constraint usuario_perfil_pessoa_fk 
         foreign key (codigo_pessoa) references pessoa (codigo_pessoa)        
@@ -35,20 +35,20 @@ create table usuario_perfil(
 );
 
 create table modulo(
-  codigo_modulo number(10,4)
-  , nome varchar2(250) not null
-  , descricao varchar2(550)
-  , ordem number(10,4)
+  codigo_modulo bigserial
+  , nome varchar(250) not null
+  , descricao varchar(550)
+  , ordem int
   , constraint modulo_pk primary key (codigo_modulo)
 );
 
 create table formulario(
-  codigo_formulario number(10,4)
-  , codigo_modulo number(10,4) not null 
-  , nome varchar2(250) not null
-  , nome_menu varchar2(20) not null
-  , descricao varchar2(550)
-  , ordem number(10,4)
+  codigo_formulario bigserial
+  , codigo_modulo int not null 
+  , nome varchar(250) not null
+  , nome_menu varchar(20) not null
+  , descricao varchar(550)
+  , ordem int
   , flag_oculto char(1) 
   , constraint formulario_pk primary key (codigo_formulario)
   , constraint formulario_modulo_fk 
@@ -56,27 +56,27 @@ create table formulario(
 );
 
 create table funcao(
-  codigo_funcao number(10,4)
-  , codigo_formulario number(10,4) not null
-  , nome varchar2(250) not null
-  , descricao varchar2(550)
+  codigo_funcao bigserial
+  , codigo_formulario int not null
+  , nome varchar(250) not null
+  , descricao varchar(550)
   , constraint funcao_pk primary key (codigo_funcao)
   , constraint funcao_formulario_fk 
         foreign key (codigo_formulario) references formulario (codigo_formulario)
 );
 
-create table perfil_mofofu(
-  codigo_perfil number(10,4)
-  , codigo_modulo number(10,4)
-  , codigo_formulario number(10,4)
-  , codigo_funcao number(10,4)
-  , constraint perfil_mofofu_perfil_fk 
+create table permissao(
+  codigo_perfil bigserial
+  , codigo_modulo int
+  , codigo_formulario int
+  , codigo_funcao int
+  , constraint permissao_perfil_fk 
         foreign key (codigo_perfil) references perfil (codigo_perfil)
-  , constraint perfil_mofofu_modulo_fk 
+  , constraint permissao_modulo_fk 
         foreign key (codigo_modulo) references modulo (codigo_modulo)
-  , constraint perfil_mofofu_formulario_fk 
+  , constraint permissao_formulario_fk 
         foreign key (codigo_formulario) references formulario (codigo_formulario)
-  , constraint perfil_mofofu_funcao_fk 
+  , constraint permissao_funcao_fk 
         foreign key (codigo_funcao) references funcao (codigo_funcao)
 );
 comment on table pessoa is 'Entidade Principal para o cadastro de pessoas no sistema.';
@@ -112,5 +112,11 @@ comment on table funcao is 'Permite o cadastro de funções vinculadas aos fomrm
 comment on column funcao.nome is 'Nome função';
 comment on column funcao.descricao is 'Descrição detalhada sobre a função';
 
-comment on table perfil_mofofu is 'Permite o cadastro de permissões no sistema por perfil, é importante ressaltar que é necessário seguir a hierarquia onde a função depende do formulario que consequentemente depende do módulo para existir.';
+comment on table permissao is 'Permite o cadastro de permissões no sistema por perfil, é importante ressaltar que é necessário seguir a hierarquia onde a função depende do formulario que consequentemente depende do módulo para existir.';
+
+insert into perfil(nome, descricao) values('Nome modelo', 'descrição modelo');
+insert into modulo(nome, descricao, ordem) values('Nome modelo', 'descrição modelo',0);
+insert into formulario(codigo_modulo, nome, nome_menu, descricao, ordem, flag_oculto) values(1, 'Nome modelo', 'Nome menu modelo' ,'descrição modelo',0, 'f');
+insert into funcao(codigo_formulario, nome, descricao) values(1, 'Nome modelo', 'descrição modelo');
+commit;
 
