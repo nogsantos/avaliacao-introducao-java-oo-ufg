@@ -1,21 +1,22 @@
 /**
  *
- * Descrição:Classe PessoaDAO
+ * Descrição: Interface ModuloDAO.
  *
  * @author Fabricio Nogueira
- * 
- * @since 19-Mar-2013
+ *
+ * @since 21-Mar-2013
  *
  * @version 1.0.0
- * 
+ *
  */
 
-package projeto.pessoas;
+package projeto.modulos;
 
 import java.sql.SQLException;
+import java.util.List;
 
 
-public interface PessoaDAO {
+public interface ModuloDAO {
     /**
      * Cadastro dos dados.
      * Implementação do cadastro de dados.
@@ -27,7 +28,7 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public String cadastrar(Pessoa pessoa) throws SQLException;
+    public String cadastrar(Modulo modulo) throws SQLException;
     /**
      * Editação dos dados.
      * Implementa a edição dos dados
@@ -39,7 +40,7 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      * 
      */
-    public String editar(Pessoa pessoa) throws SQLException;
+    public String editar(Modulo modulo) throws SQLException;
     /**
      * Exclusão dos dados.
      * Implementa a edição dos dados.
@@ -51,5 +52,17 @@ public interface PessoaDAO {
      * @exception Gera uma exceção de sql (SqlException).
      *
      */
-    public String excluir(Pessoa pessoa) throws SQLException;
+    public String excluir(Modulo modulo) throws SQLException;
+    /**
+     * Listagem dos dados.
+     * Listagem dos dados cadastrados.
+     *
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     * @since 25-Mar-2013 
+     * @return Objeto do tipo Lista. 
+     * @exception Gera uma exceção de sql (SqlException).
+     * 
+     */
+    public List<Modulo> listar() throws SQLException;
 }
