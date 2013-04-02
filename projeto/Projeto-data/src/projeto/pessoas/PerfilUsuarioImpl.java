@@ -47,7 +47,7 @@ public class PerfilUsuarioImpl implements PerfilUsuarioDAO {
      * @return boolean
      */
     @Override
-    public String cadastrar(PerfilUsuario perfilUsuario) throws SQLException{
+    public String cadastrar(String codigoPessoa, Integer codigoPerfil) throws SQLException{
         try {
             this.sSql.append(" INSERT INTO usuario_perfil ( ");
             this.sSql.append(" codigo_pessoa, ");
@@ -56,9 +56,8 @@ public class PerfilUsuarioImpl implements PerfilUsuarioDAO {
             this.sSql.append(" ?,? ");
             this.sSql.append(" ) ");
             this.preStatement = this.connection.prepareStatement(this.sSql.toString());
-            this.preStatement.setObject(1, perfilUsuario.getCodigoPessoa());
-            this.preStatement.setObject(2, perfilUsuario.getCodigoPerfil());
-            this.connection.setAutoCommit(true);
+            this.preStatement.setString(1, codigoPessoa);
+            this.preStatement.setInt(2, codigoPerfil);
             this.preStatement.executeUpdate();
             return "sucesso";
         } catch (SQLException e) {

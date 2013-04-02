@@ -52,36 +52,39 @@ public class UsuarioPerfilView {
      * @return void
      */
     public void leitorCadastroPerfilUsuario(String codigoUsuario) {
-        System.out.println(
-            ProjetoStringUtils.rpad(
-                "FORMULÁRIO::CADASTRO DE PERFIL USUARIO",
-                "*",
-                66
-            )
-        );
-        System.out.println("Cpf: " + codigoUsuario);
+        
         String codigoPessoa = codigoUsuario;
-        System.out.println("Perfil (Caso haja mais de um, "
-                + "utilize virgula para separá-los ex.: 1,2,3): ");
-        String codigoPerfil = this.leitor.next();
         /*
-         * Cadastrar
+         * Listagem dos perfis disponíveis. Não cadastrados para o usuário
+         * em questão.
          */
-        PerfilUsuarioServices perfilUsuarioCadastrar = new PerfilUsuarioServices();
-        String cadastro  = perfilUsuarioCadastrar.cadastrar();
-        if (cadastro.equals("sucesso")) {
-            System.out.println(
-                ProjetoStringUtils.rpad(
-                    "SUCESSO:: Dado inserido com sucesso.",
-                    "*",
-                    66
-                )
-            );
+        PerfilService perfil = new PerfilService();
+        if(perfil.listarNaoCadParaUsuario(codigoUsuario)){
+            System.out.println("Perfil (Caso haja mais de um, "
+                    + "utilize virgula para separá-los ex.: 1,2,3): ");
+            String codigoPerfil = this.leitor.next();
+            /*
+             * Cadastrar
+             */
+            PerfilUsuarioServices perfilUsuarioCadastrar = new PerfilUsuarioServices();
+            String cadastro  = perfilUsuarioCadastrar.cadastrar(codigoPessoa,codigoPerfil);
+            if (cadastro.equals("sucesso")) {
+                System.out.println(
+                    ProjetoStringUtils.rpad(
+                        "SUCESSO:: Dado inserido com sucesso.",
+                        "*",
+                        66
+                    )
+                );
+                this.menuUsuario.showMenuUsuario();
+            } else {
+                System.err.println(cadastro);
+                this.menuUsuario.showMenuUsuarioError();
+            }
+            perfil.listarPorUsuario(codigoUsuario);
+        }else{
+            perfil.listarPorUsuario(codigoUsuario);
             this.menuUsuario.showMenuUsuario();
-        } else {
-            System.err.println(cadastro);
-            this.menuUsuario.showMenuUsuarioError();
         }
     }
-
 }

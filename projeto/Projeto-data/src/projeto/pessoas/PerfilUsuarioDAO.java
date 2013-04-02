@@ -24,7 +24,7 @@ public interface PerfilUsuarioDAO {
      * @version 1.0.0
      * @return boolean
      */
-    String cadastrar(PerfilUsuario perfilUsuario) throws SQLException;
+    String cadastrar(String codigoPessoa, Integer codigoPerfil) throws SQLException;
 
     /**
      * Método editar

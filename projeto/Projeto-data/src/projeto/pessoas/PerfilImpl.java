@@ -275,4 +275,77 @@ public class PerfilImpl implements PerfilDAO{
             return false;
         }
     }
+    /**
+     * Lista perfil por usuário.
+     * 
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     * @return Mixed 
+     */
+    public List<Perfil> listarPerfilPorUsuario(String codigoUsuario) throws SQLException{
+        try {
+            List<Perfil> listaDePerfis = new ArrayList();
+            this.sSql.append(" SELECT ");
+            this.sSql.append(" pf.codigo_perfil, ");
+            this.sSql.append(" pf.nome ");
+            this.sSql.append(" FROM ");
+            this.sSql.append(" usuario_perfil up, perfil pf ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" up.codigo_perfil = pf.codigo_perfil ");
+            this.sSql.append(" AND up.codigo_pessoa =  ");
+            this.sSql.append( codigoUsuario );
+            this.statement = this.connection.createStatement();
+            this.resultSet = statement.executeQuery(this.sSql.toString());
+            while (this.resultSet.next()) {
+                Perfil perfilList = new Perfil();
+                perfilList.setCodigoPerfil(this.resultSet.getInt("codigo_perfil"));
+                perfilList.setNome(this.resultSet.getString("nome"));
+                
+                listaDePerfis.add(perfilList);
+            }
+            return listaDePerfis;
+        } catch (SQLException e) {
+            this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.LISTARPERFILPORUSUARIO::");
+            this.mensagem.append(e.getSQLState());
+            throw new SQLException(this.mensagem.toString());
+        } 
+    }
+    /**
+     * Lista os perfis não cadastrados para o usuário.
+     * 
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     * @return Mixed 
+     */
+    public List<Perfil> listarPerfilNaoCadastradoParaUsuario(
+            String codigoPessoa) throws SQLException{
+        try {
+            List<Perfil> listaDePerfis = new ArrayList();
+            this.sSql.append(" SELECT ");
+            this.sSql.append(" pf.codigo_perfil, ");
+            this.sSql.append(" pf.nome ");
+            this.sSql.append(" FROM ");
+            this.sSql.append(" perfil pf ");
+            this.sSql.append(" WHERE ");
+            this.sSql.append(" pf.codigo_perfil not in ( ");
+            this.sSql.append(" select up2.codigo_perfil from usuario_perfil ");
+            this.sSql.append(" up2 where up2.codigo_pessoa =  ");
+            this.sSql.append( codigoPessoa );
+            this.sSql.append(" ) ");
+            this.statement = this.connection.createStatement();
+            this.resultSet = statement.executeQuery(this.sSql.toString());
+            while (this.resultSet.next()) {
+                Perfil perfilList = new Perfil();
+                perfilList.setCodigoPerfil(this.resultSet.getInt("codigo_perfil"));
+                perfilList.setNome(this.resultSet.getString("nome"));
+                
+                listaDePerfis.add(perfilList);
+            }
+            return listaDePerfis;
+        } catch (SQLException e) {
+            this.mensagem.append("##ERRO.PERFIL.IMPLEMENTACAO.LISTARPERFILPORUSUARIO::");
+            this.mensagem.append(e.getSQLState());
+            throw new SQLException(this.mensagem.toString());
+        } 
+    }
 }

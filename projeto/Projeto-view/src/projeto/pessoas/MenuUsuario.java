@@ -261,7 +261,7 @@ public class MenuUsuario {
         ).append("*");
         menu.append(
             ProjetoStringUtils.rpad(
-                "6. Definir perfil", 
+                " 6. Definir perfil", 
                 " ",
                 QTD_COL_OPCOES
             )
@@ -302,7 +302,7 @@ public class MenuUsuario {
                 break;
             case DEFINIR_PERFIL:
                 UsuarioPerfilView usuarioPerfilView = new UsuarioPerfilView();
-                
+                usuarioPerfilView.leitorUsuario();
                 break;
                 case SAIR:
                     System.exit(0);
@@ -373,7 +373,7 @@ public class MenuUsuario {
         ).append("*");
         menu.append(
             ProjetoStringUtils.rpad(
-                " ", 
+                " 6. Definir perfil", 
                 " ",
                 QTD_COL_OPCOES
             )
@@ -412,6 +412,9 @@ public class MenuUsuario {
                 UsuarioView usuarioView = new UsuarioView();
                 usuarioView.leitorCadastroUsuario();
                 break;
+            case DEFINIR_PERFIL:
+                UsuarioPerfilView usuarioPerfilView = new UsuarioPerfilView();
+                usuarioPerfilView.leitorUsuario();
             case SAIR:
                 System.exit(0);
                 break;

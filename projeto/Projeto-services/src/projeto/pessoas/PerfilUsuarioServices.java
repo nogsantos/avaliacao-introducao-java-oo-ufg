@@ -13,28 +13,28 @@
 
 package projeto.pessoas;
 
+import java.sql.SQLException;
+
 
 public class PerfilUsuarioServices implements PerfilUsuarioInterface {
     /*
      * Instância da implementação DAO do perfil.
      */
-    private Perfil perfil = new Perfil();
-    private Pessoa pessoa = new Pessoa();
-    /*
-     * 
-     */
-    public PerfilUsuarioServices() {}   
-    /*
-     * 
-     */
-    public PerfilUsuarioServices(String codigoPessoa, Integer codigoPerfil) {
-        this.pessoa.setCodigoPessoa(codigoPessoa);
-        this.perfil.setCodigoPerfil(codigoPerfil);
-    }
+    private PerfilUsuarioImpl perfilUsuario = new PerfilUsuarioImpl();
     
     @Override
-    public String cadastrar(){
-        return "";
+    public String cadastrar(String codigoPessoa, String codigoPerfil){
+        
+        String[] vCodigoPerfil = codigoPerfil.split(",");
+        String cadastrar = "";
+        try {
+            for (int i = 0; i < vCodigoPerfil.length; i++) {
+                cadastrar = this.perfilUsuario.cadastrar(codigoPessoa,Integer.parseInt(vCodigoPerfil[i]));
+            }
+        } catch (SQLException ex) {
+            cadastrar = ex.getSQLState();
+        }
+        return cadastrar;
     }
     @Override
     public String editar(){

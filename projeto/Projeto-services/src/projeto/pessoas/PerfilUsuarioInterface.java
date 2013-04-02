@@ -15,7 +15,7 @@ package projeto.pessoas;
 
 public interface PerfilUsuarioInterface {
 
-    String cadastrar();
+    String cadastrar(String codigoPessoa, String codigoPerfil);
 
     String editar();
 

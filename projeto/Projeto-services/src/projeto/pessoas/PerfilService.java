@@ -23,6 +23,7 @@ public class PerfilService implements PerfilInterface {
      */
     private PerfilImpl perfilData = new PerfilImpl();
     private Perfil perfil         = new Perfil();
+    private final int QTD_COL_EXTERIOR = 66;
     /**
      * Sobrecarga no Construtor
      * @param null
@@ -122,7 +123,7 @@ public class PerfilService implements PerfilInterface {
                 ProjetoStringUtils.rpad(
                     "***** A Tabela de Perfis está vazia ",
                     " * ",
-                    66
+                    QTD_COL_EXTERIOR
                 )
             );
         } else {
@@ -133,14 +134,14 @@ public class PerfilService implements PerfilInterface {
                 ProjetoStringUtils.rpad(
                     "***** LISTAGEM DE PERFIS ", 
                     "*",
-                    66
+                    QTD_COL_EXTERIOR
                 )
             ).append("\n");
             listagemPerfil.append(
                 ProjetoStringUtils.rpad(
                     "-", 
                     "-",
-                    66
+                    QTD_COL_EXTERIOR
                 )
             ).append("\n");
             /*
@@ -171,7 +172,7 @@ public class PerfilService implements PerfilInterface {
                 ProjetoStringUtils.rpad(
                     "-", 
                     "-",
-                    66
+                    QTD_COL_EXTERIOR
                 )
             ).append("\n");
             /*
@@ -210,16 +211,228 @@ public class PerfilService implements PerfilInterface {
                 ProjetoStringUtils.rpad(
                     "-", 
                     "-",
-                    66
+                    QTD_COL_EXTERIOR
                 )
             ).append("\n");
             listagemPerfil.append(ProjetoStringUtils.lpad(
                     "Total de "+count+" registros", 
                     " ", 
-                    66
+                    QTD_COL_EXTERIOR
                 )
             ).append("\n");
             System.out.println(listagemPerfil);
+        }
+    } 
+    /**
+     * Implementação da listagem dos perfis por usuário.
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     */
+    public void listarPorUsuario(String codigoUsuario) {
+        List<Perfil> listaDePerfis = null;
+        try {
+            listaDePerfis = this.perfilData.listarPerfilPorUsuario(codigoUsuario);
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState());
+        }
+        StringBuilder listagemPerfil = new StringBuilder();
+        int count = 0;
+        if (listaDePerfis.isEmpty()) {
+            System.err.println(
+                ProjetoStringUtils.rpad(
+                    "***** A Tabela de Perfis do usuário está vazia ",
+                    " * ",
+                    QTD_COL_EXTERIOR
+                )
+            );
+        } else {
+            /*
+             * Cabeçalho
+             */
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "***** PERFIS DO USUÁRIO ", 
+                    "*",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            /*
+             * Titulos da tabela
+             */
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "| Codigo ",
+                    " ",
+                    8
+                )
+            );
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "| Nome ", 
+                    " ",
+                    25
+                )
+            ).append("|").append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            /*
+             * Dados da tabela
+             */
+            for (Perfil perfilList : listaDePerfis){
+                listagemPerfil.append("| ").append(
+                    ProjetoStringUtils.rpad(
+                        perfilList.getCodigoPerfil().toString(), 
+                        " ", 
+                        7
+                    )
+                ).append("|");
+                listagemPerfil.append(
+                    ProjetoStringUtils.rpad(
+                        perfilList.getNome(), 
+                        " ",
+                        24
+                    )
+                );
+                listagemPerfil.append("|");
+                listagemPerfil.append("\n");
+                count ++;
+            }
+            /*
+             * Rodapé 
+             */
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            listagemPerfil.append(ProjetoStringUtils.lpad(
+                    "Total de "+count+" registros", 
+                    " ", 
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            System.out.println(listagemPerfil);
+        }
+    } 
+    /**
+     * Implementação da listagem dos perfis por usuário.
+     * @author Fabricio Nogueira
+     * @version 1.0.0
+     */
+    public Boolean listarNaoCadParaUsuario(String codigoUsuario) {
+        List<Perfil> listaDePerfis = null;
+        try {
+            listaDePerfis = this.perfilData.listarPerfilNaoCadastradoParaUsuario(codigoUsuario);
+        } catch (SQLException ex) {
+            System.err.println(ex.getSQLState());
+        }
+        StringBuilder listagemPerfil = new StringBuilder();
+        int count = 0;
+        if (listaDePerfis.isEmpty()) {
+            System.err.println(
+                ProjetoStringUtils.rpad(
+                    "***** NÃO HÁ PERFIS DISPONÍVEIS PARA O USUÁRIO ",
+                    "*",
+                    QTD_COL_EXTERIOR
+                )
+            );
+            return false;
+        } else {
+            /*
+             * Cabeçalho
+             */
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "***** PERFIS DISPONÍVEIS PARA O USUÁRIO ", 
+                    "*",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            /*
+             * Titulos da tabela
+             */
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "| Codigo ",
+                    " ",
+                    8
+                )
+            );
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "| Nome ", 
+                    " ",
+                    56
+                )
+            ).append("|").append("\n");
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            /*
+             * Dados da tabela
+             */
+            for (Perfil perfilList : listaDePerfis){
+                listagemPerfil.append("| ").append(
+                    ProjetoStringUtils.rpad(
+                        perfilList.getCodigoPerfil().toString(), 
+                        " ", 
+                        7
+                    )
+                ).append("|");
+                listagemPerfil.append(
+                    ProjetoStringUtils.rpad(
+                        perfilList.getNome(), 
+                        " ",
+                        55
+                    )
+                );
+                listagemPerfil.append("|");
+                listagemPerfil.append("\n");
+                count ++;
+            }
+            /*
+             * Rodapé 
+             */
+            listagemPerfil.append(
+                ProjetoStringUtils.rpad(
+                    "-", 
+                    "-",
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            listagemPerfil.append(ProjetoStringUtils.lpad(
+                    "Total de "+count+" registros", 
+                    " ", 
+                    QTD_COL_EXTERIOR
+                )
+            ).append("\n");
+            System.out.println(listagemPerfil);
+            return true;
         }
     } 
 }

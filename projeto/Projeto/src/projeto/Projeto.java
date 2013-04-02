@@ -12,11 +12,13 @@
 
 package projeto;
 
+import projeto.app.MenuPrincipal;
+
 
 public class Projeto {
     
     public static void main(String[] args) {
-        
+        MenuPrincipal.showMenu();
     }
 
 }
