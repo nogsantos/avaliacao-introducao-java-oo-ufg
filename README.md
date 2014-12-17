@@ -48,9 +48,6 @@ Na opção de **Listar**, o usuário será redirecionado para uma tela com a lis
 
 =====
 
-### Alunos
+### Aluno
 
 **Fabricio Nogueira dos Santos**
-
-**José Gomes P. Junior**
-
